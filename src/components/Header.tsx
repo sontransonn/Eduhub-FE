@@ -3,11 +3,12 @@ import Link from "next/link"
 export default function Header() {
     return (
         <header className='sticky z-30 md:z-40 top-0 bg-white shadow-2xl'>
+            {/* show when screen > 768px */}
             <div className='hidden md:block'>
                 <div className='py-4 px-6'>
                     <div className='flex flex-row'>
                         <div className='2xl:basis-7/12 lg:basis-6/12 basis-7/12 flex xl:gap-8 w-auto items-center gap-4'>
-                            {/* Logo */}
+                            {/* logo */}
                             <Link href={"/"}>
                                 <img
                                     width={140}
@@ -17,7 +18,7 @@ export default function Header() {
                                 />
                             </Link>
 
-                            {/* Menu */}
+                            {/* menu */}
                             <div className="my-auto">
                                 <div className="flex w-36 text-lg items-center uppercase gap-2">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
@@ -30,7 +31,7 @@ export default function Header() {
                                 </div>
                             </div>
 
-                            {/* Input */}
+                            {/* search input */}
                             <div className="w-full">
                                 <form className="relative" action="/search" method="get">
                                     <input
@@ -52,6 +53,7 @@ export default function Header() {
                             </div>
                         </div>
 
+                        {/* navigation links */}
                         <div className='2xl:basis-5/12 lg:basis-6/12 basis-5/12 flex justify-end xl:gap-6 gap-4'>
                             <div className="my-auto lg:block sm:hidden">
                                 <Link className="block" href={"/"}>Doanh nghiệp</Link>
@@ -83,7 +85,7 @@ export default function Header() {
                 </div>
             </div>
 
-            {/* For responsive */}
+            {/* show when screen < 768px */}
             <div className="lg:hidden md:hidden">
                 <div className="grid grid-cols-3 px-4 py-3.5">
                     <div>

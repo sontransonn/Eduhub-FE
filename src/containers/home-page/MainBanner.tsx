@@ -9,12 +9,12 @@ import {
 
 export default function MainBanner() {
     return (
-        <Carousel className="w-full py-4 px-10">
+        <Carousel className="w-full py-4 px-10 rounded-sm overflow-hidden">
             <CarouselContent>
                 {Array.from({ length: 5 }).map((_, index) => (
                     <CarouselItem key={index}>
                         <img
-                            className='w-full'
+                            className='w-full rounded-sm'
                             src="https://file.unica.vn/storage/db240c65c57e0a4f35edba3312c62511cbac63cc/thiet-ke-chua-co-ten.jpg"
                             alt=""
                         />
