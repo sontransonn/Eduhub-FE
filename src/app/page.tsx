@@ -3,8 +3,8 @@ import CategoryMenu from "@/components/CategoryMenu";
 import MainBanner from "@/containers/home-page/MainBanner";
 import CourseList from "@/containers/home-page/CourseList";
 import InterestTopics from "@/containers/home-page/InterestTopics";
-import Footer from "@/components/Footer";
 import RecommendedBooks from "@/containers/home-page/RecommendedBooks";
+import Footer from "@/components/Footer";
 
 export default function HomePage() {
   return (

@@ -1,6 +1,12 @@
+'use client'
 import Link from "next/link"
 
 export default function Header() {
+
+    const handleRedirect = (url: String) => {
+        window.location.href = `${url}`
+    }
+
     return (
         <header className='sticky z-30 md:z-40 top-0 bg-white shadow-2xl'>
             {/* show when screen > 768px */}
@@ -9,7 +15,7 @@ export default function Header() {
                     <div className='flex flex-row'>
                         <div className='2xl:basis-7/12 lg:basis-6/12 basis-7/12 flex xl:gap-8 w-auto items-center gap-4'>
                             {/* logo */}
-                            <Link href={"/"}>
+                            <Link href={"/"} onClick={() => handleRedirect("/")}>
                                 <img
                                     width={140}
                                     src="https://unica.vn/media/img/logo-unica.svg"
@@ -41,9 +47,7 @@ export default function Header() {
                                         className="block w-full px-4 py-2.5 text-sm text-gray-900 border border-gray-300 rounded-full bg-gray-50 focus:ring-gray-500 focus:border-gray-500"
                                         placeholder="Tìm khóa học, giảng viên" required
                                     />
-                                    <button
-                                        type="submit"
-                                        className="absolute top-0 right-0 h-full pr-4">
+                                    <button type="submit" className="absolute top-0 right-0 h-full pr-4">
                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z" stroke="#929495" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                                             <path d="M20.9999 21L16.6499 16.65" stroke="#929495" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
@@ -56,13 +60,13 @@ export default function Header() {
                         {/* navigation links */}
                         <div className='2xl:basis-5/12 lg:basis-6/12 basis-5/12 flex justify-end xl:gap-6 gap-4'>
                             <div className="my-auto lg:block sm:hidden">
-                                <Link className="block" href={"/"}>Doanh nghiệp</Link>
+                                <Link className="block" href={"/"} onClick={() => handleRedirect("/biz")}>Doanh nghiệp</Link>
                             </div>
                             <div className="my-auto lg:block sm:hidden">
                                 <Link className="block" href={"/"}>Hội viên</Link>
                             </div>
                             <div className="my-auto">
-                                <Link className="relative" href={"/cart"}>
+                                <Link className="relative" href={"/cart"} onClick={() => handleRedirect("/cart")}>
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M9 22C9.55228 22 10 21.5523 10 21C10 20.4477 9.55228 20 9 20C8.44772 20 8 20.4477 8 21C8 21.5523 8.44772 22 9 22Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                                         <path d="M20 22C20.5523 22 21 21.5523 21 21C21 20.4477 20.5523 20 20 20C19.4477 20 19 20.4477 19 21C19 21.5523 19.4477 22 20 22Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
