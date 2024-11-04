@@ -75,12 +75,12 @@ export default function Header() {
                                 </Link>
                             </div>
                             <div className="my-auto">
-                                <Link className="block font-bold" href={"/login"}>
+                                <Link className="block font-bold" href={"/login"} onClick={() => handleRedirect("/login")}>
                                     Đăng nhập
                                 </Link>
                             </div>
                             <div className="my-auto p-3 text-white bg-[#1782FB] rounded font-bold">
-                                <Link className="block" href={"/register"}>
+                                <Link className="block" href={"/register"} onClick={() => handleRedirect("/register")}>
                                     Đăng ký
                                 </Link>
                             </div>

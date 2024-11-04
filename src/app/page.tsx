@@ -4,6 +4,9 @@ import MainBanner from "@/containers/home-page/MainBanner";
 import CourseList from "@/containers/home-page/CourseList";
 import InterestTopics from "@/containers/home-page/InterestTopics";
 import RecommendedBooks from "@/containers/home-page/RecommendedBooks";
+import TopInstructors from "@/containers/home-page/TopInstructors";
+import RelatedSolutions from "@/containers/home-page/RelatedSolutions";
+import CallToAction from "@/containers/home-page/CallToAction";
 import Footer from "@/components/Footer";
 
 export default function HomePage() {
@@ -31,6 +34,9 @@ export default function HomePage() {
           />
           <InterestTopics />
           <RecommendedBooks />
+          <TopInstructors />
+          <RelatedSolutions />
+          <CallToAction />
         </main>
       </div>
       <Footer />

@@ -8,6 +8,24 @@ export default function InterestTopics() {
                 <Link href={"/"} className="border border-black px-4 py-2 rounded hover:text-white hover:bg-[#003555]">
                     Facebook Marketing
                 </Link>
+                <Link href={"/"} className="border border-black px-4 py-2 rounded hover:text-white hover:bg-[#003555]">
+                    Facebook Marketing
+                </Link>
+                <Link href={"/"} className="border border-black px-4 py-2 rounded hover:text-white hover:bg-[#003555]">
+                    Facebook Marketing
+                </Link>
+                <Link href={"/"} className="border border-black px-4 py-2 rounded hover:text-white hover:bg-[#003555]">
+                    Facebook Marketing
+                </Link>
+                <Link href={"/"} className="border border-black px-4 py-2 rounded hover:text-white hover:bg-[#003555]">
+                    Facebook Marketing
+                </Link>
+                <Link href={"/"} className="border border-black px-4 py-2 rounded hover:text-white hover:bg-[#003555]">
+                    Facebook Marketing
+                </Link>
+                <Link href={"/"} className="border border-black px-4 py-2 rounded hover:text-white hover:bg-[#003555]">
+                    Facebook Marketing
+                </Link>
             </div>
         </div>
     )

@@ -3,9 +3,11 @@ import Link from 'next/link'
 const Footer = () => {
     return (
         <footer className='bg-[#003555]' id='footer'>
-            <div className='max-w-7xl mx-auto xl:px-20 px-4 py-6'>
+            <div className='max-w-8xl mx-auto xl:px-20 px-4 py-6'>
+                {/* Thông tin liên hệ và liên kết */}
                 <div className='grid lg:grid-cols-5 md:grid-cols-3 gap-6 md:gap-0'>
                     <div className='flex flex-col text-white'>
+                        {/* Logo */}
                         <Link href={"/"}>
                             <img
                                 src="https://static.unica.vn/media/images_v2018/logo-unica.png"
@@ -16,7 +18,7 @@ const Footer = () => {
                             <p>247 Cầu Giấy, TP.Hà Nội</p>
                             <p>Hotline 1: 19001568</p>
                             <p>Hotline 2: 090 488 6095</p>
-                            <p>Email: cskh@unica.vn</p>
+                            <p>Email: xxxxxxxxxx@unica.vn</p>
                             <p>08h00 - 17h30, thứ 2 - thứ 7</p>
                         </div>
                     </div>
@@ -70,6 +72,8 @@ const Footer = () => {
                         </div>
                     </div>
                 </div>
+
+                {/* Thông tin pháp lý và liên kết mạng xã hội */}
                 <div className='text-white mt-8 border-t-2 border-[#1782FB] border-opacity-30 pt-4 flex justify-between flex-col md:flex-row'>
                     <div className='flex flex-col md:flex-col gap-2'>
                         <p className='lg:mr-4 text-xs md:text-sm font-light md:font-normal leading-4 md:leading-none'>
