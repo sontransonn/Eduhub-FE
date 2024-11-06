@@ -1,21 +1,23 @@
 'use client'
+import React, { useState } from "react";
 import Link from "next/link"
 
+import { IoMdArrowDropright } from "react-icons/io";
+import { FiSearch } from "react-icons/fi";
+import { MdOutlineShoppingCart } from "react-icons/md";
+
+import categories from "@/constants/categories";
+
 export default function Header() {
-
-    const handleRedirect = (url: String) => {
-        window.location.href = `${url}`
-    }
-
     return (
         <header className='sticky z-30 md:z-40 top-0 bg-white shadow-2xl'>
-            {/* show when screen > 768px */}
+            {/* Hiển Thị Khi Màn Hình > 768px */}
             <div className='hidden md:block'>
                 <div className='py-4 px-6'>
                     <div className='flex flex-row'>
                         <div className='2xl:basis-7/12 lg:basis-6/12 basis-7/12 flex xl:gap-8 w-auto items-center gap-4'>
-                            {/* logo */}
-                            <Link href={"/"} onClick={() => handleRedirect("/")}>
+                            {/* Logo */}
+                            <Link href={"/"}>
                                 <img
                                     width={140}
                                     src="https://unica.vn/media/img/logo-unica.svg"
@@ -24,8 +26,8 @@ export default function Header() {
                                 />
                             </Link>
 
-                            {/* menu */}
-                            <div className="my-auto">
+                            {/* Danh Mục */}
+                            <div className="my-auto relative group">
                                 <div className="flex w-36 text-lg items-center uppercase gap-2">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
                                         <path d="M7.27502 1.125H3.15002C2.5287 1.125 2.02502 1.62868 2.02502 2.25V6.375C2.02502 6.99632 2.5287 7.5 3.15002 7.5H7.27502C7.89634 7.5 8.40002 6.99632 8.40002 6.375V2.25C8.40002 1.62868 7.89634 1.125 7.27502 1.125Z" fill="#6CC4F5" />
@@ -35,9 +37,47 @@ export default function Header() {
                                     </svg>
                                     Danh mục
                                 </div>
+
+                                <div className="absolute w-[270px] top-full pt-4 group-hover:block hidden">
+                                    <ul className="bg-white h-fit border border-solid border-[#eee] relative shadow-custom z-[99]">
+                                        <div className="w-0 h-0 border-l-[12px] border-r-[12px] border-b-[15px] border-l-transparent border-r-transparent absolute top-[-15px]"></div>
+
+                                        {/* Menu Danh Mục */}
+                                        {categories?.map((category, index) => (
+                                            <li key={index} className="p-[10px] flex justify-between cursor-pointer hover:text-blue-500 hover:bg-slate-100 group/item">
+                                                <div className="flex items-center text-sm gap-1">
+                                                    {category.icon}
+                                                    {category.title}
+                                                </div>
+                                                <IoMdArrowDropright size={18} />
+
+                                                <div className="absolute top-[-1px] left-full bg-slate-100 text-black z-[1000] group-hover/item:block hidden shadow-custom border border-solid border-[#eee]">
+                                                    <ul className="h-[520px] w-[305px]">
+                                                        {category.items?.map((item, index) => (
+                                                            <li key={index} className="p-[10px] flex justify-between items-center group/item1 text-sm cursor-pointer hover:text-blue-500">
+                                                                {item.title}
+                                                                <IoMdArrowDropright size={18} />
+
+                                                                <div className="absolute top-[-1px] left-full bg-slate-100 text-black z-[1000] group-hover/item1:block hidden shadow-custom border border-solid border-[#eee]">
+                                                                    <ul className="px-[10px] h-[520px] w-[305px]">
+                                                                        {item.tags?.map((tag, index) => (
+                                                                            <li key={index} className="py-[10px] flex justify-between items-center group/item1 text-sm cursor-pointer hover:text-blue-500">
+                                                                                {tag}
+                                                                            </li>
+                                                                        ))}
+                                                                    </ul>
+                                                                </div>
+                                                            </li>
+                                                        ))}
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
                             </div>
 
-                            {/* search input */}
+                            {/* Thanh Tìm Kiếm */}
                             <div className="w-full">
                                 <form className="relative" action="/search" method="get">
                                     <input
@@ -48,39 +88,32 @@ export default function Header() {
                                         placeholder="Tìm khóa học, giảng viên" required
                                     />
                                     <button type="submit" className="absolute top-0 right-0 h-full pr-4">
-                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z" stroke="#929495" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                            <path d="M20.9999 21L16.6499 16.65" stroke="#929495" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                        </svg>
+                                        <FiSearch size={24} color="#969899" />
                                     </button>
                                 </form>
                             </div>
                         </div>
 
-                        {/* navigation links */}
+                        {/* Liên kết điều hướng */}
                         <div className='2xl:basis-5/12 lg:basis-6/12 basis-5/12 flex justify-end xl:gap-6 gap-4'>
                             <div className="my-auto lg:block sm:hidden">
-                                <Link className="block" href={"/"} onClick={() => handleRedirect("/biz")}>Doanh nghiệp</Link>
+                                <Link className="block" href={"/biz"}>Doanh nghiệp</Link>
                             </div>
                             <div className="my-auto lg:block sm:hidden">
                                 <Link className="block" href={"/"}>Hội viên</Link>
                             </div>
                             <div className="my-auto">
-                                <Link className="relative" href={"/cart"} onClick={() => handleRedirect("/cart")}>
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M9 22C9.55228 22 10 21.5523 10 21C10 20.4477 9.55228 20 9 20C8.44772 20 8 20.4477 8 21C8 21.5523 8.44772 22 9 22Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                        <path d="M20 22C20.5523 22 21 21.5523 21 21C21 20.4477 20.5523 20 20 20C19.4477 20 19 20.4477 19 21C19 21.5523 19.4477 22 20 22Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                        <path d="M1 1H5L7.68 14.39C7.77144 14.8504 8.02191 15.264 8.38755 15.5583C8.75318 15.8526 9.2107 16.009 9.68 16H19.4C19.8693 16.009 20.3268 15.8526 20.6925 15.5583C21.0581 15.264 21.3086 14.8504 21.4 14.39L23 6H6" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                    </svg>
+                                <Link className="relative" href={"/cart"}>
+                                    <MdOutlineShoppingCart size={26} />
                                 </Link>
                             </div>
                             <div className="my-auto">
-                                <Link className="block font-bold" href={"/login"} onClick={() => handleRedirect("/login")}>
+                                <Link className="block font-bold" href={"/login"}>
                                     Đăng nhập
                                 </Link>
                             </div>
                             <div className="my-auto p-3 text-white bg-[#1782FB] rounded font-bold">
-                                <Link className="block" href={"/register"} onClick={() => handleRedirect("/register")}>
+                                <Link className="block" href={"/register"}>
                                     Đăng ký
                                 </Link>
                             </div>
@@ -89,8 +122,8 @@ export default function Header() {
                 </div>
             </div>
 
-            {/* show when screen < 768px */}
-            <div className="lg:hidden md:hidden">
+            {/* Hiển thị khi màn hình < 768px */}
+            <div className="md:hidden">
                 <div className="grid grid-cols-3 px-4 py-3.5">
                     <div>
                         <button className="text-2xl" type="button" data-drawer-target="drawer-left-navbar" data-drawer-show="drawer-left-navbar" data-drawer-placement="left" aria-controls="drawer-left-navbar">

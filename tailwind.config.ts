@@ -10,6 +10,9 @@ const config: Config = {
 	],
 	theme: {
 		extend: {
+			boxShadow: {
+				'custom': '1px 1px 1px #ccc',
+			},
 			maxWidth: {
 				'8xl': '90rem',
 			},
