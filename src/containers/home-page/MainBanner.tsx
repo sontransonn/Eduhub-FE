@@ -1,24 +1,45 @@
+'use client'
 import React from 'react'
-import {
-    Carousel,
-    CarouselContent,
-    CarouselItem,
-} from "@/components/ui/carousel"
+import Image from 'next/image';
+import Slider from "react-slick";
 
-export default function MainBanner() {
+import { banners } from '@/constants/images';
+
+const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 2500,
+    adaptiveHeight: true,
+    customPaging: (i: number) => (
+        <div className="custom-rect-dot"></div>
+    ),
+    appendDots: (dots: any) => (
+        <ul style={{ display: "flex", justifyContent: "center", gap: "8px" }}>
+            {dots}
+        </ul>
+    ),
+};
+
+const MainBanner = () => {
     return (
-        <Carousel className="w-full md:py-4 lg:px-10 overflow-hidden">
-            <CarouselContent>
-                {Array.from({ length: 10 }).map((_, index) => (
-                    <CarouselItem key={index}>
-                        <img
-                            className='w-full lg:rounded-sm'
-                            src="https://file.unica.vn/storage/db240c65c57e0a4f35edba3312c62511cbac63cc/thiet-ke-chua-co-ten.jpg"
-                            alt=""
+        <div className='max-w-8xl relative mx-auto md:pt-4 pt-0 overflow-hidden'>
+            <Slider {...settings}>
+                {banners?.map((banner, index) => (
+                    <div key={index} className='max-h-[500px] md:rounded-sm overflow-hidden'>
+                        <Image
+                            src={banner}
+                            alt="Banner"
+                            style={{ objectFit: "contain" }}
                         />
-                    </CarouselItem>
+                    </div>
                 ))}
-            </CarouselContent>
-        </Carousel>
+            </Slider>
+        </div>
     )
 }
+
+export default MainBanner

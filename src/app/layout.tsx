@@ -1,7 +1,11 @@
-import type { Metadata } from "next";
+import React from "react";
 import { Inter } from 'next/font/google';
-import "../styles/global.css";
+import type { Metadata } from "next";
+import "@/styles/global.css";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
+import LayoutProvider from "@/app/LayoutProvider";
 import StoreProvider from "@/app/StoreProvider";
 
 const inter = Inter({
@@ -25,7 +29,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <StoreProvider>
-          {children}
+          <LayoutProvider>
+            {children}
+          </LayoutProvider>
         </StoreProvider>
       </body>
     </html>

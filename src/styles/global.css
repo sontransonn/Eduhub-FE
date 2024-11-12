@@ -68,3 +68,29 @@
     @apply bg-background text-foreground;
   }
 }
+
+#drawer-content>div:first-child {
+  display: none;
+}
+
+#accordion>div:first-child {
+  border: none;
+}
+
+.slick-dots {
+  position: absolute;
+  bottom: 0 !important;
+}
+
+.custom-rect-dot {
+  width: 30px;
+  height: 6px;
+  background-color: rgba(167, 161, 159, 0.4);
+  border-radius: 4px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.slick-dots li.slick-active .custom-rect-dot {
+  background-color: #00ff22;
+  transform: scale(1.2);
+}

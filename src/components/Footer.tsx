@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import React from 'react'
 
 const Footer = () => {
     return (
@@ -8,12 +8,12 @@ const Footer = () => {
                 <div className='grid lg:grid-cols-5 md:grid-cols-3 gap-6 md:gap-0'>
                     <div className='flex flex-col text-white'>
                         {/* Logo */}
-                        <Link href={"/"}>
+                        <a href={"/"}>
                             <img
                                 src="https://static.unica.vn/media/images_v2018/logo-unica.png"
                                 alt=""
                             />
-                        </Link>
+                        </a>
                         <div className='mt-6 text-sm flex flex-col gap-4'>
                             <p>247 Cầu Giấy, TP.Hà Nội</p>
                             <p>Hotline 1: 19001568</p>

@@ -1,12 +1,12 @@
-import Header from "@/components/Header"
-import CategoryMenu from "@/components/CategoryMenu"
-import Footer from "@/components/Footer"
+// import Header from "@/components/Header"
+// import CategoryMenu from "@/components/Navbar"
+// import Footer from "@/components/Footer"
 
 export default function BizPage() {
     return (
         <>
-            <Header />
-            <CategoryMenu />
+            {/* <Header />
+            <CategoryMenu /> */}
             <div className="bg-[#F1F5F8] text-black">
                 <div className="py-20 inline-block w-full bg-[#f5f5f5]">
                     <div className="max-w-8xl mx-auto lg:px-20 md:px-10 px-4">
@@ -56,7 +56,7 @@ export default function BizPage() {
                                 <div>
                                     <span className="text-base font-bold mb-[30px] block">Được tin dùng bởi hàng trăm doanh nghiệp:</span>
                                     <ul className="grid grid-cols-5 gap-4 mt-4">
-                                        <li><img src="https://unica.vn/media/img/ub-logo-1.png" alt="" /></li>
+                                        {/* <li><img src="https://unica.vn/media/img/ub-logo-1.png" alt="" /></li>
                                         <li><img src="https://unica.vn/media/img/ub-logo-2.png" alt="" /></li>
                                         <li><img src="https://unica.vn/media/img/ub-logo-3.png" alt="" /></li>
                                         <li><img src="https://unica.vn/media/img/ub-logo-4.png" alt="" /></li>
@@ -65,7 +65,7 @@ export default function BizPage() {
                                         <li><img src="https://unica.vn/media/img/ub-logo-7.png" alt="" /></li>
                                         <li><img src="https://unica.vn/media/img/ub-logo-8.png" alt="" /></li>
                                         <li><img src="https://unica.vn/media/img/ub-logo-9.png" alt="" /></li>
-                                        <li><img src="https://unica.vn/media/img/ub-logo-10.png" alt="" /></li>
+                                        <li><img src="https://unica.vn/media/img/ub-logo-10.png" alt="" /></li> */}
                                     </ul>
                                 </div>
                             </div>
@@ -141,7 +141,7 @@ export default function BizPage() {
                     </div>
                 </div>
             </div >
-            <Footer />
+            {/* <Footer /> */}
         </>
     )
 }

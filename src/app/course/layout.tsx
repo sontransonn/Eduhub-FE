@@ -1,8 +1,4 @@
 import React from 'react'
-import Header from '@/components/Header'
-import CategoryMenu from '@/components/CategoryMenu'
-import Footer from '@/components/Footer'
-
 export default function layout({
     children,
 }: Readonly<{
@@ -10,10 +6,7 @@ export default function layout({
 }>) {
     return (
         <>
-            <Header />
-            <CategoryMenu />
             {children}
-            <Footer />
         </>
     )
 }
