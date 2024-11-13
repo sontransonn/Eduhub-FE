@@ -1,6 +1,8 @@
 import React from "react";
 import { Inter } from 'next/font/google';
 import type { Metadata } from "next";
+import { Toaster } from 'react-hot-toast';
+
 import "@/styles/global.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -29,9 +31,12 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <StoreProvider>
-          <LayoutProvider>
-            {children}
-          </LayoutProvider>
+          <>
+            <LayoutProvider>
+              {children}
+            </LayoutProvider>
+            <Toaster position="top-right" />
+          </>
         </StoreProvider>
       </body>
     </html>
