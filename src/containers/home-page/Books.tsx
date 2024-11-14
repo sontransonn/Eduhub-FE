@@ -7,12 +7,12 @@ import {
     CarouselItem,
 } from "@/components/ui/carousel"
 
-export default function RecommendedBooks() {
+const Books = () => {
     return (
         <div id='books'>
             <div className='w-full px-4 mx-auto max-w-8xl lg:px-20 md:px-10 pt-12'>
-                <div className='w-full flex justify-between mb-6'>
-                    <h4 className='uppercase font-semibold text-2xl mt-2.5'>SÁCH HAY NÊN ĐỌC</h4>
+                <div className='w-full flex justify-between'>
+                    <h4 className='uppercase font-semibold text-2xl'>SÁCH HAY NÊN ĐỌC</h4>
                     <Link href={"/books"} className='flex items-center text-sm'>
                         Xem thêm
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -20,7 +20,8 @@ export default function RecommendedBooks() {
                         </svg>
                     </Link>
                 </div>
-                <Carousel className="w-full">
+
+                <Carousel className="w-full mt-6">
                     <CarouselContent className="-ml-1">
                         {Array.from({ length: 4 }).map((_, index) => (
                             <CarouselItem key={index} className="pl-1 basis-1/2 lg:basis-1/4">
@@ -39,3 +40,5 @@ export default function RecommendedBooks() {
         </div>
     )
 }
+
+export default Books

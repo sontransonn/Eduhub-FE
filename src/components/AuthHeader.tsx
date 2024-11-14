@@ -4,6 +4,10 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 const AuthHeader = () => {
+    const pathname = usePathname()
+    const isLoginPage = pathname === "/login" || pathname === "/login-otp";
+    const isRegisterPage = pathname === "/register";
+
     return (
         <header className='bg-[#003555] shadow-2xl text-white'>
             <div className='flex flex-row max-w-8xl mx-auto xl:px-20 px-4 py-6 justify-between items-center'>
@@ -16,7 +20,9 @@ const AuthHeader = () => {
                             className="max-w-none"
                         />
                     </Link>
-                    <span className='text-2xl hidden lg:block'>Đăng nhập</span>
+                    <span className='text-2xl hidden lg:block'>
+                        {isLoginPage ? "Đăng nhập" : isRegisterPage ? "Đăng ký" : ""}
+                    </span>
                 </div>
                 <span className='text-sm cursor-pointer'>Bạn cần giúp đỡ?</span>
             </div>

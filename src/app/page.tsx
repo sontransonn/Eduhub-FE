@@ -1,39 +1,49 @@
 import React from "react";
 
-import MainBanner from "@/containers/home-page/MainBanner";
+import Banner from "@/containers/home-page/Banner";
+import LiveSchedule from "@/containers/home-page/LiveSchedule";
 import CourseList from '@/containers/home-page/CourseList'
-import InterestTopics from '@/containers/home-page/InterestTopics'
-import RecommendedBooks from '@/containers/home-page/RecommendedBooks'
+import Topics from '@/containers/home-page/Topics'
+import Books from '@/containers/home-page/Books'
 import TopInstructors from '@/containers/home-page/TopInstructors'
 import RelatedSolutions from '@/containers/home-page/RelatedSolutions'
 import CallToAction from "@/containers/home-page/CallToAction";
 
 export default function HomePage() {
   return (
-    <div className="bg-[#F1F5F8] text-black">
-      <main id="main" className="flex-shrink-0" role="main">
-        <MainBanner />
-        <CourseList
-          title="Top bán chạy"
-        />
-        <CourseList
-          title="Siêu ưu đãi hôm nay"
-        />
-        <CourseList
-          title="Học viên đang xem"
-        />
-        <CourseList
-          title="Học nhiều trong tuần"
-        />
-        <CourseList
-          title="Khóa học mới ra mắt"
-        />
-        <InterestTopics />
-        <RecommendedBooks />
-        <TopInstructors />
-        <RelatedSolutions />
-        <CallToAction />
-      </main>
-    </div>
+    <main className="flex-shrink-0 bg-[#F1F5F8] text-black">
+      <Banner />
+      <LiveSchedule />
+      <CourseList
+        id="sell-course-most"
+        title="Top bán chạy"
+        quantity={12}
+      />
+      <CourseList
+        id="promotion-home"
+        title="Siêu ưu đãi hôm nay"
+        quantity={8}
+      />
+      <CourseList
+        id="student-watching"
+        title="Học viên đang xem"
+        quantity={8}
+      />
+      <CourseList
+        id="course-top-weekly"
+        title="Học nhiều trong tuần"
+        quantity={8}
+      />
+      <CourseList
+        id="course-new"
+        title="Khóa học mới ra mắt"
+        quantity={8}
+      />
+      <Topics />
+      <Books />
+      <TopInstructors />
+      <RelatedSolutions />
+      <CallToAction />
+    </main>
   );
 }

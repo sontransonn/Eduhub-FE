@@ -28,13 +28,17 @@ const LoginPage = () => {
 
     const { userInfo, loading } = useSelector((state: any) => state.user)
 
-    const { register, handleSubmit, formState: { errors } } = useForm<FormData>({
-        mode: "onChange",
-    });
+    const {
+        register,
+        handleSubmit, formState: { errors }
+    } = useForm<FormData>({ mode: "onChange", });
 
     useEffect(() => {
-
-    }, [])
+        const storedUserInfo = localStorage.getItem("userInfo");
+        if (userInfo || storedUserInfo) {
+            router.push("/");
+        }
+    }, [userInfo, router])
 
     const onSubmit: SubmitHandler<FormData> = async (formData: { email: string, password: string }) => {
         try {
@@ -54,15 +58,15 @@ const LoginPage = () => {
         <div className="w-full sm:w-2/3 md:w-1/2 lg:w-1/3">
             <div className="flex flex-col w-fullrounded-lg bg-white">
                 {/* Tiêu đề */}
-                <h1 className="text-lg font-bold uppercase p-[30px]">Đăng nhập</h1>
+                <h1 className="text-lg text-[#003555] font-bold uppercase p-[30px]">Đăng nhập</h1>
 
                 {/* Form đăng nhập */}
-                <form onSubmit={handleSubmit(onSubmit)} className="text-[12px] px-[30px] pb-[30px] ">
+                <form onSubmit={handleSubmit(onSubmit)} className="text-sm px-[30px] pb-[30px] ">
                     <div className="flex flex-col gap-8">
                         <div className='w-full relative'>
                             <input
                                 type="email"
-                                className='w-full rounded-[2px] p-3 border focus:border-black border-slate-300 outline-none'
+                                className={`w-full rounded-[2px] p-3 border focus:border-black focus:bg-white ${errors.email && "border-red-500 bg-red-50"} border-slate-300 outline-none`}
                                 placeholder='Email/Số điện thoại/Tên đăng nhập'
                                 {...register("email", {
                                     required: "Vui lòng điền vào mục này",
@@ -80,7 +84,7 @@ const LoginPage = () => {
                         <div className='w-full relative'>
                             <input
                                 type={showPassword ? "text" : "password"}
-                                className='w-full rounded-[2px] p-3 border focus:border-black border-slate-300 outline-none'
+                                className={`w-full rounded-[2px] p-3 border focus:border-black focus:bg-white ${errors.password && "border-red-500 bg-red-50"} border-slate-300 outline-none`}
                                 placeholder='Mật khẩu'
                                 {...register("password", {
                                     required: "Vui lòng điền vào mục này",
@@ -102,20 +106,20 @@ const LoginPage = () => {
 
                         <button
                             type="submit"
-                            className='bg-blue-500 rounded-[2px] hover:bg-blue-600 w-full py-3 px-6 text-white font-bold'
+                            className='bg-[#003555] rounded-[2px] hover:bg-[#1c3c55] w-full py-3 px-6 text-white font-bold'
                         >
-                            {loading ? "........." : "Đăng nhập"}
+                            {loading ? "Đang tải......" : "Đăng nhập"}
                         </button>
                     </div>
 
                     {/* Quên mật khẩu và Đăng nhập với SMS*/}
-                    <div className="flex text-[12px] justify-between my-[10px]">
+                    <div className="flex text-xs justify-between my-[10px]">
                         <Link href={""}>Quên mật khẩu</Link>
                         <Link href={"/login-otp"}>Đăng nhập với SMS</Link>
                     </div>
 
                     {/* Đăng nhập với Facebook hoặc Google */}
-                    <div className=" text-slate-400 text-[12px] ">
+                    <div className=" text-slate-400 text-xs">
                         <div className="pb-[14px] flex gap-2 items-center">
                             <div className="w-full h-[0.5px] bg-slate-400"></div>
                             HOẶC
