@@ -5,9 +5,9 @@ import LiveSchedule from "@/containers/home-page/LiveSchedule";
 import CourseList from '@/containers/home-page/CourseList'
 import Topics from '@/containers/home-page/Topics'
 import Books from '@/containers/home-page/Books'
-import TopInstructors from '@/containers/home-page/TopInstructors'
-import RelatedSolutions from '@/containers/home-page/RelatedSolutions'
-import CallToAction from "@/containers/home-page/CallToAction";
+import Instructors from '@/containers/home-page/Instructors'
+import Solutions from '@/containers/home-page/Solutions'
+import CTA from "@/containers/home-page/CTA";
 
 export default function HomePage() {
   return (
@@ -41,9 +41,9 @@ export default function HomePage() {
       />
       <Topics />
       <Books />
-      <TopInstructors />
-      <RelatedSolutions />
-      <CallToAction />
+      <Instructors />
+      <Solutions />
+      <CTA />
     </main>
   );
 }

@@ -1,6 +1,6 @@
 import Link from "next/link"
 
-export default function CallToAction() {
+const CTA = () => {
     return (
         <div className='bg-white'>
             <div className='max-w-8xl mx-auto md:py-20 lg:px-20 md:px-10 px-4'>
@@ -20,3 +20,5 @@ export default function CallToAction() {
         </div>
     )
 }
+
+export default CTA

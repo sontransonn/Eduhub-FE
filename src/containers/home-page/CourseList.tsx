@@ -1,6 +1,8 @@
 import React from "react"
 import Link from "next/link"
 
+import { MdNavigateNext } from "react-icons/md";
+
 import { Card, CardContent } from "@/components/ui/card"
 import {
     Carousel,
@@ -18,13 +20,11 @@ const CourseList = ({ id, title, quantity }: CourseListProps) => {
     return (
         <div id={id}>
             <div className='max-w-8xl mx-auto px-4 lg:px-20 md:px-10 pt-12'>
-                <div className='w-full flex justify-between'>
+                <div className='w-full flex items-center justify-between'>
                     <h4 className='uppercase font-semibold text-2xl'>{title}</h4>
                     <Link className="flex items-center text-sm" href={"/live"}>
                         Xem thêm
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M6 12L10 8L6 4" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
+                        <MdNavigateNext size={20} />
                     </Link>
                 </div>
 
@@ -33,7 +33,7 @@ const CourseList = ({ id, title, quantity }: CourseListProps) => {
                     {Array.from({ length: quantity }).map((_, index) => (
                         <Link href={"/"} className="col">
                             <img
-                                className='max-w-full rounded h-auto object-cover'
+                                className='max-w-full rounded-sm h-auto object-cover'
                                 src="https://i.imgur.com/kFLuGCR.jpeg"
                                 alt="" />
                             <h3 className='font-medium my-4 line-clamp-2'>Học nhiếp ảnh từ cơ bản đến nâng cao</h3>
@@ -73,7 +73,7 @@ const CourseList = ({ id, title, quantity }: CourseListProps) => {
                                     <Card className='bg-[#F1F5F8] border-none shadow-none'>
                                         <CardContent className='px-0'>
                                             <img
-                                                className='max-w-full h-auto object-cover'
+                                                className='max-w-full rounded-sm h-auto object-cover'
                                                 src="https://i.imgur.com/kFLuGCR.jpeg"
                                                 alt="" />
                                             <h3 className='font-medium my-4 line-clamp-2'>Học nhiếp ảnh từ cơ bản đến nâng cao</h3>
