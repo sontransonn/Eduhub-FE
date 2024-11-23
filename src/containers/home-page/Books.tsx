@@ -36,8 +36,8 @@ const Books = () => {
                     <Carousel className="w-full">
                         <CarouselContent className="-ml-1 justify-between">
                             {Array.from({ length: 4 }).map((_, index) => (
-                                <CarouselItem key={index} className="pl-1 basis-1/2 lg:basis-1/4">
-                                    <Card className='rounded-sm bg-[#F1F5F8] border-none shadow-none'>
+                                <CarouselItem key={index} className="pl-1 basis-1/2 lg:basis-1/4 select-none cursor-pointer">
+                                    <Card className='bg-[#F1F5F8] border-none shadow-none'>
                                         <CardContent className='p-0'>
                                             <Link href={"/"}>
                                                 <BookCard />

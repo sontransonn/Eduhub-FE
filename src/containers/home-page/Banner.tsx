@@ -30,11 +30,11 @@ const Banner = () => {
             <div className='max-w-8xl mx-auto relative md:pt-4 pt-0 overflow-hidden'>
                 <Slider {...settings}>
                     {banners?.map((banner, index) => (
-                        <div key={index} className='max-h-[500px] overflow-hidden'>
+                        <div key={index} className='h-full max-h-[500px] overflow-hidden'>
                             <Image
                                 src={banner}
                                 alt="Banner"
-                                style={{ objectFit: "contain" }}
+                                style={{ objectFit: "cover" }}
                             />
                         </div>
                     ))}

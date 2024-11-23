@@ -91,6 +91,10 @@
 }
 
 .slick-dots li.slick-active .custom-rect-dot {
-  background-color: #00ff22;
+  background-color: #ffffff;
   transform: scale(1.2);
+}
+
+.accordion-trigger > svg {
+  display: none !important;
 }

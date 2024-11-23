@@ -31,9 +31,11 @@ const CourseList = ({ id, title, quantity }: CourseListProps) => {
                 {/* Hiển thị khi màn hình > 768px */}
                 <div className="md:grid md:grid-cols-2 lg:grid-cols-4 mt-6 gap-4 hidden">
                     {Array.from({ length: quantity }).map((_, index) => (
-                        <Link href={"/"} className="col">
-                            <CourseCard />
-                        </Link>
+                        <div className="w-full col">
+                            <Link href={"/course-slug"} className="col">
+                                <CourseCard />
+                            </Link>
+                        </div>
                     ))}
                 </div>
 
@@ -44,7 +46,7 @@ const CourseList = ({ id, title, quantity }: CourseListProps) => {
                             {Array.from({ length: quantity }).map((_, index) => (
                                 <CarouselItem key={index} className="pl-1 basis-2/3 lg:basis-1/4 select-none cursor-pointer">
                                     <Card className='bg-[#F1F5F8] border-none shadow-none'>
-                                        <CardContent className='px-0'>
+                                        <CardContent className='p-0'>
                                             <Link href={"/"}>
                                                 <CourseCard />
                                             </Link>

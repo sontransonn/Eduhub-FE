@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { useSelector, useDispatch } from "react-redux";
-import toast from 'react-hot-toast';
 
 import categories from "@/constants/categories";
 
@@ -26,11 +25,6 @@ import {
     Accordion,
     AccordionContent, AccordionItem, AccordionTrigger,
 } from "@/components/ui/accordion"
-import {
-    AlertDialog,
-    AlertDialogAction, AlertDialogCancel,
-    AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle,
-} from "@/components/ui/alert-dialog"
 
 import { logout } from "@/api/auth.api";
 
@@ -38,7 +32,6 @@ const Header = () => {
     const dispatch = useDispatch()
 
     const [openAccountMenu, setOpenAccountMenu] = useState(false)
-    const [openAlertDialog, setOpenAlertDialog] = useState(false)
 
     const { userInfo } = useSelector((state: any) => state.user)
 
@@ -47,11 +40,8 @@ const Header = () => {
             const data = await logout()
             localStorage.removeItem("userInfo")
             dispatch(resetUserInfo())
-            toast.success(data.message)
-            setOpenAlertDialog(false);
         } catch (error: any) {
             console.error('Logout failed:', error.message);
-            toast.error(error.message)
         }
     };
 
@@ -81,7 +71,7 @@ const Header = () => {
                             {/* Menu danh mục */}
                             <div className="absolute w-[270px] top-full pt-4 group-hover:block hidden">
                                 <ul className="bg-white h-fit border border-solid border-[#eee] relative shadow-custom z-[99]">
-                                    <div className="w-0 h-0 border-l-[12px] border-r-[12px] border-b-[15px] border-l-transparent border-r-transparent absolute top-[-15px]"></div>
+                                    <div className="w-0 h-0 border-l-[12px] border-r-[12px] border-white border-b-[15px] border-l-transparent border-r-transparent absolute top-[-15px]"></div>
                                     {categories?.map((category, index) => (
                                         <li key={index} className="p-[10px] flex justify-between cursor-pointer hover:text-blue-500 hover:bg-slate-100 group/item">
                                             <Link href={`/course/hello`} className="flex items-center text-sm gap-1">
@@ -92,13 +82,13 @@ const Header = () => {
                                             <div className="absolute top-[-1px] left-full bg-slate-100 text-black z-[1000] group-hover/item:block hidden shadow-custom border border-solid border-[#eee]">
                                                 <ul className="h-[520px] w-[305px]">
                                                     {category.items?.map((item, index) => (
-                                                        <li key={index} className="p-[10px] flex justify-between items-center group/item1 text-sm cursor-pointer hover:text-blue-500">
+                                                        <li key={index} className="p-[10px] flex justify-between items-center group/sub-item text-sm cursor-pointer hover:text-blue-500">
                                                             {item.title}
                                                             <IoMdArrowDropright size={18} />
-                                                            <div className="absolute top-[-1px] left-full bg-slate-100 text-black z-[1000] group-hover/item1:block hidden shadow-custom border border-solid border-[#eee]">
+                                                            <div className="absolute top-[-1px] left-full bg-slate-100 text-black z-[1000] group-hover/sub-item:block hidden shadow-custom border border-solid border-[#eee]">
                                                                 <ul className="px-[10px] h-[520px] w-[305px]">
                                                                     {item.tags?.map((tag, index) => (
-                                                                        <li key={index} className="py-[10px] flex justify-between items-center group/item1 text-sm cursor-pointer hover:text-blue-500">
+                                                                        <li key={index} className="py-[10px] flex justify-between items-center group/sub-item text-sm cursor-pointer hover:text-blue-500">
                                                                             {tag}
                                                                         </li>
                                                                     ))}
@@ -183,8 +173,9 @@ const Header = () => {
                                                 </li>
                                                 <li className="pt-2 border-t w-full border-solid">
                                                     <div
-                                                        onClick={() => setOpenAlertDialog(true)}
-                                                        className="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                                        className="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                                        onClick={() => handleLogout()}
+                                                    >
                                                         Đăng xuất
                                                     </div>
                                                 </li>
@@ -314,22 +305,6 @@ const Header = () => {
                     </div>
                 </div>
             </div>
-
-            {/* Alert */}
-            <AlertDialog open={openAlertDialog}>
-                <AlertDialogContent>
-                    <AlertDialogHeader>
-                        <AlertDialogTitle>Are you sure?</AlertDialogTitle>
-                        <AlertDialogDescription>
-                            Do you want to logout?
-                        </AlertDialogDescription>
-                    </AlertDialogHeader>
-                    <AlertDialogFooter>
-                        <AlertDialogCancel onClick={() => setOpenAlertDialog(false)}>Cancel</AlertDialogCancel>
-                        <AlertDialogAction onClick={handleLogout}>Continue</AlertDialogAction>
-                    </AlertDialogFooter>
-                </AlertDialogContent>
-            </AlertDialog>
         </header>
     )
 }

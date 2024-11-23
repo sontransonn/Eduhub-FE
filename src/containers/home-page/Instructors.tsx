@@ -1,11 +1,13 @@
 import React from 'react'
 import Link from 'next/link'
+
 import { Card, CardContent } from "@/components/ui/card"
 import {
     Carousel,
     CarouselContent,
     CarouselItem,
 } from "@/components/ui/carousel"
+import InstructorCard from '@/components/card/InstructorCard'
 
 const Instructors = () => {
     return (
@@ -17,18 +19,10 @@ const Instructors = () => {
                         {Array.from({ length: 6 }).map((_, index) => (
                             <CarouselItem key={index} className="pl-1 basis-1/2 lg:basis-1/4 select-none cursor-pointer">
                                 <Card className='rounded-sm'>
-                                    <CardContent className="flex flex-col gap-5 items-center justify-center p-5">
-                                        <img
-                                            src="https://static.unica.vn/uploads/phan-van-truong/June2420201127am_phan-van-truong_thumb.jpg"
-                                            alt=""
-                                            className='rounded-full w-[150px] h-[150px]'
-                                        />
-                                        <div className='text-lg text-[#273167] md:text-2xl font-semibold h-[30px] text-center'>
-                                            <span>Hồ Minh Chính</span>
-                                        </div>
-                                        <div className='text-sm text-center line-clamp-2'>
-                                            Chuyên gia tâm lý, TGĐ Công ty Tư Vấn Tâm Lý và Đào Tạo VERA
-                                        </div>
+                                    <CardContent className="p-0">
+                                        <Link href={"/"}>
+                                            <InstructorCard />
+                                        </Link>
                                     </CardContent>
                                 </Card>
                             </CarouselItem>
