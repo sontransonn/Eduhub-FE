@@ -6,7 +6,7 @@ const CourseCard = () => {
     return (
         <div className='w-full flex flex-col gap-1.5'>
             <img
-                className='max-w-full rounded-sm h-auto object-cover'
+                className='max-w-full h-auto rounded-sm object-cover'
                 src="https://i.imgur.com/kFLuGCR.jpeg"
                 alt="" />
             <h3 className='font-medium line-clamp-2'>Học nhiếp ảnh từ cơ bản đến nâng cao</h3>

@@ -9,7 +9,7 @@ import CourseCard from "@/components/card/CourseCard";
 
 const CartPage = () => {
     return (
-        <div className='bg-[#F1F5F8] text-black'>
+        <main className='bg-[#F1F5F8] text-black'>
             <div className='max-w-8xl mx-auto px-4 xl:px-20 lg:px-10 md:px-10 py-8'>
                 <h3 className='text-semibold text-2xl mb-6'>Giỏ hàng</h3>
 
@@ -119,7 +119,7 @@ const CartPage = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </main>
     )
 }
 
