@@ -3,7 +3,7 @@ import Link from "next/link"
 const CTA = () => {
     return (
         <div className='bg-white'>
-            <div className='max-w-8xl mx-auto md:py-16 lg:px-16 md:px-10 p-5'>
+            <div className='max-w-8xl mx-auto p-5 lg:px-16 md:py-16 md:px-10 '>
                 <div className='md:flex lg:gap-20 gap-4 text-center justify-center'>
                     <div className='basis-1/2 order-last justify-start lg:px-10'>
                         <img className="w-full h-auto" src="https://unica.vn/images/home_teacher.png" alt="" />

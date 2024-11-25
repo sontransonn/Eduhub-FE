@@ -26,20 +26,18 @@ const settings = {
 
 const Banner = () => {
     return (
-        <div id='banner'>
-            <div className='max-w-8xl mx-auto relative md:pt-4 pt-0 overflow-hidden'>
-                <Slider {...settings}>
-                    {banners?.map((banner, index) => (
-                        <div key={index} className='h-full max-h-[500px] overflow-hidden'>
-                            <Image
-                                src={banner}
-                                alt="Banner"
-                                style={{ objectFit: "cover" }}
-                            />
-                        </div>
-                    ))}
-                </Slider>
-            </div>
+        <div className='max-w-8xl mx-auto xl:px-20 lg:px-10 md:px-10 md:pt-4 pt-0 relative overflow-hidden'>
+            <Slider {...settings}>
+                {banners?.map((banner, index) => (
+                    <div key={index} className='h-full max-h-[500px] overflow-hidden'>
+                        <Image
+                            src={banner}
+                            alt="Banner"
+                            style={{ objectFit: "contain" }}
+                        />
+                    </div>
+                ))}
+            </Slider>
         </div>
     )
 }

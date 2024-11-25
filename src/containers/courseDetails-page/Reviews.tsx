@@ -30,7 +30,7 @@ const Reviews = () => {
             </div>
 
             {/* Xem thêm đánh giá */}
-            <div className='text-center mt-6'>
+            <div className='text-center'>
                 <button className='border border-gray-400 hover:bg-gray-200 rounded-lg py-3 px-5'>Xem thêm đánh giá</button>
             </div>
         </>

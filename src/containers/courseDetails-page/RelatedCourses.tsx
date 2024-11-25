@@ -1,11 +1,12 @@
 import React from 'react'
+
 import { FaStar } from 'react-icons/fa'
 
 const RelatedCourses = () => {
     return (
-        <>
+        <div className='flex flex-col gap-5'>
             {Array.from({ length: 5 }).map((_, index) => (
-                <div className='flex gap-4 py-4 '>
+                <div className='flex gap-4'>
                     <img
                         className='object-cover w-[70px] h-[70px] rounded-lg'
                         src="https://static.unica.vn/upload/images/2019/06/eat-clean-chuan-cho-nguoi-viet_m_1561517372.jpg"
@@ -34,7 +35,7 @@ const RelatedCourses = () => {
                     </div>
                 </div>
             ))}
-        </>
+        </div>
     )
 }
 

@@ -10,10 +10,10 @@ import {
 
 const Navbar = () => {
     return (
-        <nav className='bg-[#003555] select-none'>
-            <div className='py-4 px-4 lg:px-20 md:px-10 text-white'>
+        <nav className='bg-[#003555] text-white select-none'>
+            <div className='max-w-8xl mx-auto px-4 xl:px-20 lg:px-10 md:px-10 py-4'>
                 <Carousel className='w-full'>
-                    <CarouselContent className='m-0 gap-5 cursor-pointer justify-between flex'>
+                    <CarouselContent className='m-0 gap-4 cursor-pointer justify-between flex'>
                         {navItems.map((navItem, index) => (
                             <CarouselItem key={index} className="p-0 basis-auto hover:text-blue-500">
                                 <Link href={`/course/${navItem.slug}`}>

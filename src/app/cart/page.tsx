@@ -10,7 +10,7 @@ import CourseCard from "@/components/card/CourseCard";
 const CartPage = () => {
     return (
         <div className='bg-[#F1F5F8] text-black'>
-            <div className='max-w-8xl mx-auto lg:px-20 md:px-10 px-4 py-8'>
+            <div className='max-w-8xl mx-auto px-4 xl:px-20 lg:px-10 md:px-10 py-8'>
                 <h3 className='text-semibold text-2xl mb-6'>Giỏ hàng</h3>
 
                 {/* Nếu không có sản phẩm trong giỏ hàng */}
@@ -110,7 +110,7 @@ const CartPage = () => {
                 {/* Bạn có thể quan tâm */}
                 <div className="mt-6">
                     <h3 className="uppercase text-xl mb-4">Bạn có thể quan tâm</h3>
-                    <div className="md:grid lg:grid-cols-4 md:grid-cols-2 gap-4">
+                    <div className="grid lg:grid-cols-4 md:grid-cols-2 gap-4">
                         {Array.from({ length: 4 }).map((_, index) => (
                             <Link href={"/"} className="col">
                                 <CourseCard />
