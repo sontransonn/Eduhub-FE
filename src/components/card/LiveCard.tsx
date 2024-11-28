@@ -6,7 +6,7 @@ const LiveCard = () => {
     return (
         <div className='w-full flex flex-col gap-1.5'>
             <img
-                className='rounded-sm'
+                className='rounded-sm h-44'
                 src="https://file.unica.vn/storage/db240c65c57e0a4f35edba3312c62511cbac63cc/nutrime-livestream.png" alt="" />
             <h3 className="font-medium line-clamp-2 break-words">Khóa học Bí quyết ăn đúng sống trường thọ</h3>
             <div className='flex items-center justify-between'>

@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google';
 import type { Metadata } from "next";
 
 import "@/styles/global.css";
+import 'react-circular-progressbar/dist/styles.css';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 

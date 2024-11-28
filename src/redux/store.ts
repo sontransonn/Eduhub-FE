@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit'
 
 import userReducer from "@/redux/slices/userSlice"
+import courseReducer from "@/redux/slices/courseSlice"
 
 export const makeStore = () => {
     return configureStore({
         reducer: {
-            user: userReducer
+            user: userReducer,
+            course: courseReducer
         },
         devTools: process.env.NEXT_PUBLIC_API_URL_NODE !== 'production' ? true : false,
     })

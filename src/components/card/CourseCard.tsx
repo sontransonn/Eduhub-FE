@@ -2,17 +2,22 @@ import React from 'react'
 
 import { FaStar } from 'react-icons/fa'
 
-const CourseCard = () => {
+type CourseCardProps = {
+    courseName: string,
+    rating: string
+};
+
+const CourseCard = ({ courseName, rating }: CourseCardProps) => {
     return (
         <div className='w-full flex flex-col gap-1.5'>
             <img
-                className='max-w-full h-auto rounded-sm object-cover'
+                className='max-w-full h-44 rounded-sm'
                 src="https://i.imgur.com/kFLuGCR.jpeg"
                 alt="" />
-            <h3 className='font-medium line-clamp-2'>Học nhiếp ảnh từ cơ bản đến nâng cao</h3>
+            <h3 className='font-medium line-clamp-2'>{courseName}</h3>
             <div className='text-sm font-light'>Hoàng Viết Thắng</div>
             <div className='flex items-center gap-1'>
-                <span className='text-sm font-medium'>4.5</span>
+                <span className='text-sm font-medium'>{rating}</span>
                 <div className='text-[#F77321] flex gap-0.5'>
                     <FaStar />
                     <FaStar />

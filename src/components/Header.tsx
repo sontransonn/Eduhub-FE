@@ -74,7 +74,7 @@ const Header = () => {
                                     <div className="w-0 h-0 border-l-[12px] border-r-[12px] border-white border-b-[15px] border-l-transparent border-r-transparent absolute top-[-15px]"></div>
                                     {categories?.map((category, index) => (
                                         <li key={index} className="p-[10px] flex justify-between cursor-pointer hover:text-blue-500 hover:bg-slate-100 group/item">
-                                            <Link href={`/course/hello`} className="flex items-center text-sm gap-1">
+                                            <Link href={`/category/hello`} className="flex items-center text-sm gap-1">
                                                 {category.icon}
                                                 {category.title}
                                             </Link>
