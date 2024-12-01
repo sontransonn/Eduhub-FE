@@ -20,8 +20,8 @@ const navItems = [
         slug: "tai-chinh-van-phong"
     },
     {
-        title: "Công nghệ",
-        slug: "lap-trinh-cntt"
+        title: "Kinh doanh",
+        slug: "kinh-doanh"
     },
     {
         title: "Sức khỏe - làm đẹp",
@@ -36,8 +36,8 @@ const navItems = [
         slug: "sach-hay-nen-doc"
     },
     {
-        title: "Đào tạo inhouse",
-        slug: "dao-tao-inhouse"
+        title: "Lập trình & CNTT",
+        slug: "lap-trinh-cntt"
     },
 ];
 

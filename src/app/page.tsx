@@ -45,7 +45,7 @@ export default function HomePage() {
         courses={topSoldCourse}
       />
       <CourseList
-        title="Khóa học được xem nhiều"
+        title="Khóa học phổ biến"
         slug="khoa-hoc-duoc-xem-nhieu"
         courses={topViewCourse}
       />

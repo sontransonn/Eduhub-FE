@@ -10,7 +10,6 @@ import WhatYouWillLearn from '@/containers/courseDetails-page/WhatYouWillLearn';
 import Introduction from '@/containers/courseDetails-page/Introduction';
 import CourseContent from '@/containers/courseDetails-page/CourseContent';
 import Tags from '@/containers/courseDetails-page/Tags';
-import RelatedCourses from '@/containers/courseDetails-page/RelatedCourses';
 import Teacher from '@/containers/courseDetails-page/Teacher';
 import Reviews from '@/containers/courseDetails-page/Reviews';
 import PurchaseCard from '@/containers/courseDetails-page/PurchaseCard';
@@ -96,17 +95,6 @@ const CourseDetails = () => {
                     <div className='flex gap-4'>
                         <div className='text-sm font-medium'>Tags:</div>
                         <Tags />
-                    </div>
-
-                    {/* Khóa học liên quan */}
-                    <div className='md:order-none order-2 flex flex-col gap-4'>
-                        <div className='text-2xl font-medium'>Khóa học liên quan</div>
-                        <RelatedCourses />
-                    </div>
-
-                    {/* Học viên thường mua cùng */}
-                    <div className='md:p-6 p-4 border border-[#929292] rounded md:order-none order-2'>
-                        <div className='text-2xl font-medium'>Học viên thường mua cùng</div>
                     </div>
 
                     {/* Giảng viên */}

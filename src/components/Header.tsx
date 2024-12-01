@@ -21,10 +21,7 @@ import { MdNavigateNext } from "react-icons/md";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Drawer, DrawerContent, DrawerTrigger, } from "@/components/ui/drawer"
-import {
-    Accordion,
-    AccordionContent, AccordionItem, AccordionTrigger,
-} from "@/components/ui/accordion"
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger, } from "@/components/ui/accordion"
 
 import { logout } from "@/api/auth.api";
 
@@ -73,23 +70,29 @@ const Header = () => {
                                 <ul className="bg-white h-fit border border-solid border-[#eee] relative shadow-custom z-[99]">
                                     <div className="w-0 h-0 border-l-[12px] border-r-[12px] border-white border-b-[15px] border-l-transparent border-r-transparent absolute top-[-15px]"></div>
                                     {categories?.map((category, index) => (
-                                        <li key={index} className="p-[10px] flex justify-between cursor-pointer hover:text-blue-500 hover:bg-slate-100 group/item">
-                                            <Link href={`/category/hello`} className="flex items-center text-sm gap-1">
-                                                {category.icon}
-                                                {category.title}
+                                        <li key={index} className="flex justify-between items-center cursor-pointer hover:text-blue-500 hover:bg-slate-100 group/item">
+                                            <Link href={`/category/${category.slug}`} className="w-full flex items-center justify-between p-[10px] ">
+                                                <div className="flex items-center text-sm gap-1">
+                                                    {category.icon}
+                                                    {category.title}
+                                                </div>
+                                                <IoMdArrowDropright size={18} />
                                             </Link>
-                                            <IoMdArrowDropright size={18} />
                                             <div className="absolute top-[-1px] left-full bg-slate-100 text-black z-[1000] group-hover/item:block hidden shadow-custom border border-solid border-[#eee]">
-                                                <ul className="h-[520px] w-[305px]">
-                                                    {category.items?.map((item, index) => (
-                                                        <li key={index} className="p-[10px] flex justify-between items-center group/sub-item text-sm cursor-pointer hover:text-blue-500">
-                                                            {item.title}
-                                                            <IoMdArrowDropright size={18} />
+                                                <ul className="h-[520px] w-[305px] border border-solid border-[#eee] relative">
+                                                    {category.subCategories?.map((subCategory: any, index) => (
+                                                        <li key={index} className="flex group/sub-item text-sm cursor-pointer hover:text-blue-500">
+                                                            <Link href={`/category/${category.slug}/${subCategory.slug}`} className="p-[10px] w-full flex items-center justify-between">
+                                                                {subCategory.title}
+                                                                <IoMdArrowDropright size={18} />
+                                                            </Link>
                                                             <div className="absolute top-[-1px] left-full bg-slate-100 text-black z-[1000] group-hover/sub-item:block hidden shadow-custom border border-solid border-[#eee]">
-                                                                <ul className="px-[10px] h-[520px] w-[305px]">
-                                                                    {item.tags?.map((tag, index) => (
-                                                                        <li key={index} className="py-[10px] flex justify-between items-center group/sub-item text-sm cursor-pointer hover:text-blue-500">
-                                                                            {tag}
+                                                                <ul className="h-[520px] w-[305px] border border-solid border-[#eee]">
+                                                                    {subCategory.tags?.map((tag: any, index: number) => (
+                                                                        <li key={index} className="w-full flex group/sub-item text-sm cursor-pointer hover:text-blue-500">
+                                                                            <Link href={`/tag/${tag.slug}`} className="w-full p-[10px] ">
+                                                                                {tag.title}
+                                                                            </Link>
                                                                         </li>
                                                                     ))}
                                                                 </ul>

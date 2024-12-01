@@ -37,7 +37,6 @@ const CourseCard = ({ courseName, rating }: CourseCardProps) => {
                     <sup>đ</sup>
                 </div>
             </div>
-            <div className='px-2 py-1.5 bg-[#FFDB5B] w-fit text-xs'>Bestseller</div>
         </div>
     )
 }

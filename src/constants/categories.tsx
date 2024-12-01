@@ -17,25 +17,49 @@ const categories = [
     {
         icon: <SiGoogletranslate size={18} />,
         title: "Ngoại Ngữ",
-        items: [
+        slug: "ngoai-ngu",
+        subCategories: [
             {
                 title: "Tiếng Hàn",
-                tags: ["Phát Âm Tiếng Hàn", "Tiếng Hàn Sơ Cấp", "Ngữ Pháp Tiếng Hàn", "Tiếng Hàn Trung Cấp"]
+                slug: "tieng-han",
+                tags: [
+                    { title: "Phát Âm Tiếng Hàn", slug: "phat-am-tieng-han" },
+                    { title: "Tiếng Hàn Sơ Cấp", slug: "tieng-han-so-cap" },
+                    { title: "Ngữ Pháp Tiếng Hàn", slug: "ngu-phap-tieng-han" },
+                    { title: "Tiếng Hàn Trung Cấp", slug: "tieng-han-trung-cap" }
+                ]
             },
             {
                 title: "Tiếng Trung",
-                tags: ["Tiếng Trung Cao Cấp", "Tiếng Trung Sơ Cấp"]
+                slug: "tieng-trung",
+                tags: [
+                    { title: "Tiếng Trung Cao Cấp", slug: "tieng-trung-cao-cap" },
+                    { title: "Tiếng Trung Sơ Cấp", slug: "tieng-trung-so-cap" }
+                ]
             },
             {
                 title: "Tiếng Nhật",
-                tags: ["Từ Vựng Tiếng Nhập", "Ngữ Pháp Tiếng Nhật", "Tiếng Nhật Giao Tiếp", "Phát Âm Tiếng Nhật"]
+                slug: "tieng-nhat",
+                tags: [
+                    { title: "Từ Vựng Tiếng Nhật", slug: "tu-vung-tieng-nhat" },
+                    { title: "Ngữ Pháp Tiếng Nhật", slug: "ngu-phap-tieng-nhat", },
+                    { title: "Tiếng Nhật Giao Tiếp", slug: "tieng-nhat-giao-tiep" },
+                    { title: "Phát Âm Tiếng Nhật", slug: "phat-am-tieng-nhat" }
+                ]
             },
             {
                 title: "Tiếng Anh",
-                tags: ["Phát Âm Tiếng Hàn", "Tiếng Hàn Sơ Cấp", "Ngữ Pháp Tiếng Hàn", "Tiếng Hàn Trung Cấp"]
+                slug: "tieng-anh",
+                tags: [
+                    { title: "Phát Âm Tiếng Hàn", slug: "phat-am-tieng-han" },
+                    { title: "Tiếng Hàn Sơ Cấp", slug: "tieng-han-so-cap" },
+                    { title: "Ngữ Pháp Tiếng Hàn", slug: "ngu-phap-tieng-han" },
+                    { title: "Tiếng Hàn Trung Cấp", slug: "tieng-han-trung-cap" }
+                ]
             },
             {
                 title: "Ngoại Ngữ Khác",
+                slug: "ngoai-ngu-khac",
                 tags: []
             },
         ],
@@ -43,71 +67,141 @@ const categories = [
     {
         icon: <IoRocketSharp size={18} />,
         title: "Kinh Doanh",
-        items: [
+        slug: "kinh-doanh",
+        subCategories: [
             {
                 title: "Quản Trị Kinh Doanh",
-                tags: ["Chiến Lược Kinh Doanh", "Hệ Thống Kinh Doanh", "Kế Hoạch Kinh Doanh"]
+                slug: "quan-tri-kinh-doanh",
+                tags: [
+                    { title: "Chiến Lược Kinh Doanh", slug: "chien-luoc-kinh-doanh" },
+                    { title: "Hệ Thống Kinh Doanh", slug: "he-thong-kinh-doanh" },
+                    { title: "Kế Hoạch Kinh Doanh", slug: "ke-hoach-kinh-doanh" }
+                ]
             },
             {
                 title: "Kinh Doanh Online",
-                tags: ["Kiếm Tiền Youtube", "Kiếm Tiền Amazon", "Bán Hàng Shopee"]
+                slug: "kinh-doanh-online",
+                tags: [
+                    { title: "Kiếm Tiền Youtube", slug: "kiem-tien-youtube" },
+                    { title: "Kiếm Tiền Amazon", slug: "kiem-tien-amazon" },
+                    { title: "Bán Hàng Shopee", slug: "ban-hang-shopee" }
+                ]
             },
             {
                 title: "Khởi Nghiệp",
-                tags: ["Kinh Doanh Cafe", "Kinh Doanh Mỹ Phẩm", "Kinh Doanh Nội Thất", "Kinh Doanh Spa", "Kinh Doanh Quán Ăn",
-                    "Kinh Doanh Nhà Hàng", "Kinh Doanh Nhà Trẻ", "Kinh Doanh Nhà Thuốc", "Kinh Doanh Thời Trang"
+                slug: "khoi-nghiep",
+                tags: [
+                    { title: "Kinh Doanh Cafe", slug: "kinh-doanh-cafe" },
+                    { title: "Kinh Doanh Mỹ Phẩm", slug: "kinh-doanh-my-pham" },
+                    { title: "Kinh Doanh Nội Thất", slug: "kinh-doanh-noi-that" },
+                    { title: "Kinh Doanh Spa", slug: "kinh-doanh-spa" },
+                    { title: "Kinh Doanh Quán Ăn", slug: "kinh-doanh-quan-an" },
+                    { title: "Kinh Doanh Nhà Hàng", slug: "kinh-doanh-nha-hang" },
+                    { title: "Kinh Doanh Nhà Trẻ", slug: "kinh-doanh-nha-tre" },
+                    { title: "Kinh Doanh Nhà Thuốc", slug: "kinh-doanh-nha-thuoc" },
+                    { title: "Kinh Doanh Thời Trang", slug: "kinh-doanh-thoi-trang" }
                 ]
             },
             {
                 title: "Quản Trị Nhân Sự",
-                tags: ["Tuyển Dụng", "Đào Tạo Nhân Sự"]
+                slug: "quan-tri-nhan-su",
+                tags: [
+                    { title: "Tuyển Dụng", slug: "tuyen-dung" },
+                    { title: "Đào Tạo Nhân Sự", slug: "dao-tao-nhan-su" }
+                ]
             },
             {
                 title: "Thương Mại Điện Tử",
-                tags: ["Shopify"]
+                slug: "thuong-mai-dien-tu",
+                tags: [
+                    { title: "Shopify", slug: "shopify" }
+                ]
             },
             {
                 title: "Bán Hàng",
-                tags: ["Chốt Sale", "Chăm Sóc Khách Hàng", "Chiến Lược Bán Hàng"]
+                slug: "ban-hang",
+                tags: [
+                    { title: "Chốt Sale", slug: "chot-sale" },
+                    { title: "Chăm Sóc Khách Hàng", slug: "cham-soc-khach-hang" },
+                    { title: "Chiến Lược Bán Hàng", slug: "chien-luoc-ban-hang" }
+                ]
             },
         ],
     },
     {
         icon: <FaPaintBrush size={18} />,
         title: "Thiết Kế",
-        items: [
+        slug: "thiet-ke",
+        subCategories: [
             {
                 title: "Thiết Kế Quảng Cáo",
-                tags: ["Thiết Kế In Ấn", "Thiết Kế Logo", "Thiết Kế Banner", "Thiết Kế Sản Phẩm"]
+                slug: "thiet-ke-quang-cao",
+                tags: [
+                    { title: "Thiết Kế In Ấn", slug: "thiet-ke-in-an" },
+                    { title: "Thiết Kế Logo", slug: "thiet-ke-logo" },
+                    { title: "Thiết Kế Banner", slug: "thiet-ke-banner" },
+                    { title: "Thiết Kế Sản Phẩm", slug: "thiet-ke-san-pham" }
+                ]
             },
             {
                 title: "Thiết Kế Web",
-                tags: ["Bootstrap", "Lập Trình Web"]
+                slug: "thiet-ke-web",
+                tags: [
+                    { title: "Bootstrap", slug: "bootstrap" },
+                    { title: "Lập Trình Web", slug: "lap-trinh-web" }
+                ]
             },
             {
                 title: "Thiết Kế Kiến Trúc",
-                tags: ["Autocad", "Sketchup", "Revit"]
+                slug: "thiet-ke-kien-truc",
+                tags: [
+                    { title: "Autocad", slug: "autocad" },
+                    { title: "Sketchup", slug: "sketchup" },
+                    { title: "Revit", slug: "revit" }
+                ]
             },
             {
                 title: "Thiết Kế Nội Thất",
-                tags: ["3DSMax"]
+                slug: "thiet-ke-noi-that",
+                tags: [
+                    { title: "3DSMax", slug: "3dsmax" }
+                ]
             },
             {
                 title: "Thiết Kế Đồ Họa",
-                tags: ["Thiết Kế Đồ Họa 2D", "Thiết Kế Đồ Họa 3D", "Design Sketching"]
+                slug: "thiet-ke-do-hoa",
+                tags: [
+                    { title: "Thiết Kế Đồ Họa 2D", slug: "thiet-ke-do-hoa-2d" },
+                    { title: "Thiết Kế Đồ Họa 3D", slug: "thiet-ke-do-hoa-3d" },
+                    { title: "Design Sketching", slug: "design-sketching" }
+                ]
             },
             {
                 title: "Thiết Kế UI/UX",
-                tags: ["UI-UX"]
+                slug: "thiet-ke-ui-ux",
+                tags: [
+                    { title: "UI-UX", slug: "ui-ux" }
+                ]
             },
             {
                 title: "Phần Mềm Thiết Kế",
-                tags: ["Adobe Premiere", "Solidworks", "Illustrator", "Photoshop", "InDesign", "Corel Draw",
-                    "Vray", "Capcut", "Canva", "After Effect"
+                slug: "phan-mem-thiet-ke",
+                tags: [
+                    { title: "Adobe Premiere", slug: "adobe-premiere" },
+                    { title: "Solidworks", slug: "solidworks" },
+                    { title: "Illustrator", slug: "illustrator" },
+                    { title: "Photoshop", slug: "photoshop" },
+                    { title: "InDesign", slug: "indesign" },
+                    { title: "Corel Draw", slug: "corel-draw" },
+                    { title: "Vray", slug: "vray" },
+                    { title: "Capcut", slug: "capcut" },
+                    { title: "Canva", slug: "canva" },
+                    { title: "After Effect", slug: "after-effect" }
                 ]
             },
             {
                 title: "Thiết Kế Khác",
+                slug: "thiet-ke-khac",
                 tags: []
             },
         ],
@@ -115,268 +209,509 @@ const categories = [
     {
         icon: <FaRegLightbulb size={18} />,
         title: "Kỹ Năng",
-        items: [
+        slug: "ky-nang",
+        subCategories: [
             {
                 title: "Kỹ Năng Lãnh Đạo",
-                tags: ["Kỹ Năng Lãnh Đạo"]
+                slug: "ky-nang-lanh-dao",
+                tags: [
+                    { title: "Kỹ Năng Lãnh Đạo", slug: "ky-nang-lanh-dao" }
+                ]
             },
             {
                 title: "Kỹ Năng Thuyết Trình",
-                tags: ["MC", "Thuyết Trình"]
+                slug: "ky-nang-thuyet-trinh",
+                tags: [
+                    { title: "MC", slug: "mc" },
+                    { title: "Thuyết Trình", slug: "thuyet-trinh" }
+                ]
             },
             {
                 title: "Kỹ Năng Giao Tiếp",
-                tags: ["Ngôn Ngữ Cơ Thể", "Giao Tiếp"]
+                slug: "ky-nang-giao-tiep",
+                tags: [
+                    { title: "Ngôn Ngữ Cơ Thể", slug: "ngon-ngu-co-the" },
+                    { title: "Giao Tiếp", slug: "giao-tiep" }
+                ]
             },
             {
                 title: "Kỹ Năng Đàm Phán",
-                tags: ["Đàm Phán"]
+                slug: "ky-nang-dam-phan",
+                tags: [
+                    { title: "Đàm Phán", slug: "dam-phan" }
+                ]
             },
             {
                 title: "Kỹ Năng Phỏng Vấn Xin Việc",
-                tags: ["DISC", "Kỹ Năng Tìm Việc", "Kỹ Năng Viết CV", "Kỹ Năng Phỏng Vấn"]
+                slug: "ky-nang-phong-van-xin-viec",
+                tags: [
+                    { title: "DISC", slug: "disc" },
+                    { title: "Kỹ Năng Tìm Việc", slug: "ky-nang-tim-viec" },
+                    { title: "Kỹ Năng Viết CV", slug: "ky-nang-viet-cv" },
+                    { title: "Kỹ Năng Phỏng Vấn", slug: "ky-nang-phong-van" }
+                ]
             },
             {
                 title: "Kỹ Năng Quản Lý Thời Gian",
-                tags: ["Quản Lý Thời Gian"]
+                slug: "ky-nang-quan-ly-thoi-gian",
+                tags: [
+                    { title: "Quản Lý Thời Gian", slug: "quan-ly-thoi-gian" }
+                ]
             },
             {
                 title: "Kỹ Năng Học Tập - Ghi Nhớ",
-                tags: ["Sketchnote", "Rèn Luyện Trí Nhớ", "Du Học"]
+                slug: "ky-nang-hoc-tap-ghi-nho",
+                tags: [
+                    { title: "Sketchnote", slug: "sketchnote" },
+                    { title: "Rèn Luyện Trí Nhớ", slug: "ren-luyen-tri-nho" },
+                    { title: "Du Học", slug: "du-hoc" }
+                ]
             },
             {
                 title: "Kỹ Năng Khác",
-                tags: ["Phát Triển Đội Nhóm", "Kỹ Năng Tổ Chức", "Quản Trị Cảm Xúc", "Quản Lý Xung Đột", "Phát Triển Bản Thân", "Kỹ Năng Lập Kế Hoạch"]
-            },
+                slug: "ky-nang-khac",
+                tags: [
+                    { title: "Phát Triển Đội Nhóm", slug: "phat-trien-doi-nhom" },
+                    { title: "Kỹ Năng Tổ Chức", slug: "ky-nang-to-chuc" },
+                    { title: "Quản Trị Cảm Xúc", slug: "quan-tri-cam-xuc" },
+                    { title: "Quản Lý Xung Đột", slug: "quan-ly-xung-dot" },
+                    { title: "Phát Triển Bản Thân", slug: "phat-trien-ban-than" },
+                    { title: "Kỹ Năng Lập Kế Hoạch", slug: "ky-nang-lap-ke-hoach" }
+                ]
+            }
         ],
     },
     {
         icon: <PiCodeBold size={18} />,
         title: "Lập Trình & CNTT",
-        items: [
+        slug: "lap-trinh-cntt",
+        subCategories: [
             {
                 title: "Cơ Sở Dữ Liệu",
-                tags: ["MySQL", "Dữ Liệu", "Cơ Sở Dữ Liệu", "Blockchain"]
+                slug: "co-so-du-lieu",
+                tags: [
+                    { title: "MySQL", slug: "mysql" },
+                    { title: "Dữ Liệu", slug: "du-lieu" },
+                    { title: "Cơ Sở Dữ Liệu", slug: "co-so-du-lieu" },
+                    { title: "Blockchain", slug: "blockchain" }
+                ]
             },
             {
                 title: "Ngôn Ngữ Lập Trình",
-                tags: ["Lập Trình C", "Lập Trình Kotlin", "Javascript", "CSS", "Lập Trình PHP", "Nodejs", "Lập Trình Python", "Lập Trình Java"]
+                slug: "ngon-ngu-lap-trinh",
+                tags: [
+                    { title: "Lập Trình C", slug: "lap-trinh-c" },
+                    { title: "Lập Trình Kotlin", slug: "lap-trinh-kotlin" },
+                    { title: "Javascript", slug: "javascript" },
+                    { title: "CSS", slug: "css" },
+                    { title: "Lập Trình PHP", slug: "lap-trinh-php" },
+                    { title: "Nodejs", slug: "nodejs" },
+                    { title: "Lập Trình Python", slug: "lap-trinh-python" },
+                    { title: "Lập Trình Java", slug: "lap-trinh-java" }
+                ]
             },
             {
                 title: "Mạng Và Bảo Mật",
-                tags: ["Quản Trị Mạng"]
+                slug: "mang-va-bao-mat",
+                tags: [
+                    { title: "Quản Trị Mạng", slug: "quan-tri-mang" }
+                ]
             },
             {
                 title: "Sửa Chữa Và Chế Tạo",
+                slug: "sua-chua-va-che-tao",
                 tags: []
             },
             {
                 title: "Phát Triển Web",
-                tags: ["Angular"]
+                slug: "phat-trien-web",
+                tags: [
+                    { title: "Angular", slug: "angular" }
+                ]
             },
             {
                 title: "Phát Triển Ứng Dụng Di Động",
-                tags: ["Lập Trình Android", "Lập Trình IOS", "Lập Trình Swift"]
+                slug: "phat-trien-ung-dung-di-dong",
+                tags: [
+                    { title: "Lập Trình Android", slug: "lap-trinh-android" },
+                    { title: "Lập Trình IOS", slug: "lap-trinh-ios" },
+                    { title: "Lập Trình Swift", slug: "lap-trinh-swift" }
+                ]
             },
             {
                 title: "Trí Tuệ Nhân Tạo",
-                tags: ["Trí Tuệ Nhân Tạo (AI)"]
-            },
+                slug: "tri-tue-nhan-tao",
+                tags: [
+                    { title: "Trí Tuệ Nhân Tạo (AI)", slug: "tri-tue-nhan-tao-ai" }
+                ]
+            }
         ],
     },
     {
         icon: <FaHeartbeat size={18} />,
         title: "Sức Khỏe Và Làm Đẹp",
-        items: [
+        slug: "suc-khoe-va-lam-dep",
+        subCategories: [
             {
                 title: "Yoga",
-                tags: ["Yoga Trị Liệu", "Yoga Bầu", "Yoga Trẻ Em"]
+                slug: "yoga",
+                tags: [
+                    { title: "Yoga Trị Liệu", slug: "yoga-tri-lieu" },
+                    { title: "Yoga Bầu", slug: "yoga-bau" },
+                    { title: "Yoga Trẻ Em", slug: "yoga-tre-em" }
+                ]
             },
             {
                 title: "Thiền Định",
-                tags: ["Thiền"]
+                slug: "thien-dinh",
+                tags: [
+                    { title: "Thiền", slug: "thien" }
+                ]
             },
             {
                 title: "Massage",
+                slug: "massage",
                 tags: []
             },
             {
                 title: "Fitness - Gym",
+                slug: "fitness-gym",
                 tags: []
             },
             {
                 title: "Dinh Dưỡng Và Ăn Kiêng",
-                tags: ["Eat Clean"]
+                slug: "dinh-duong-va-an-kieng",
+                tags: [
+                    { title: "Eat Clean", slug: "eat-clean" }
+                ]
             },
             {
                 title: "Sức Khỏe Tinh Thần",
-                tags: ["Hạnh Phúc", "Trầm Cảm"]
+                slug: "suc-khoe-tinh-than",
+                tags: [
+                    { title: "Hạnh Phúc", slug: "hanh-phuc" },
+                    { title: "Trầm Cảm", slug: "tram-cam" }
+                ]
             },
             {
                 title: "Thể Thao",
-                tags: ["Nhảy", "Bơi", "Dance - Zumba", "Samba", "Cờ Vua", "Múa"]
+                slug: "the-thao",
+                tags: [
+                    { title: "Nhảy", slug: "nhay" },
+                    { title: "Bơi", slug: "boi" },
+                    { title: "Dance - Zumba", slug: "dance-zumba" },
+                    { title: "Samba", slug: "samba" },
+                    { title: "Cờ Vua", slug: "co-vua" },
+                    { title: "Múa", slug: "mua" }
+                ]
             },
             {
                 title: "Làm Đẹp",
-                tags: ["Làm Đẹp Sau Sinh Trang Điểm"]
-            },
+                slug: "lam-dep",
+                tags: [
+                    { title: "Làm Đẹp Sau Sinh Trang Điểm", slug: "lam-dep-sau-sinh-trang-diem" }
+                ]
+            }
         ],
     },
     {
         icon: <BsGraphUpArrow size={18} />,
         title: "Marketing",
-        items: [
+        slug: "marketing",
+        subCategories: [
             {
                 title: "Digital Marketing",
-                tags: ["Facebook Marketing", "Zalo Marketing", "Quảng Cáo", "Livestream", "Email Marketing", "Google Ads", "Seo",
-                    "Chatbot", "Youtube Marketing", "LandingPage", "Content Marrketing", "Tiktok", "Affiliate Marketing"]
+                slug: "digital-marketing",
+                tags: [
+                    { title: "Facebook Marketing", slug: "facebook-marketing" },
+                    { title: "Zalo Marketing", slug: "zalo-marketing" },
+                    { title: "Quảng Cáo", slug: "quang-cao" },
+                    { title: "Livestream", slug: "livestream" },
+                    { title: "Email Marketing", slug: "email-marketing" },
+                    { title: "Google Ads", slug: "google-ads" },
+                    { title: "SEO", slug: "seo" },
+                    { title: "Chatbot", slug: "chatbot" },
+                    { title: "Youtube Marketing", slug: "youtube-marketing" },
+                    { title: "LandingPage", slug: "landingpage" },
+                    { title: "Content Marketing", slug: "content-marketing" },
+                    { title: "Tiktok", slug: "tiktok" },
+                    { title: "Affiliate Marketing", slug: "affiliate-marketing" }
+                ]
             },
             {
                 title: "Quan hệ Công Chúng",
+                slug: "quan-he-cong-chung",
                 tags: []
             },
             {
                 title: "Xây Dựng Thương Hiệu",
-                tags: ["Thương Hiệu Cá Nhân", "Thương Hiệu Công Ty"]
+                slug: "xay-dung-thuong-hieu",
+                tags: [
+                    { title: "Thương Hiệu Cá Nhân", slug: "thuong-hieu-ca-nhan" },
+                    { title: "Thương Hiệu Công Ty", slug: "thuong-hieu-cong-ty" }
+                ]
             },
             {
                 title: "Nguyên Lý Marketing",
-                tags: ["Chiến Lược Marketing"]
-            },
+                slug: "nguyen-ly-marketing",
+                tags: [
+                    { title: "Chiến Lược Marketing", slug: "chien-luoc-marketing" }
+                ]
+            }
         ],
     },
     {
         icon: <HiComputerDesktop size={18} />,
         title: "Tin Học Văn Phòng",
-        items: [
+        slug: "tin-hoc-van-phong",
+        subCategories: [
             {
                 title: "Microsoft",
-                tags: ["Vba"]
+                slug: "microsoft",
+                tags: [
+                    { title: "Vba", slug: "vba" }
+                ]
             },
             {
                 title: "Google",
+                slug: "google",
                 tags: []
             },
             {
                 title: "Tin Học Văn Phòng Khác",
+                slug: "tin-hoc-van-phong-khac",
                 tags: []
-            },
+            }
         ],
     },
     {
         icon: <ImSpoonKnife size={18} />,
         title: "Phong Cách Sống",
-        items: [
+        slug: "phong-cach-song",
+        subCategories: [
             {
                 title: "Nghệ Thuật",
-                tags: ["Cắm Hoa", "Ảo Thuật", "Vẽ", "Đan Len", "Hội Họa", "Beatbox", "Nhạc Điện Tử", "DJ", "Phun Xăm"]
+                slug: "nghe-thuat",
+                tags: [
+                    { title: "Cắm Hoa", slug: "cam-hoa" },
+                    { title: "Ảo Thuật", slug: "ao-thuat" },
+                    { title: "Vẽ", slug: "ve" },
+                    { title: "Đan Len", slug: "dan-len" },
+                    { title: "Hội Họa", slug: "hoi-hoa" },
+                    { title: "Beatbox", slug: "beatbox" },
+                    { title: "Nhạc Điện Tử", slug: "nhac-dien-tu" },
+                    { title: "DJ", slug: "dj" },
+                    { title: "Phun Xăm", slug: "phun-xam" }
+                ]
             },
             {
                 title: "Ẩm Thực",
-                tags: ["Làm Bánh", "Nấu Chè", "Mứt", "Làm Thạch", "Ăn Vặt", "Làm Kem"]
+                slug: "am-thuc",
+                tags: [
+                    { title: "Làm Bánh", slug: "lam-banh" },
+                    { title: "Nấu Chè", slug: "nau-che" },
+                    { title: "Mứt", slug: "mut" },
+                    { title: "Làm Thạch", slug: "lam-thach" },
+                    { title: "Ăn Vặt", slug: "an-vat" },
+                    { title: "Làm Kem", slug: "lam-kem" }
+                ]
             },
             {
                 title: "Đồ Uống",
-                tags: ["Pha Chế", "Trà Sữa"]
+                slug: "do-uong",
+                tags: [
+                    { title: "Pha Chế", slug: "pha-che" },
+                    { title: "Trà Sữa", slug: "tra-sua" }
+                ]
             },
             {
                 title: "Phương Pháp Bí Truyền",
-                tags: ["Xem Tướng", "Sinh Trắc Vân Tay", "Tử Vi", "Thần Số Học", "Phong Thủy"]
+                slug: "phuong-phap-bi-truyen",
+                tags: [
+                    { title: "Xem Tướng", slug: "xem-tuong" },
+                    { title: "Sinh Trắc Vân Tay", slug: "sinh-trac-van-tay" },
+                    { title: "Tử Vi", slug: "tu-vi" },
+                    { title: "Thần Số Học", slug: "than-so-hoc" },
+                    { title: "Phong Thủy", slug: "phong-thuy" }
+                ]
             },
             {
                 title: "Viết Nội Dung",
-                tags: ["Nghệ thuật Viết Ebook", "Đọc Sách"]
+                slug: "viet-noi-dung",
+                tags: [
+                    { title: "Nghệ thuật Viết Ebook", slug: "nghe-thuat-viet-ebook" },
+                    { title: "Đọc Sách", slug: "doc-sach" }
+                ]
             },
             {
                 title: "Du Lịch",
-                tags: ["Du Lịch"]
+                slug: "du-lich",
+                tags: [
+                    { title: "Du Lịch", slug: "du-lich" }
+                ]
             },
             {
                 title: "Phong Cách Sống Khác",
-                tags: ["Handmade", "Cắt May"]
-            },
+                slug: "phong-cach-song-khac",
+                tags: [
+                    { title: "Handmade", slug: "handmade" },
+                    { title: "Cắt May", slug: "cat-may" }
+                ]
+            }
         ],
     },
     {
         icon: <HiMiniUserGroup size={18} />,
         title: "Hôn Nhân Và Gia Đình",
-        items: [
+        slug: "hon-nhan-va-gia-dinh",
+        subCategories: [
             {
                 title: "Tình Yêu",
-                tags: ["Tình Yêu", "Tán Gái"]
+                slug: "tinh-yeu",
+                tags: [
+                    { title: "Tình Yêu", slug: "tinh-yeu" },
+                    { title: "Tán Gái", slug: "tan-gai" }
+                ]
             },
             {
                 title: "Đời Sống Vợ Chồng",
-                tags: ["Mang Thai", "Ngoại Tình", "Hôn Nhân Gia Đình", "Sinh Con", "Trầm Cảm Trước Sinh", "Trầm Cảm Sau Sinh"]
+                slug: "doi-song-vo-chong",
+                tags: [
+                    { title: "Mang Thai", slug: "mang-thai" },
+                    { title: "Ngoại Tình", slug: "ngoai-tinh" },
+                    { title: "Hôn Nhân Gia Đình", slug: "hon-nhan-gia-dinh" },
+                    { title: "Sinh Con", slug: "sinh-con" },
+                    { title: "Trầm Cảm Trước Sinh", slug: "tram-cam-truoc-sinh" },
+                    { title: "Trầm Cảm Sau Sinh", slug: "tram-cam-sau-sinh" }
+                ]
             },
             {
                 title: "Làm Cha Mẹ",
-                tags: ["Nuôi Dạy Con", "Thai Giáo", "Dinh Dưỡng Cho Con", "Phát Triển Trí Tuệ", "Ăn Dặm", "Phương Pháp Dạy Con", "Giáo Dục Giới Tính"]
-            },
+                slug: "lam-cha-me",
+                tags: [
+                    { title: "Nuôi Dạy Con", slug: "nuoi-day-con" },
+                    { title: "Thai Giáo", slug: "thai-giao" },
+                    { title: "Dinh Dưỡng Cho Con", slug: "dinh-duong-cho-con" },
+                    { title: "Phát Triển Trí Tuệ", slug: "phat-trien-tri-tue" },
+                    { title: "Ăn Dặm", slug: "an-dam" },
+                    { title: "Phương Pháp Dạy Con", slug: "phuong-phap-day-con" },
+                    { title: "Giáo Dục Giới Tính", slug: "giao-duc-gioi-tinh" }
+                ]
+            }
         ],
     },
     {
         icon: <FaRegMoneyBillAlt size={18} />,
         title: "Tài Chính Kế Toán",
-        items: [
+        slug: "tai-chinh-ke-toan",
+        subCategories: [
             {
                 title: "Kế Toán",
-                tags: ["Phần Mềm Kế Toán", "Báo Cáo Tài Chính", "Kế Toán Thuế", "Kế Toán Tổng Hợp"]
+                slug: "ke-toan",
+                tags: [
+                    { title: "Phần Mềm Kế Toán", slug: "phan-mem-ke-toan" },
+                    { title: "Báo Cáo Tài Chính", slug: "bao-cao-tai-chinh" },
+                    { title: "Kế Toán Thuế", slug: "ke-toan-thue" },
+                    { title: "Kế Toán Tổng Hợp", slug: "ke-toan-tong-hop" }
+                ]
             },
             {
                 title: "Tài Chính",
-                tags: ["Tài Chính Cá Nhân"]
+                slug: "tai-chinh",
+                tags: [
+                    { title: "Tài Chính Cá Nhân", slug: "tai-chinh-ca-nhan" }
+                ]
             },
             {
                 title: "Đầu Tư",
-                tags: ["Bitcoin", "Đầu Tư Forex"]
-            },
+                slug: "dau-tu",
+                tags: [
+                    { title: "Bitcoin", slug: "bitcoin" },
+                    { title: "Đầu Tư Forex", slug: "dau-tu-forex" }
+                ]
+            }
         ],
     },
     {
         icon: <IoMusicalNotes size={18} />,
         title: "Âm Nhạc",
-        items: [
+        slug: "am-nhac",
+        subCategories: [
             {
                 title: "Nhạc Cụ",
-                tags: ["Guitar", "Piano", "Ukulele", "Sáo", "Harmonica", "Organ"]
+                slug: "nhac-cu",
+                tags: [
+                    { title: "Guitar", slug: "guitar" },
+                    { title: "Piano", slug: "piano" },
+                    { title: "Ukulele", slug: "ukulele" },
+                    { title: "Sáo", slug: "sao" },
+                    { title: "Harmonica", slug: "harmonica" },
+                    { title: "Organ", slug: "organ" }
+                ]
             },
             {
                 title: "Thanh Nhạc",
-                tags: ["Hát", "Luyện Giọng"]
+                slug: "thanh-nhac",
+                tags: [
+                    { title: "Hát", slug: "hat" },
+                    { title: "Luyện Giọng", slug: "luyen-giong" }
+                ]
             },
             {
                 title: "Sản Xuất Nhạc",
-                tags: ["Sản Xuất Và Sáng Tác Nhạc", "Viết Nhạc"]
+                slug: "san-xuat-nhac",
+                tags: [
+                    { title: "Sản Xuất Và Sáng Tác Nhạc", slug: "san-xuat-va-sang-tac-nhac" },
+                    { title: "Viết Nhạc", slug: "viet-nhac" }
+                ]
             },
             {
                 title: "Âm Nhạc Khác",
+                slug: "am-nhac-khac",
                 tags: []
-            },
+            }
         ],
     },
     {
         icon: <BsCameraFill size={18} />,
         title: "Nhiếp Ảnh Và Video",
-        items: [
+        slug: "nhiep-anh-va-video",
+        subCategories: [
             {
                 title: "Chụp Ảnh",
-                tags: ["Chỉnh Sửa Ảnh", "Chụp Ảnh"]
+                slug: "chup-anh",
+                tags: [
+                    { title: "Chỉnh Sửa Ảnh", slug: "chinh-sua-anh" },
+                    { title: "Chụp Ảnh", slug: "chup-anh" }
+                ]
             },
             {
                 title: "Dựng Phim",
-                tags: ["Biên Kịch", "Dựng Phim", "Làm Phim Hoạt Hình", "Animation", "Sản Xuất Phim", "Blender", "Kỹ Xảo"]
+                slug: "dung-phim",
+                tags: [
+                    { title: "Biên Kịch", slug: "bien-kich" },
+                    { title: "Dựng Phim", slug: "dung-phim" },
+                    { title: "Làm Phim Hoạt Hình", slug: "lam-phim-hoat-hinh" },
+                    { title: "Animation", slug: "animation" },
+                    { title: "Sản Xuất Phim", slug: "san-xuat-phim" },
+                    { title: "Blender", slug: "blender" },
+                    { title: "Kỹ Xảo", slug: "ky-xao" }
+                ]
             },
             {
                 title: "Biên Tập Video",
-                tags: ["Biên Tập Video"]
-            },
+                slug: "bien-tap-video",
+                tags: [
+                    { title: "Biên Tập Video", slug: "bien-tap-video" }
+                ]
+            }
         ],
     },
     {
         icon: <ImBooks size={18} />,
         title: "Sách Hay Nên Đọc",
-        items: [],
+        slug: "sach-hay-nen-doc",
+        subCategories: [],
     },
 ];
 

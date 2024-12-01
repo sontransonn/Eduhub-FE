@@ -3,10 +3,7 @@ import Link from 'next/link';
 
 import navItems from '@/constants/navItems';
 
-import {
-    Carousel,
-    CarouselContent, CarouselItem,
-} from "@/components/ui/carousel"
+import { Carousel, CarouselContent, CarouselItem, } from "@/components/ui/carousel"
 
 const Navbar = () => {
     return (
@@ -16,7 +13,7 @@ const Navbar = () => {
                     <CarouselContent className='m-0 gap-4 cursor-pointer justify-between flex'>
                         {navItems.map((navItem, index) => (
                             <CarouselItem key={index} className="p-0 basis-auto hover:text-blue-500">
-                                <Link href={`/course/${navItem.slug}`}>
+                                <Link href={`/category/${navItem.slug}`}>
                                     {navItem.title}
                                 </Link>
                             </CarouselItem>

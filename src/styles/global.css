@@ -95,6 +95,10 @@
   transform: scale(1.2);
 }
 
-.accordion-trigger > svg {
+.accordion-trigger>svg {
   display: none !important;
+}
+
+#carousel-custom>div {
+  width: 100%;
 }
