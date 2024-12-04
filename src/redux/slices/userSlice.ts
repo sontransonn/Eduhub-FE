@@ -1,10 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-    userInfo: typeof window !== 'undefined' && localStorage.getItem("userInfo")
-        ? JSON.parse(localStorage.getItem("userInfo")!)
-        : null,
-    loading: false,
+    userInfo: null,
 }
 
 const userSlice = createSlice({
@@ -17,16 +14,12 @@ const userSlice = createSlice({
         resetUserInfo: (state) => {
             state.userInfo = null
         },
-        setLoading: (state, { payload }) => {
-            state.loading = payload
-        },
     }
 })
 
 export const {
     setUserInfo,
     resetUserInfo,
-    setLoading
 } = userSlice.actions
 
 export default userSlice.reducer

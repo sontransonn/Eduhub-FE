@@ -5,7 +5,7 @@ import banner4 from "@/public/images/banner4.png"
 import banner5 from "@/public/images/banner5.png"
 
 export const banners = [
-    banner1,
+    banner4,
     banner2,
     banner3,
     banner4,
@@ -13,5 +13,5 @@ export const banners = [
     banner2,
     banner5,
     banner3,
-    banner1
+    banner5
 ]

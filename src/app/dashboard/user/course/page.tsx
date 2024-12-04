@@ -1,13 +1,17 @@
+"use client"
 import React from 'react'
+import { useSelector } from 'react-redux'
 import Link from 'next/link'
 
-const page = () => {
+export default function DashboardCourse() {
+    const { userInfo } = useSelector((state: any) => state.user)
+
     return (
         <>
             <div className='bg-[#003555] text-white'>
                 <div className='max-w-8xl mx-auto lg:px-20 md:px-10 px-4 pt-12 flex flex-col gap-[60px] leading-normal'>
                     <div className='flex justify-between items-center'>
-                        <span className='text-[40px] font-medium'>Học viên : Trần Đức Sơn</span>
+                        <span className='text-[40px] font-medium'>Học viên : {userInfo?.fullName}</span>
                     </div>
                     <div className='flex'>
                         <ul className='flex gap-5 font-medium'>
@@ -65,5 +69,3 @@ const page = () => {
         </>
     )
 }
-
-export default page

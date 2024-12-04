@@ -9,7 +9,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger, } from "@
 export default function SearchPage() {
     return (
         <main className='bg-[#F1F5F8] text-black'>
-            <div className='max-w-8xl mx-auto px-4 xl:px-20 lg:px-10 md:px-10 py-8'>
+            <div className='max-w-8xl mx-auto px-4 xl:px-20 lg:px-10 md:px-10 lg:py-14 py-8'>
                 <div className='flex flex-col gap-10'>
                     {/*  */}
                     <div className='flex items-center justify-between flex-wrap gap-4'>

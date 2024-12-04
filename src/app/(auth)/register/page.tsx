@@ -1,70 +1,103 @@
 'use client'
-import React from "react"
+import React, { useState } from "react"
 import Link from "next/link"
-import { useForm, SubmitHandler } from "react-hook-form"
-import { useDispatch, useSelector } from 'react-redux';
-
-import { setUserInfo } from "@/redux/slices/userSlice";
-import { setLoading } from "@/redux/slices/userSlice";
+import { useRouter } from 'next/navigation';
+import { useSelector } from 'react-redux';
+import toast from 'react-hot-toast';
 
 import { FaFacebook } from "react-icons/fa"
 import { FcGoogle } from "react-icons/fc"
-interface FormData {
-    phone: string;
-}
+
+import { register } from "@/api/auth.api";
 
 export default function RegisterPage() {
-    const { userInfo, loading } = useSelector((state: any) => state.user)
+    const router = useRouter();
 
-    const {
-        register,
-        handleSubmit, formState: { errors }
-    } = useForm<FormData>({ mode: "onChange", });
+    const [formData, setFormData] = useState({
+        fullName: "",
+        email: "",
+        password: "",
+        confirmPassword: ""
+    })
 
-    const onSubmit: SubmitHandler<FormData> = async (formData: { phone: string; }) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setFormData((prev) => ({ ...prev, [name]: value }));
+    };
+
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        if (formData.password !== formData.confirmPassword) {
+            return toast.error("Vui lòng kiểm tra lại mật khẩu!")
+        }
+
         try {
-
+            const data = await register(formData);
+            toast.success(data.message)
+            router.push("/login")
         } catch (error: any) {
-
+            toast.error(error.message)
+            console.error('Register failed:', error.message);
         }
     }
 
     return (
         <div className="w-full sm:w-2/3 md:w-1/2 lg:w-1/3">
-            <div className="flex flex-col w-fullrounded-lg bg-white">
+            <div className="flex flex-col w-full bg-white">
                 {/* Tiêu đề */}
                 <h1 className="text-lg text-[#003555] font-bold uppercase p-[30px]">Đăng ký</h1>
 
-                {/* Form đăng nhập */}
-                <form className="text-sm px-[30px] pb-[30px] ">
-                    <div className="flex flex-col gap-8">
-                        <div className='w-full relative'>
+                {/* Form đăng ký */}
+                <form className="text-sm px-[30px] pb-[30px]" onSubmit={handleSubmit} >
+                    <div className="flex flex-col gap-4">
+                        <input
+                            type="text" required
+                            name="fullName"
+                            className={`w-full rounded-[2px] p-3 border focus:border-black focus:bg-white border-slate-300 outline-none`}
+                            placeholder='Họ tên'
+                            value={formData.fullName}
+                            onChange={handleChange}
+                        />
+                        <input
+                            type="email" required
+                            name="email"
+                            className={`w-full rounded-[2px] p-3 border focus:border-black focus:bg-white border-slate-300 outline-none`}
+                            placeholder='Email'
+                            value={formData.email}
+                            onChange={handleChange}
+                        />
+                        <div className="flex gap-3">
                             <input
-                                type="text"
-                                className={`w-full rounded-[2px] p-3 border focus:border-black focus:bg-white ${errors.phone && "border-red-500 bg-red-50"} border-slate-300 outline-none`}
-                                placeholder='Số điện thoại'
-                                {...register("phone", {
-                                    required: "Vui lòng điền vào mục này",
-                                    pattern: {
-                                        value: /^\+?[0-9]{7,15}$/,
-                                        message: "Vui lòng nhập số điện thoại hợp lệ"
-                                    }
-                                })}
+                                type="password" required
+                                name="password"
+                                minLength={8}
+                                className={`w-full rounded-[2px] p-3 border focus:border-black focus:bg-white border-slate-300 outline-none`}
+                                placeholder='Mật khẩu'
+                                value={formData.password}
+                                onChange={handleChange}
                             />
-                            {errors.phone && typeof errors.phone.message === "string" && (
-                                <p className="absolute bottom-[-20px] text-red-500 text-xs mt-1">{errors.phone.message}</p>
-                            )}
+                            <input
+                                type="password" required
+                                name="confirmPassword"
+                                minLength={8}
+                                className={`w-full rounded-[2px] p-3 border focus:border-black focus:bg-white border-slate-300 outline-none`}
+                                placeholder='Nhập lại mật khẩu'
+                                value={formData.confirmPassword}
+                                onChange={handleChange}
+                            />
                         </div>
 
-                        <button
-                            type="submit"
-                            className='bg-[#003555] rounded-[2px] hover:bg-[#1c3c55] w-full py-3 px-6 text-white font-bold mb-[30px]'
-                        >
-                            Tiếp theo
+                        <button type="submit" className='bg-[#003555] rounded-[2px] hover:bg-[#1c3c55] w-full py-3 px-6 text-white font-bold'>
+                            Đăng ký
                         </button>
                     </div>
 
-                    {/*  */}
+                    {/* Quên mật khẩu và Đăng nhập với SMS*/}
+                    <div className="flex text-xs justify-between my-[10px]">
+                        <Link href={""}>Quên mật khẩu?</Link>
+                    </div>
+
+                    {/* Đăng nhập với Facebook hoặc Google */}
                     <div className=" text-slate-400 text-[12px] ">
                         <div className="pb-[14px] flex gap-2 items-center">
                             <div className="w-full h-[0.5px] bg-slate-400"></div>
@@ -82,14 +115,13 @@ export default function RegisterPage() {
                             </div>
                         </div>
                     </div>
-
-                    <div className="mt-[25px] text-center">
-                        <h3 className="block">Bằng việc đăng kí, bạn đã đồng ý với Eduhub về</h3>
-                        <span className="text-[#003555]">Điều khoản dịch vụ </span>&<span className="text-[#003555]"> Chính sách bảo mật</span>
-                    </div>
                 </form>
+
+                {/* Bạn đã có tài khoản? */}
                 <div className="mb-[30px] flex justify-center text-sm">
-                    <span className="text-slate-400">Bạn đã có tài khoản? <Link className="text-[#003555]" href={"/login"}>Đăng nhập</Link></span>
+                    <span className="text-slate-400">
+                        Bạn đã có tài khoản? <Link className="text-[#003555]" href={"/login"}>Đăng nhập</Link>
+                    </span>
                 </div>
             </div>
         </div>

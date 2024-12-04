@@ -28,6 +28,7 @@ import { logout } from "@/api/auth.api";
 const Header = () => {
     const dispatch = useDispatch()
 
+    const [keyword, setKeyword] = useState('');
     const [openAccountMenu, setOpenAccountMenu] = useState(false)
 
     const { userInfo } = useSelector((state: any) => state.user)
@@ -115,6 +116,7 @@ const Header = () => {
                                 value="" type="text"
                                 className="block w-full px-4 py-2.5 text-sm text-gray-900 border border-gray-300 rounded-full bg-gray-50 focus:ring-gray-500 focus:border-gray-500"
                                 placeholder="Tìm khóa học, giảng viên" required
+                                onChange={(e) => setKeyword(e.target.value)}
                             />
                             <button type="submit" className="absolute top-0 right-0 h-full pr-4">
                                 <FiSearch size={26} color="#969899" />
@@ -128,18 +130,18 @@ const Header = () => {
                             <Link className="block" href={"/biz"}>Doanh nghiệp</Link>
                         </div>
                         <div className="my-auto lg:block hidden">
-                            <Link className="block" href={"/"}>Hội viên</Link>
+                            <Link className="block" href={"/dashboard/user/group"}>Hội viên</Link>
                         </div>
                         {userInfo ? (
                             <>
                                 <div className="my-auto p-3 text-white bg-[#1782FB] hover:bg-blue-600 cursor-pointer rounded font-bold">
-                                    <Link className="flex gap-2 items-center" href={"/dashboard"}>
+                                    <Link className="flex gap-2 items-center" href={"/dashboard/user/course"}>
                                         <FaArrowRightToBracket size={14} />
                                         Vào học
                                     </Link>
                                 </div>
                                 <div className="my-auto">
-                                    <Link href={"/cart"}>
+                                    <Link href={"/dashboard/user/wishlist"}>
                                         <FaRegHeart size={24} />
                                     </Link>
                                 </div>
@@ -156,23 +158,14 @@ const Header = () => {
                                     {openAccountMenu ? (
                                         <div className="absolute top-[120%] w-44 right-0 bg-white shadow-2xl border rounded-lg">
                                             <ul className="py-2 text-sm text-gray-700">
-                                                <li>
-                                                    <a className="block px-4 py-2 hover:bg-gray-100" href="">Vào học</a>
+                                                <li className="block px-4 py-2 hover:bg-gray-100">
+                                                    <Link href="/dashboard/user/course">Vào học</Link>
                                                 </li>
-                                                <li>
-                                                    <a className="block px-4 py-2 hover:bg-gray-100" href="">Hội viên</a>
+                                                <li className="block px-4 py-2 hover:bg-gray-100">
+                                                    <Link href="/dashboard/user/group">Hội viên</Link>
                                                 </li>
-                                                <li>
-                                                    <a className="block px-4 py-2 hover:bg-gray-100" href="">Kích hoạt khóa học</a>
-                                                </li>
-                                                <li>
-                                                    <a className="block px-4 py-2 hover:bg-gray-100" href="">Doanh nghiệp</a>
-                                                </li>
-                                                <li>
-                                                    <a className="block px-4 py-2 hover:bg-gray-100" href="/info">Cập nhật hồ sơ</a>
-                                                </li>
-                                                <li>
-                                                    <a className="block px-4 py-2 hover:bg-gray-100" href="">Ví của bạn</a>
+                                                <li className="block px-4 py-2 hover:bg-gray-100">
+                                                    <Link href="/info">Cập nhật hồ sơ</Link>
                                                 </li>
                                                 <li className="pt-2 border-t w-full border-solid">
                                                     <div

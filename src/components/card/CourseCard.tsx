@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { FaStar } from 'react-icons/fa'
+import { FaStar } from "react-icons/fa6";
 
 type CourseCardProps = {
     courseName: string,
@@ -16,16 +16,16 @@ const CourseCard = ({ courseName, rating }: CourseCardProps) => {
                 alt="" />
             <h3 className='font-medium line-clamp-2'>{courseName}</h3>
             <div className='text-sm font-light'>Hoàng Viết Thắng</div>
-            <div className='flex items-center gap-1'>
-                <span className='text-sm font-medium'>{rating}</span>
-                <div className='text-[#F77321] flex gap-0.5'>
+            <div className='flex items-center text-sm gap-1.5'>
+                <span className='font-bold'>{rating}</span>
+                <div className='text-[#F77321] flex'>
                     <FaStar />
                     <FaStar />
                     <FaStar />
                     <FaStar />
                     <FaStar />
                 </div>
-                <div className='text-xs text-[#5C5C5C]'>(107)</div>
+                <div className='text-[#5C5C5C]'>(108)</div>
             </div>
             <div className='flex gap-1.5 items-center'>
                 <div className='text-xl font-medium'>

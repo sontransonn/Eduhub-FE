@@ -29,7 +29,7 @@ const CourseList = ({ title, slug, courses }: CourseListProps) => {
             {/* Hiển thị khi màn hình > 768px */}
             <div className="md:grid md:grid-cols-2 lg:grid-cols-4 mt-6 gap-4 hidden">
                 {courses.length > 0 ? (
-                    courses.map((course, index) => (
+                    courses.map((course: any, index) => (
                         <div className="w-full col">
                             <Link href={`/course/${course?.slug}`} className="col">
                                 <CourseCard

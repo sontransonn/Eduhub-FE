@@ -5,7 +5,7 @@ import CourseCard from "@/components/card/CourseCard";
 
 const Step1Page = () => {
     return (
-        <div className='bg-[#F1F5F8] text-black'>
+        <main className='bg-[#F1F5F8] text-black'>
             {/*  */}
             <div className='bg-sky-200 py-6'>
                 <div className='max-w-8xl mx-auto'>
@@ -55,7 +55,6 @@ const Step1Page = () => {
                 <div className='lg:col-span-2 col-span-3 border rounded p-6 bg-white shadow h-fit'>
                     <div className='text-lg font-semibold py-4'>Thông tin người mua</div>
                     <form action="" className='text-sm flex flex-col gap-4'>
-                        {/* Họ tên */}
                         <div>
                             <label htmlFor="" className='block mb-2 text-sm font-medium text-gray-900'>Họ tên *</label>
                             <input
@@ -65,8 +64,6 @@ const Step1Page = () => {
                                 required
                             />
                         </div>
-
-                        {/* Email */}
                         <div>
                             <label htmlFor="" className='block mb-2 font-medium text-gray-900'>Email *</label>
                             <input
@@ -76,8 +73,6 @@ const Step1Page = () => {
                                 required
                             />
                         </div>
-
-                        {/* Điện thoại */}
                         <div>
                             <label htmlFor="" className='block mb-2 font-medium text-gray-900'>Điện thoại *</label>
                             <input
@@ -127,7 +122,7 @@ const Step1Page = () => {
                     </div>
                 </div>
             </div>
-        </div >
+        </main >
     )
 }
 

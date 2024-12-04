@@ -36,7 +36,7 @@ export default function HomePage() {
   }, [])
 
   return (
-    <main className="flex-shrink-0 bg-[#F1F5F8] text-black">
+    <main className="bg-[#F1F5F8] text-black">
       <Banner />
       <LiveSchedule />
       <CourseList

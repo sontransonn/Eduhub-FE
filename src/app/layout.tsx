@@ -1,11 +1,11 @@
 import React from "react";
 import { Inter } from 'next/font/google';
 import type { Metadata } from "next";
+import { Toaster } from 'react-hot-toast';
 
 import "@/styles/global.css";
 import 'react-circular-progressbar/dist/styles.css';
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import 'react-multi-carousel/lib/styles.css';
 
 import LayoutProvider from "@/app/LayoutProvider";
 import StoreProvider from "@/app/StoreProvider";
@@ -34,6 +34,7 @@ export default function RootLayout({
           <LayoutProvider>
             {children}
           </LayoutProvider>
+          <Toaster />
         </StoreProvider>
       </body>
     </html>

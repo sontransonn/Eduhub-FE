@@ -1,25 +1,21 @@
 'use client'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { usePathname } from 'next/navigation';
 
 import Header from "@/components/Header";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
-const routeNoUseRootLayout = ["/login", "/register", "/login-otp", "/learning"]
+const routeNoUseRootLayout = ["/login", "/register", "/info", "/learning"]
 
-const LayoutProvider = ({ children }: Readonly<{
+export default function LayoutProvider({ children }: Readonly<{
     children: React.ReactNode;
-}>) => {
+}>) {
     const pathname = usePathname()
     const isRoute = routeNoUseRootLayout.includes(pathname);
 
-    if (isRoute == true) {
-        return (
-            <>
-                {children}
-            </>
-        )
+    if (isRoute) {
+        return <>{children}</>
     }
 
     return (
@@ -31,5 +27,3 @@ const LayoutProvider = ({ children }: Readonly<{
         </>
     )
 }
-
-export default LayoutProvider
