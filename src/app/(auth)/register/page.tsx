@@ -53,7 +53,7 @@ export default function RegisterPage() {
                         <input
                             type="text" required
                             name="fullName"
-                            className={`w-full rounded-[2px] p-3 border focus:border-black focus:bg-white border-slate-300 outline-none`}
+                            className={`w-full rounded-[2px] p-3 border focus:bg-white border-slate-300 focus:outline-none focus:ring`}
                             placeholder='Họ tên'
                             value={formData.fullName}
                             onChange={handleChange}
@@ -61,7 +61,7 @@ export default function RegisterPage() {
                         <input
                             type="email" required
                             name="email"
-                            className={`w-full rounded-[2px] p-3 border focus:border-black focus:bg-white border-slate-300 outline-none`}
+                            className={`w-full rounded-[2px] p-3 border focus:bg-white border-slate-300 outline-none focus:outline-none focus:ring`}
                             placeholder='Email'
                             value={formData.email}
                             onChange={handleChange}
@@ -71,7 +71,7 @@ export default function RegisterPage() {
                                 type="password" required
                                 name="password"
                                 minLength={8}
-                                className={`w-full rounded-[2px] p-3 border focus:border-black focus:bg-white border-slate-300 outline-none`}
+                                className={`w-full rounded-[2px] p-3 border focus:bg-white border-slate-300 outline-none focus:outline-none focus:ring`}
                                 placeholder='Mật khẩu'
                                 value={formData.password}
                                 onChange={handleChange}
@@ -80,7 +80,7 @@ export default function RegisterPage() {
                                 type="password" required
                                 name="confirmPassword"
                                 minLength={8}
-                                className={`w-full rounded-[2px] p-3 border focus:border-black focus:bg-white border-slate-300 outline-none`}
+                                className={`w-full rounded-[2px] p-3 border focus:bg-white border-slate-300 outline-none focus:outline-none focus:ring`}
                                 placeholder='Nhập lại mật khẩu'
                                 value={formData.confirmPassword}
                                 onChange={handleChange}

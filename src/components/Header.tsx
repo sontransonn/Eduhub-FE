@@ -46,7 +46,7 @@ const Header = () => {
     return (
         <header className='sticky z-30 md:z-40 top-0 bg-white shadow-2xl'>
             {/* --------------- Hiển thị khi màn hình > 768px --------------- */}
-            <div className='hidden md:block py-4 px-6'>
+            <div className='hidden max-w-8xl mx-auto px-0 xl:px-20 lg:px-10 md:px-10 md:block py-4'>
                 <div className='flex flex-row'>
                     <div className='2xl:basis-7/12 lg:basis-6/12 basis-7/12 flex xl:gap-8 w-auto items-center gap-4'>
                         {/* Logo */}
@@ -60,7 +60,7 @@ const Header = () => {
                         </Link>
 
                         {/* Danh mục */}
-                        <div className="my-auto relative group">
+                        <div className="my-auto relative group xl:hidden">
                             <div className="flex w-36 text-lg items-center uppercase gap-1">
                                 <CgMenuGridR size={30} />
                                 Danh mục
@@ -152,7 +152,7 @@ const Header = () => {
                                 </div>
                                 <div className="my-auto relative cursor-pointer" onClick={() => setOpenAccountMenu(prev => !prev)}>
                                     <Avatar>
-                                        <AvatarImage src="https://github.com/shadcn.png" />
+                                        <AvatarImage src={userInfo.avatar ? userInfo.avatar : "https://github.com/shadcn.png"} />
                                         <AvatarFallback>CN</AvatarFallback>
                                     </Avatar>
                                     {openAccountMenu ? (
@@ -165,7 +165,16 @@ const Header = () => {
                                                     <Link href="/dashboard/user/group">Hội viên</Link>
                                                 </li>
                                                 <li className="block px-4 py-2 hover:bg-gray-100">
+                                                    <Link href="/">Kích hoạt khóa học</Link>
+                                                </li>
+                                                <li className="block px-4 py-2 hover:bg-gray-100">
+                                                    <Link href="/">Doanh nghiệp</Link>
+                                                </li>
+                                                <li className="block px-4 py-2 hover:bg-gray-100">
                                                     <Link href="/info">Cập nhật hồ sơ</Link>
+                                                </li>
+                                                <li className="block px-4 py-2 hover:bg-gray-100">
+                                                    <Link href="/">Ví của bạn</Link>
                                                 </li>
                                                 <li className="pt-2 border-t w-full border-solid">
                                                     <div

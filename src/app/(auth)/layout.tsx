@@ -11,12 +11,8 @@ export default function AuthLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <>
-            <div className="w-full h-screen bg-[url('https://img.freepik.com/premium-vector/elearning-concept-laptop-as-book-dark-blue-background-online-education-technology_387612-38.jpg')]">
-                <div className="flex h-full items-center justify-center max-w-8xl mx-auto xl:px-20 px-4 py-16">
-                    {children}
-                </div>
-            </div>
-        </>
+        <div className="flex flex-col content-center items-center justify-center min-h-screen p-4 bg-[url('https://img.freepik.com/premium-vector/elearning-concept-laptop-as-book-dark-blue-background-online-education-technology_387612-38.jpg')]">
+            {children}
+        </div>
     );
 }

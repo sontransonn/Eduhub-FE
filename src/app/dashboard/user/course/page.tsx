@@ -3,6 +3,10 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import Link from 'next/link'
 
+import { FiSearch } from "react-icons/fi";
+
+import categories from '@/constants/categories'
+
 export default function DashboardCourse() {
     const { userInfo } = useSelector((state: any) => state.user)
 
@@ -37,33 +41,45 @@ export default function DashboardCourse() {
             </div>
 
             <div className='bg-[#F1F5F8] text-black'>
-                <div className='max-w-8xl mx-auto lg:px-20 md:px-10 px-4 py-8 text-sm font-medium'>
-                    <form action="" className='grid lg:grid-cols-12 grid-cols-4 gap-4'>
-                        <select className='appearance-none relative col-span-2 bg-transparent px-4 py-[10px] border rounded border-black outline-none'
-                            name="" id="">
+                <div className='max-w-8xl mx-auto lg:px-20 md:px-10 px-4 py-8'>
+                    <form action="" className='grid lg:grid-cols-12 grid-cols-4 gap-4 text-sm'>
+                        <select className='appearance-none relative col-span-2 bg-transparent px-4 py-[10px] border rounded border-black outline-none' name="" id="">
                             <option value="">-- Sắp xếp theo --</option>
-                            <option value="">Truy cập gần nhất</option>
-                            <option value="">Lâu chưa truy cập</option>
+                            <option value="1">Truy cập gần nhất</option>
+                            <option value="2">Lâu chưa truy cập</option>
                         </select>
-                        <select className='appearance-none relative col-span-2 bg-transparent px-4 py-[10px] border rounded border-black outline-none'
-                            name="" id="">
+                        <select className='appearance-none relative col-span-2 bg-transparent px-4 py-[10px] border rounded border-black outline-none' name="" id="">
                             <option value="">-- Danh mục --</option>
-                            <option value="">Truy cập gần nhất</option>
-                            <option value="">Lâu chưa truy cập</option>
+                            {categories.map((category, index) => (
+                                <option value={index}>{category.title}</option>
+                            ))}
+
                         </select>
-                        <select className='appearance-none relative col-span-2 bg-transparent px-4 py-[10px] border rounded border-black outline-none'
-                            name="" id="">
+                        <select className='appearance-none relative col-span-2 bg-transparent px-4 py-[10px] border rounded border-black outline-none' name="" id="">
                             <option value="">-- Trạng thái --</option>
-                            <option value="">Đang học</option>
-                            <option value="">Chưa học</option>
+                            <option value="1">Đang học</option>
+                            <option value="2">Chưa học</option>
                         </select>
-                        <select className='appearance-none relative col-span-2 bg-transparent px-4 py-[10px] border rounded border-black outline-none'
-                            name="" id="">
+                        <select className='appearance-none relative col-span-2 bg-transparent px-4 py-[10px] border rounded border-black outline-none' name="" id="">
                             <option value="">-- Giảng viên --</option>
                             <option value="">Truy cập gần nhất</option>
                             <option value="">Lâu chưa truy cập</option>
                         </select>
+                        <div className='col-span-4 flex relative border border-black rounded'>
+                            <input
+                                type="text"
+                                className='block w-full p-2.5 ps-4 text-sm rounded outline-none'
+                                placeholder='Tìm kiếm khóa học'
+                            />
+                            <button className='p-[10px] bg-blue-700 text-white'>
+                                <FiSearch size={18} />
+                            </button>
+                        </div>
                     </form>
+
+                    <div className='grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-x-4 gap-y-6 mt-8'>
+                        <span>Chưa mua khóa học trên unica.vn</span>
+                    </div>
                 </div>
             </div>
         </>

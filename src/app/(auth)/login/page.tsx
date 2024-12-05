@@ -40,8 +40,8 @@ export default function LoginPage() {
         }
     }
 
-    const handleLoginGoogle = async () => {
-        window.location.href = 'http://localhost:5000/auth/google';
+    const handleOAuth2 = async (type: string) => {
+        window.location.href = `http://localhost:5000/auth/${type}`;
     }
 
     return (
@@ -56,7 +56,7 @@ export default function LoginPage() {
                         <input
                             type="email" required
                             name="email"
-                            className={`w-full rounded-[2px] p-3 border focus:border-black focus:bg-white border-slate-300 outline-none`}
+                            className={`w-full rounded-[2px] p-3 border focus:bg-white border-slate-300 outline-none focus:outline-none focus:ring`}
                             placeholder='Email/Số điện thoại/Tên đăng nhập'
                             value={formData.email}
                             onChange={handleChange}
@@ -66,7 +66,7 @@ export default function LoginPage() {
                                 type={showPassword ? "text" : "password"} required
                                 name="password"
                                 minLength={8}
-                                className={`w-full rounded-[2px] p-3 border focus:border-black focus:bg-white border-slate-300 outline-none`}
+                                className={`w-full rounded-[2px] p-3 border focus:bg-white border-slate-300 outline-none focus:outline-none focus:ring`}
                                 placeholder='Mật khẩu'
                                 onChange={handleChange}
                             />
@@ -95,11 +95,11 @@ export default function LoginPage() {
                             <div className="w-full h-[0.5px] bg-slate-400"></div>
                         </div>
                         <div className="flex justify-between text-black gap-3">
-                            <div className="flex items-center gap-1 justify-center border w-full border-solid border-slate-400 py-2 rounded-[2px] cursor-pointer">
+                            <div className="flex items-center gap-1 justify-center border w-full border-solid border-slate-400 py-2 rounded-[2px] cursor-pointer" onClick={() => handleOAuth2("facebook")}>
                                 <FaFacebook color="blue" size={20} />
                                 Facebook
                             </div>
-                            <div className="flex items-center gap-1 justify-center border w-full border-solid border-slate-400 py-2 rounded-[2px] cursor-pointer" onClick={handleLoginGoogle}>
+                            <div className="flex items-center gap-1 justify-center border w-full border-solid border-slate-400 py-2 rounded-[2px] cursor-pointer" onClick={() => handleOAuth2("google")}>
                                 <FcGoogle size={20} />
                                 Google
                             </div>

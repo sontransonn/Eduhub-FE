@@ -102,3 +102,12 @@
 #carousel-custom>div {
   width: 100%;
 }
+
+.flag-dropdown  {
+  border: none !important;
+}
+
+.selected-flag {
+  width: 44px !important;
+  padding-left: 12px !important;
+}
