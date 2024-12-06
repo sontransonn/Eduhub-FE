@@ -44,7 +44,7 @@ const Header = () => {
     };
 
     return (
-        <header className='sticky z-30 md:z-40 top-0 bg-white shadow-2xl'>
+        <header className='sticky z-30 md:z-[9999] top-0 bg-white shadow-2xl'>
             {/* --------------- Hiển thị khi màn hình > 768px --------------- */}
             <div className='hidden max-w-8xl mx-auto px-0 xl:px-20 lg:px-10 md:px-10 md:block py-4'>
                 <div className='flex flex-row'>
