@@ -1,22 +1,32 @@
 "use client"
 import React, { useEffect, useState } from 'react'
+import { useSelector, useDispatch } from "react-redux";
 import Link from 'next/link';
+
+import { setCurrentCourse } from '@/redux/slices/courseSlice';
+import { resetCurrentCourse } from '@/redux/slices/courseSlice';
 
 import { FaStar } from 'react-icons/fa'
 import { HiUserGroup } from "react-icons/hi2";
 
-import Hero from '@/containers/courseDetails-page/Hero';
-import WhatYouWillLearn from '@/containers/courseDetails-page/WhatYouWillLearn';
-import Introduction from '@/containers/courseDetails-page/Introduction';
-import CourseContent from '@/containers/courseDetails-page/CourseContent';
-import Tags from '@/containers/courseDetails-page/Tags';
-import Teacher from '@/containers/courseDetails-page/Teacher';
-import Reviews from '@/containers/courseDetails-page/Reviews';
-import PurchaseCard from '@/containers/courseDetails-page/PurchaseCard';
+import Hero from '@/containers/course-page/Hero';
+import Introduction from '@/containers/course-page/Introduction';
+import CourseContent from '@/containers/course-page/CourseContent';
+import Tags from '@/containers/course-page/Tags';
+import Teacher from '@/containers/course-page/Teacher';
+import Reviews from '@/containers/course-page/Reviews';
+import PurchaseCard from '@/containers/course-page/PurchaseCard';
 
-const CourseDetails = () => {
+import { getCourseBySlug } from '@/api/course.api';
+
+export default function page({ params }: { params: { slug: string } }) {
+    const { slug } = params;
+    const dispatch = useDispatch()
+
     const [headerHeight, setHeaderHeight] = useState(0);
     const [visible, setVisible] = useState(false);
+
+    const { currentCourse } = useSelector((state: any) => state.course)
 
     useEffect(() => {
         const header = document.querySelector("header");
@@ -37,13 +47,25 @@ const CourseDetails = () => {
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
+    useEffect(() => {
+        const fetchData = async () => {
+            const data = await getCourseBySlug(slug);
+            dispatch(setCurrentCourse(data))
+        }
+        fetchData()
+
+        return () => {
+            dispatch(resetCurrentCourse());
+        };
+    }, [])
+
     return (
         <main className='bg-[#f1f5f8] relative'>
             <div className={`fixed hidden md:block bg-[#003555] top-0 left-0 w-full text-white px-6 py-4 shadow-md z-20 ${visible ? `translate-y-[80px]` : "-translate-y-full"}`}>
-                <div className='font-bold'>Ghép ảnh chuyên nghiệp với Photoshop</div>
+                <div className='font-bold'>{currentCourse.courseName}</div>
                 <div className='flex gap-10'>
                     <div className='flex items-center gap-1'>
-                        <span>4.8</span>
+                        <span>{currentCourse.rating}</span>
                         <div className='text-[#F77321] flex gap-0.5'>
                             <FaStar size={14} />
                             <FaStar size={14} />
@@ -55,7 +77,7 @@ const CourseDetails = () => {
                     </div>
                     <div className='flex items-center gap-1'>
                         <HiUserGroup size={20} />
-                        <span>24237 Học viên</span>
+                        <span>{currentCourse.view} Học viên</span>
                     </div>
                 </div>
             </div>
@@ -71,12 +93,6 @@ const CourseDetails = () => {
 
             <div className='grid grid-cols-3 max-w-8xl mx-auto md:gap-3 relative'>
                 <div className='lg:col-span-2 col-span-3 xl:pl-20 lg:pl-10 md:px-10 py-8 px-4 flex flex-col gap-8'>
-                    {/* Bạn sẽ học được */}
-                    <div className='md:p-6 p-4 border border-[#929292] rounded'>
-                        <div className='text-2xl font-medium'>Bạn sẽ học được</div>
-                        <WhatYouWillLearn />
-                    </div>
-
                     {/* Giới thiệu khóa học */}
                     <div className='md:p-6 md:mt-0 py-4 md:border border-[#929292] rounded md:order-none order-1'>
                         <div className='text-2xl font-medium'>Giới thiệu khóa học</div>
@@ -114,7 +130,7 @@ const CourseDetails = () => {
                 </div>
 
                 {/*  */}
-                <div className='lg:col-span-1 col-span-3 order-first lg:order-last relative xl:mr-20 lg:mr-10 lg:-mt-[296px] rounded'>
+                <div className='lg:col-span-1 col-span-3 order-first lg:order-last relative xl:mr-20 lg:mr-10 lg:-mt-64 rounded'>
                     <button className='relative w-full md:block hidden' data-link="https://www.youtube.com/embed/JKFeTVseaRg?rel=0">
                         <img
                             className='opacity-75 w-full rounded-sm'
@@ -122,11 +138,9 @@ const CourseDetails = () => {
                             alt=""
                         />
                     </button>
-                    <PurchaseCard />
+                    <PurchaseCard price={currentCourse.price} discount={currentCourse.discount} />
                 </div>
             </div>
         </main>
     )
 }
-
-export default CourseDetails

@@ -13,7 +13,7 @@ import LiveCard from '@/components/card/LiveCard';
 
 const LiveSchedule = () => {
     return (
-        <div className='max-w-8xl mx-auto px-4 xl:px-20 lg:px-10 md:px-10 pt-12'>
+        <div className='max-w-8xl mx-auto px-4 xl:px-20 md:px-10 pt-12'>
             <div className='w-full flex items-center justify-between'>
                 <h4 className='uppercase font-semibold text-2xl'>Lịch học trực tiếp</h4>
                 <Link className="flex items-center text-sm" href={"/live"}>

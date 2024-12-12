@@ -39,7 +39,7 @@ const CustomDot: React.FC<Props> = ({ onClick, active }) => {
 
 export default function Banner() {
     return (
-        <div className='max-w-8xl mx-auto px-0 xl:px-20 lg:px-10 md:px-10 md:pt-8'>
+        <div className='max-w-8xl mx-auto px-0 xl:px-20 md:px-10 md:pt-8'>
             <div className='grid grid-cols-12 gap-3'>
                 <div className='xl:col-span-3 xl:block hidden'>
                     <ul className='relative w-full h-full bg-white flex flex-col shadow-custom'>

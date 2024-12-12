@@ -68,179 +68,19 @@ const categories = [
         icon: <IoRocketSharp size={18} />,
         title: "Kinh Doanh",
         slug: "kinh-doanh",
-        subCategories: [
-            {
-                title: "Quản Trị Kinh Doanh",
-                slug: "quan-tri-kinh-doanh",
-                tags: [
-                    { title: "Chiến Lược Kinh Doanh", slug: "chien-luoc-kinh-doanh" },
-                    { title: "Hệ Thống Kinh Doanh", slug: "he-thong-kinh-doanh" },
-                    { title: "Kế Hoạch Kinh Doanh", slug: "ke-hoach-kinh-doanh" }
-                ]
-            },
-            {
-                title: "Kinh Doanh Online",
-                slug: "kinh-doanh-online",
-                tags: [
-                    { title: "Kiếm Tiền Youtube", slug: "kiem-tien-youtube" },
-                    { title: "Kiếm Tiền Amazon", slug: "kiem-tien-amazon" },
-                    { title: "Bán Hàng Shopee", slug: "ban-hang-shopee" }
-                ]
-            },
-            {
-                title: "Khởi Nghiệp",
-                slug: "khoi-nghiep",
-                tags: [
-                    { title: "Kinh Doanh Cafe", slug: "kinh-doanh-cafe" },
-                    { title: "Kinh Doanh Mỹ Phẩm", slug: "kinh-doanh-my-pham" },
-                    { title: "Kinh Doanh Quán Ăn", slug: "kinh-doanh-quan-an" },
-                    { title: "Kinh Doanh Nhà Thuốc", slug: "kinh-doanh-nha-thuoc" },
-                ]
-            },
-            {
-                title: "Quản Trị Nhân Sự",
-                slug: "quan-tri-nhan-su",
-                tags: [
-                    { title: "Tuyển Dụng", slug: "tuyen-dung" },
-                    { title: "Đào Tạo Nhân Sự", slug: "dao-tao-nhan-su" }
-                ]
-            },
-            {
-                title: "Thương Mại Điện Tử",
-                slug: "thuong-mai-dien-tu",
-                tags: [
-                    { title: "Shopify", slug: "shopify" }
-                ]
-            },
-            {
-                title: "Bán Hàng",
-                slug: "ban-hang",
-                tags: [
-                    { title: "Chốt Sale", slug: "chot-sale" },
-                    { title: "Chăm Sóc Khách Hàng", slug: "cham-soc-khach-hang" },
-                    { title: "Chiến Lược Bán Hàng", slug: "chien-luoc-ban-hang" }
-                ]
-            },
-        ],
+        subCategories: [],
     },
     {
         icon: <FaPaintBrush size={18} />,
         title: "Thiết Kế",
         slug: "thiet-ke",
-        subCategories: [
-            {
-                title: "Thiết Kế Quảng Cáo",
-                slug: "thiet-ke-quang-cao",
-                tags: [
-                    { title: "Thiết Kế In Ấn", slug: "thiet-ke-in-an" },
-                    { title: "Thiết Kế Logo", slug: "thiet-ke-logo" },
-                    { title: "Thiết Kế Banner", slug: "thiet-ke-banner" },
-                    { title: "Thiết Kế Sản Phẩm", slug: "thiet-ke-san-pham" }
-                ]
-            },
-            {
-                title: "Thiết Kế Web",
-                slug: "thiet-ke-web",
-                tags: [
-                    { title: "Bootstrap", slug: "bootstrap" },
-                    { title: "Lập Trình Web", slug: "lap-trinh-web" }
-                ]
-            },
-            {
-                title: "Thiết Kế Kiến Trúc",
-                slug: "thiet-ke-kien-truc",
-                tags: [
-                    { title: "Autocad", slug: "autocad" },
-                    { title: "Sketchup", slug: "sketchup" },
-                    { title: "Revit", slug: "revit" }
-                ]
-            },
-            {
-                title: "Thiết Kế Nội Thất",
-                slug: "thiet-ke-noi-that",
-                tags: [
-                    { title: "3DSMax", slug: "3dsmax" }
-                ]
-            },
-            {
-                title: "Thiết Kế Đồ Họa",
-                slug: "thiet-ke-do-hoa",
-                tags: [
-                    { title: "Thiết Kế Đồ Họa 2D", slug: "thiet-ke-do-hoa-2d" },
-                    { title: "Thiết Kế Đồ Họa 3D", slug: "thiet-ke-do-hoa-3d" },
-                    { title: "Design Sketching", slug: "design-sketching" }
-                ]
-            },
-            {
-                title: "Thiết Kế UI/UX",
-                slug: "thiet-ke-ui-ux",
-                tags: [
-                    { title: "UI-UX", slug: "ui-ux" }
-                ]
-            },
-            {
-                title: "Phần Mềm Thiết Kế",
-                slug: "phan-mem-thiet-ke",
-                tags: [
-                    { title: "Photoshop", slug: "photoshop" },
-                    { title: "InDesign", slug: "indesign" },
-                    { title: "Capcut", slug: "capcut" },
-                    { title: "Canva", slug: "canva" },
-                ]
-            },
-            {
-                title: "Thiết Kế Khác",
-                slug: "thiet-ke-khac",
-                tags: []
-            },
-        ],
+        subCategories: [],
     },
     {
         icon: <FaRegLightbulb size={18} />,
         title: "Kỹ Năng",
         slug: "ky-nang",
-        subCategories: [
-            {
-                title: "Kỹ Năng Lãnh Đạo",
-                slug: "ky-nang-lanh-dao",
-                tags: [
-                    { title: "Kỹ Năng Lãnh Đạo", slug: "ky-nang-lanh-dao" }
-                ]
-            },
-            {
-                title: "Kỹ Năng Thuyết Trình",
-                slug: "ky-nang-thuyet-trinh",
-                tags: [
-                    { title: "MC", slug: "mc" },
-                    { title: "Thuyết Trình", slug: "thuyet-trinh" }
-                ]
-            },
-            {
-                title: "Kỹ Năng Giao Tiếp",
-                slug: "ky-nang-giao-tiep",
-                tags: [
-                    { title: "Ngôn Ngữ Cơ Thể", slug: "ngon-ngu-co-the" },
-                    { title: "Giao Tiếp", slug: "giao-tiep" }
-                ]
-            },
-            {
-                title: "Kỹ Năng Đàm Phán",
-                slug: "ky-nang-dam-phan",
-                tags: [
-                    { title: "Đàm Phán", slug: "dam-phan" }
-                ]
-            },
-            {
-                title: "Kỹ Năng Khác",
-                slug: "ky-nang-khac",
-                tags: [
-                    { title: "Phát Triển Đội Nhóm", slug: "phat-trien-doi-nhom" },
-                    { title: "Kỹ Năng Tổ Chức", slug: "ky-nang-to-chuc" },
-                    { title: "Phát Triển Bản Thân", slug: "phat-trien-ban-than" },
-                    { title: "Kỹ Năng Lập Kế Hoạch", slug: "ky-nang-lap-ke-hoach" }
-                ]
-            }
-        ],
+        subCategories: [],
     },
     {
         icon: <PiCodeBold size={18} />,

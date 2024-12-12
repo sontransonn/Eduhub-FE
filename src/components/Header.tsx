@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -18,6 +18,13 @@ import { MdDownloadForOffline } from "react-icons/md";
 import { FiPhoneOutgoing } from "react-icons/fi";
 import { MdMailOutline } from "react-icons/md";
 import { MdNavigateNext } from "react-icons/md";
+import { HiMiniUserGroup } from "react-icons/hi2";
+import { FaCircleUser } from "react-icons/fa6";
+import { FaRightToBracket } from "react-icons/fa6";
+import { BiSolidBusiness } from "react-icons/bi";
+import { GiSkeletonKey } from "react-icons/gi";
+import { FaTableList } from "react-icons/fa6";
+import { FaBitcoin } from "react-icons/fa6";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Drawer, DrawerContent, DrawerTrigger, } from "@/components/ui/drawer"
@@ -46,7 +53,7 @@ const Header = () => {
     return (
         <header className='sticky z-30 md:z-[9999] top-0 bg-white shadow-2xl'>
             {/* --------------- Hiển thị khi màn hình > 768px --------------- */}
-            <div className='hidden max-w-8xl mx-auto px-0 xl:px-20 lg:px-10 md:px-10 md:block py-4'>
+            <div className='max-w-8xl mx-auto px-0 xl:px-20 md:px-10 py-4 md:block hidden'>
                 <div className='flex flex-row'>
                     <div className='2xl:basis-7/12 lg:basis-6/12 basis-7/12 flex xl:gap-8 w-auto items-center gap-4'>
                         {/* Logo */}
@@ -115,7 +122,7 @@ const Header = () => {
                                 name="key" id="text_search"
                                 value="" type="text"
                                 className="block w-full px-4 py-2.5 text-sm text-gray-900 border border-gray-300 rounded-full bg-gray-50 focus:ring-gray-500 focus:border-gray-500"
-                                placeholder="Tìm khóa học, giảng viên" required
+                                placeholder="Tìm kiếm khóa học" required
                                 onChange={(e) => setKeyword(e.target.value)}
                             />
                             <button type="submit" className="absolute top-0 right-0 h-full pr-4">
@@ -130,18 +137,18 @@ const Header = () => {
                             <Link className="block" href={"/biz"}>Doanh nghiệp</Link>
                         </div>
                         <div className="my-auto lg:block hidden">
-                            <Link className="block" href={"/dashboard/user/group"}>Hội viên</Link>
+                            <Link className="block" href={"/dashboard/user"}>Hội viên</Link>
                         </div>
                         {userInfo ? (
                             <>
                                 <div className="my-auto p-3 text-white bg-[#1782FB] hover:bg-blue-600 cursor-pointer rounded font-bold">
-                                    <Link className="flex gap-2 items-center" href={"/dashboard/user/course"}>
+                                    <Link className="flex gap-2 items-center" href={"/dashboard/user"}>
                                         <FaArrowRightToBracket size={14} />
                                         Vào học
                                     </Link>
                                 </div>
                                 <div className="my-auto">
-                                    <Link href={"/dashboard/user/wishlist"}>
+                                    <Link href={"/dashboard/user"}>
                                         <FaRegHeart size={24} />
                                     </Link>
                                 </div>
@@ -156,31 +163,35 @@ const Header = () => {
                                         <AvatarFallback>CN</AvatarFallback>
                                     </Avatar>
                                     {openAccountMenu ? (
-                                        <div className="absolute top-[120%] w-44 right-0 bg-white shadow-2xl border rounded-lg">
+                                        <div className="absolute top-[120%] w-max right-0 bg-white shadow-2xl border rounded-sm">
                                             <ul className="py-2 text-sm text-gray-700">
-                                                <li className="block px-4 py-2 hover:bg-gray-100">
-                                                    <Link href="/dashboard/user/course">Vào học</Link>
+                                                <li className="flex items-center gap-2 px-4 py-2 hover:bg-gray-300">
+                                                    <FaTableList size={18} />
+                                                    <Link href="/dashboard/user">Vào học</Link>
                                                 </li>
-                                                <li className="block px-4 py-2 hover:bg-gray-100">
-                                                    <Link href="/dashboard/user/group">Hội viên</Link>
+                                                <li className="flex items-center gap-2 px-4 py-2 hover:bg-gray-300">
+                                                    <HiMiniUserGroup size={18} />
+                                                    <Link href="/dashboard/user">Hội viên</Link>
                                                 </li>
-                                                <li className="block px-4 py-2 hover:bg-gray-100">
+                                                <li className="flex items-center gap-2 px-4 py-2 hover:bg-gray-300">
+                                                    <GiSkeletonKey size={18} />
                                                     <Link href="/">Kích hoạt khóa học</Link>
                                                 </li>
-                                                <li className="block px-4 py-2 hover:bg-gray-100">
+                                                <li className="flex items-center gap-2 px-4 py-2 hover:bg-gray-300">
+                                                    <BiSolidBusiness size={18} />
                                                     <Link href="/">Doanh nghiệp</Link>
                                                 </li>
-                                                <li className="block px-4 py-2 hover:bg-gray-100">
+                                                <li className="flex items-center gap-2 px-4 py-2 hover:bg-gray-300">
+                                                    <FaCircleUser size={18} />
                                                     <Link href="/info">Cập nhật hồ sơ</Link>
                                                 </li>
-                                                <li className="block px-4 py-2 hover:bg-gray-100">
+                                                <li className="flex items-center gap-2 px-4 py-2 hover:bg-gray-300">
+                                                    <FaBitcoin size={18} />
                                                     <Link href="/">Ví của bạn</Link>
                                                 </li>
                                                 <li className="pt-2 border-t w-full border-solid">
-                                                    <div
-                                                        className="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                                                        onClick={() => handleLogout()}
-                                                    >
+                                                    <div className="flex items-center gap-2 w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-300" onClick={() => handleLogout()}>
+                                                        <FaRightToBracket size={18} />
                                                         Đăng xuất
                                                     </div>
                                                 </li>
@@ -314,4 +325,4 @@ const Header = () => {
     )
 }
 
-export default Header
+export default React.memo(Header)

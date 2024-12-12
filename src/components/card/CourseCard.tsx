@@ -4,16 +4,28 @@ import { FaStar } from "react-icons/fa6";
 
 type CourseCardProps = {
     courseName: string,
-    rating: string
+    rating: string,
+    price: number,
+    discount: number
 };
 
-const CourseCard = ({ courseName, rating }: CourseCardProps) => {
+export default function CourseCard({ courseName, rating, price, discount }: CourseCardProps) {
+    const salePrice = calculateSalePrice(price, discount);
+
+    function calculateSalePrice(originalPrice: number, discountPercentage: number) {
+        const remainingPercentage = 100 - discountPercentage;
+        const salePrice = originalPrice * (remainingPercentage / 100);
+        return salePrice;
+    }
+
     return (
         <div className='w-full flex flex-col gap-1.5'>
-            <img
-                className='max-w-full h-44 rounded-sm'
-                src="https://i.imgur.com/kFLuGCR.jpeg"
-                alt="" />
+            <div className='rounded block relative w-full' style={{ paddingBottom: "56.25%" }}>
+                <img
+                    className='rounded w-full h-full absolute inset-0'
+                    src="https://i.imgur.com/kFLuGCR.jpeg"
+                    alt="" />
+            </div>
             <h3 className='font-medium line-clamp-2'>{courseName}</h3>
             <div className='text-sm font-light'>Hoàng Viết Thắng</div>
             <div className='flex items-center text-sm gap-1.5'>
@@ -29,16 +41,14 @@ const CourseCard = ({ courseName, rating }: CourseCardProps) => {
             </div>
             <div className='flex gap-1.5 items-center'>
                 <div className='text-xl font-medium'>
-                    299.000
+                    {salePrice?.toLocaleString('vi-VN')}
                     <sup>đ</sup>
                 </div>
                 <div className='text-sm line-through text-[#929292]'>
-                    800.000
+                    {price?.toLocaleString('vi-VN')}
                     <sup>đ</sup>
                 </div>
             </div>
         </div>
     )
 }
-
-export default CourseCard

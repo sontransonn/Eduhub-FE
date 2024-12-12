@@ -6,13 +6,13 @@ import Header from "@/components/Header";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
-const routeNoUseRootLayout = ["/login", "/register", "/info", "/learning"]
+const routeNoUseRootLayout = new Set(["/login", "/register", "/info", "/learning"]);
 
 export default function LayoutProvider({ children }: Readonly<{
     children: React.ReactNode;
 }>) {
     const pathname = usePathname()
-    const isRoute = routeNoUseRootLayout.includes(pathname);
+    const isRoute = routeNoUseRootLayout.has(pathname);
 
     if (isRoute) {
         return <>{children}</>

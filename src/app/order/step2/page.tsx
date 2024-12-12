@@ -1,12 +1,37 @@
-import React from 'react'
-
-import payment from '@/constants/payments'
+"use client"
+import React, { useState } from 'react'
+import Image from 'next/image';
 import Link from 'next/link'
 
-const Step2Page = () => {
+import payment from '@/constants/payments'
+
+import { FaPenToSquare } from "react-icons/fa6";
+
+import { zalopay } from '@/api/payment.api';
+
+export default function Step2Page() {
+    const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("");
+
+    const handlePayment = async () => {
+        if (!selectedPaymentMethod) {
+            alert("Please select a payment method");
+            return;
+        }
+
+        try {
+            const data = await zalopay()
+            if (data.order_url) {
+                window.location.href = data.order_url;
+            } else {
+                alert("Không thể tạo giao dịch thanh toán.");
+            }
+        } catch (err) {
+            console.error("Error initiating payment: ", err);
+        }
+    };
+
     return (
         <div className='bg-[#F1F5F8] text-black'>
-            {/*  */}
             <div className='bg-sky-200 py-6'>
                 <div className='max-w-8xl mx-auto'>
                     <ol className='flex items-center w-full text-sm font-medium text-center text-gray-500 sm:text-base md:px-20'>
@@ -49,33 +74,39 @@ const Step2Page = () => {
                 </div>
             </div >
 
-            {/*  */}
-            <div className='max-w-8xl mx-auto lg:px-10 px-4'>
-                <p className='text-2xl font-semibold mt-10'>Hình thức thanh toán</p>
-                <div className='grid grid-cols-3 gap-6 '>
-                    <div className='lg:col-span-2 col-span-3 text-sm font-medium flex gap-4 flex-col border rounded p-6 my-8 bg-white shadow'>
-                        {payment?.map((payment, index) => (
-                            <div className='flex gap-2 items-center p-4 border border-gray-200 rounded'>
-                                <input
-                                    key={index}
-                                    type="radio"
-                                    name='radio'
-                                    className='w-6 h-6 rounded-ful'
-                                />
-                                <p>{payment.title}</p>
-                            </div>
-                        ))}
-                        <Link href={"/order/step2"} className='w-full py-4 text-center rounded-sm bg-orange-500 text-white hover:bg-orange-600'>
-                            TIẾN HÀNH THANH TOÁN
-                        </Link>
-                    </div>
-
-                    <div className='lg:col-span-1 col-span-3 border rounded p-6 my-8 h-fit bg-white shadow'>
-                        <div className='flex justify-between border-b border-gray-300 py-4'>
-                            <div className='font-semibold text-lg'>Đơn hàng: (1 khóa học)</div>
+            <div className='max-w-8xl mx-auto px-4 xl:px-20 md:px-10 py-4'>
+                <div className='flex flex-col gap-4'>
+                    <div className='grid grid-cols-3 gap-4'>
+                        <div className='lg:col-span-2 col-span-3 text-sm font-medium flex gap-4 flex-col border rounded p-6 bg-white shadow'>
+                            <h3 className='font-semibold text-lg'>Chọn phương thức thanh toán</h3>
+                            {payment?.map((payment, index) => (
+                                <div className='flex gap-2 items-center justify-between p-4 border border-gray-200 rounded'>
+                                    <div className='flex gap-2 items-center'>
+                                        <input
+                                            key={index} type="radio"
+                                            name='radio' value={payment.value}
+                                            className='w-6 h-6 rounded-ful'
+                                            onChange={(e) => setSelectedPaymentMethod(e.target.value)}
+                                        />
+                                        <p>{payment.title}</p>
+                                    </div>
+                                    <Image width={25} src={payment.img} alt="" />
+                                </div>
+                            ))}
+                            <button className='w-full py-4 text-center rounded-sm bg-orange-500 text-white hover:bg-orange-600' onClick={handlePayment}>
+                                TIẾN HÀNH THANH TOÁN
+                            </button>
                         </div>
-                        <div>
-                            <div className='flex gap-6 border-b border-gray-300 py-4 cart-course'>
+
+                        <div className='lg:col-span-1 col-span-3 border rounded p-6 h-fit bg-white shadow flex flex-col gap-4'>
+                            <div className='flex justify-between items-center border-b border-gray-300 pb-4'>
+                                <div className='font-semibold text-lg'>Đơn hàng: (1 khóa học)</div>
+                                <div className='flex items-center gap-1.5 cursor-pointer'>
+                                    <FaPenToSquare />
+                                    <Link href={"/cart"} className='text-sm'>Sửa</Link>
+                                </div>
+                            </div>
+                            <div className='flex gap-6 border-b border-gray-300 pb-4 cart-course'>
                                 <div className='flex-auto'>Nghệ thuật giao tiếp và đàm phán</div>
                                 <div className='flex-1'>
                                     <div className='text-right'>
@@ -85,7 +116,7 @@ const Step2Page = () => {
                                 </div>
                             </div>
 
-                            <div className='pt-6 flex justify-between font-semibold'>
+                            <div className='flex justify-between font-semibold'>
                                 <p>Tổng cộng:</p>
                                 <span className='text-right text-[#E66B22]'>299,000<sup>đ</sup></span>
                             </div>
@@ -96,5 +127,3 @@ const Step2Page = () => {
         </div>
     )
 }
-
-export default Step2Page 

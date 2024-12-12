@@ -1,13 +1,17 @@
+import Link from 'next/link'
 import React from 'react'
 
 import { FiCalendar, FiClock } from 'react-icons/fi'
 
-const LiveCard = () => {
+export default function LiveCard() {
     return (
         <div className='w-full flex flex-col gap-1.5'>
-            <img
-                className='rounded-sm h-44'
-                src="https://file.unica.vn/storage/db240c65c57e0a4f35edba3312c62511cbac63cc/nutrime-livestream.png" alt="" />
+            <Link href={"/"} className='rounded block relative w-full' style={{ paddingBottom: "56.25%" }}>
+                <img
+                    className='rounded w-full h-full absolute inset-0'
+                    src="https://static.unica.vn/upload/images/2024/03/Thi%E1%BA%BFt%20k%E1%BA%BF%20ch%C6%B0a%20c%C3%B3%20t%C3%AAn.png_m_1709536433.jpg"
+                    alt="" />
+            </Link>
             <h3 className="font-medium line-clamp-2 break-words">Khóa học Bí quyết ăn đúng sống trường thọ</h3>
             <div className='flex items-center justify-between'>
                 <span className='flex items-center gap-2 text-sm font-ligh'>
@@ -26,5 +30,3 @@ const LiveCard = () => {
         </div>
     )
 }
-
-export default LiveCard

@@ -1,14 +1,14 @@
 "use client"
 import React from 'react'
 import dynamic from "next/dynamic";
+import Link from 'next/link';
 
 import { FaFacebookSquare, FaStar } from "react-icons/fa";
 import { FaRocketchat } from "react-icons/fa";
-import Link from 'next/link';
 
 const ReactPlayer = dynamic(() => import("react-player"), { ssr: false });
 
-const page = () => {
+export default function TeacherDetails() {
     return (
         <main className='w-full bg-[#f1f5f8]'>
             <div className='w-full bg-[url("https://static.vecteezy.com/system/resources/previews/028/112/827/non_2x/a-cup-of-coffee-with-book-and-pen-on-the-wooden-table-ai-generated-free-photo.jpg")]'>
@@ -124,5 +124,3 @@ const page = () => {
         </main>
     )
 }
-
-export default page

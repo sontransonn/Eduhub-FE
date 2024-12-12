@@ -60,7 +60,7 @@ export default function HomePage() {
         courses={newReleasedCourse}
       />
       <Topics />
-      <Instructors />
+      <Instructors topAuthors={topAuthors} />
       <Solutions />
       <CTA />
     </main>

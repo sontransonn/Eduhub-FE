@@ -1,4 +1,5 @@
 import React from 'react'
+import { useSelector } from 'react-redux';
 import Link from 'next/link';
 
 import { AiFillHome } from 'react-icons/ai';
@@ -9,7 +10,9 @@ import {
     BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
 
-const Hero = () => {
+export default function Hero() {
+    const { currentCourse } = useSelector((state: any) => state.course)
+
     return (
         <div className='md:text-white text-back flex flex-col gap-4'>
             <Breadcrumb>
@@ -40,13 +43,11 @@ const Hero = () => {
             </button>
 
             <div className='flex flex-col gap-4'>
-                <h1 className='lg:text-[40px] text-2xl leading-normal font-semibold md:text-[#ECECEC]'>
-                    Hướng dẫn làm các món ăn vặt hot nhất thị trường
-                </h1>
-                <div className='md:text-[#ECECEC] md:font-normal font-light'>Trổ tài khéo tay hay làm với hơn 40 món ăn vặt đang được yêu thích nhất trên thị trường</div>
+                <h1 className='lg:text-[40px] text-2xl leading-normal font-semibold md:text-[#ECECEC]'>{currentCourse.courseName}</h1>
+                <div className='md:text-[#ECECEC] md:font-normal font-light'>{currentCourse.description}</div>
                 <div className='flex lg:gap-10 gap-6'>
                     <div className='flex items-center gap-1'>
-                        <div className='text-[#F77321] text-sm font-medium'>4.5</div>
+                        <div className='text-[#F77321] text-sm font-medium'>{currentCourse.rating}</div>
                         <div className='text-[#F77321] flex gap-0.5'>
                             <FaStar />
                             <FaStar />
@@ -56,12 +57,10 @@ const Hero = () => {
                         </div>
                         <div className='md:text-sm md:text-white'>(24 đánh giá)</div>
                     </div>
-                    <span className='text-sm'>2300 Học viên</span>
+                    <span className='text-sm'>{currentCourse.view} Học viên</span>
                 </div>
                 <div className='md:text-sm'>Giảng viên: <Link href={"#"}>Nguyễn Thu Hương</Link></div>
             </div>
         </div>
     )
 }
-
-export default Hero

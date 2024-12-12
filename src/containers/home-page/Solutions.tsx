@@ -3,7 +3,7 @@ import Link from "next/link"
 
 const Solutions = () => {
     return (
-        <div className='max-w-8xl mx-auto px-4 xl:px-20 lg:px-10 md:px-10 py-12'>
+        <div className='max-w-8xl mx-auto px-4 xl:px-20 md:px-10 py-12'>
             <h4 className='uppercase text-2xl font-semibold'>GIẢI PHÁP KHÁC TỪ UNICA</h4>
             <div className='md:flex flex-row justify-between lg:gap-20 gap-5 mt-6'>
                 <Link href={"/"} className="shadow border rounded-sm border-xl basis-1/2">

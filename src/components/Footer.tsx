@@ -1,13 +1,11 @@
 import React from 'react'
 
-export default function Footer() {
+const Footer = () => {
     return (
         <footer className='bg-[#003555]'>
             <div className='max-w-8xl mx-auto px-4 xl:px-20 lg:px-10 md:px-10 py-6'>
-                {/* Thông tin liên hệ và liên kết */}
                 <div className='grid lg:grid-cols-5 md:grid-cols-3 gap-6 md:gap-0'>
                     <div className='flex flex-col text-white'>
-                        {/* Logo */}
                         <a href={"/"}>
                             <img
                                 src="https://static.unica.vn/media/images_v2018/logo-unica.png"
@@ -73,7 +71,6 @@ export default function Footer() {
                     </div>
                 </div>
 
-                {/* Thông tin pháp lý và liên kết mạng xã hội */}
                 <div className='text-white mt-8 border-t-2 border-[#1782FB] border-opacity-30 pt-4 flex justify-between flex-col md:flex-row'>
                     <div className='flex flex-col md:flex-col gap-2'>
                         <p className='lg:mr-4 text-xs md:text-sm font-light md:font-normal leading-4 md:leading-none'>
@@ -164,3 +161,5 @@ export default function Footer() {
         </footer>
     )
 }
+
+export default React.memo(Footer)

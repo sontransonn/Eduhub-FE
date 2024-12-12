@@ -22,3 +22,12 @@ export const getCourseByOptions = async (option: string, page: number) => {
         throw new Error(error.response?.data?.message || 'Failed');
     }
 }
+
+export const getCourseBySlug = async (slug: string) => {
+    try {
+        const response = await api.get(`/${slug}`);
+        return response.data;
+    } catch (error: any) {
+        throw new Error(error.response?.data?.message || 'Failed');
+    }
+}

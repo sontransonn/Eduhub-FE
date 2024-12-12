@@ -5,7 +5,7 @@ import topics from "@/constants/topics"
 
 const Topics = () => {
     return (
-        <div className='max-w-8xl mx-auto px-4 xl:px-20 lg:px-10 md:px-10 pt-12'>
+        <div className='max-w-8xl mx-auto px-4 xl:px-20 md:px-10 pt-12'>
             <h4 className='uppercase font-bold text-2xl'>Chủ đề có thể bạn quan tâm</h4>
             <div className='flex gap-3 flex-wrap font-semibold mt-6'>
                 {topics.map((topic, index) => (

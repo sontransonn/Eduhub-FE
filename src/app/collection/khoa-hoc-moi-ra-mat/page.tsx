@@ -3,7 +3,7 @@ import React from 'react'
 
 import CourseCard from '@/components/card/CourseCard'
 
-const page = () => {
+export default function page() {
     return (
         <main className='bg-[#F1F5F8] text-black'>
             <div className='max-w-8xl mx-auto px-4 xl:px-20 lg:px-10 md:px-10 lg:py-14 py-8 flex flex-col gap-5'>
@@ -24,4 +24,3 @@ const page = () => {
     )
 }
 
-export default page

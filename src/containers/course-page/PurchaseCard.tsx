@@ -7,16 +7,29 @@ import { LuClipboardList } from "react-icons/lu";
 import { TbClockHour9 } from "react-icons/tb";
 import { PiCertificateBold } from "react-icons/pi";
 
-const PurchaseCard = () => {
+type PurchaseCardProps = {
+    price: number,
+    discount: number
+};
+
+export default function PurchaseCard({ price, discount }: PurchaseCardProps) {
+    const salePrice = calculateSalePrice(price, discount);
+
+    function calculateSalePrice(originalPrice: number, discountPercentage: number) {
+        const remainingPercentage = 100 - discountPercentage;
+        const salePrice = originalPrice * (remainingPercentage / 100);
+        return salePrice;
+    }
+
     return (
         <div className='md:px-10 md:py-4 lg:p-4 px-4 py-6 md:bg-white lg:sticky top-28 z-20 lg:-mt-2 flex flex-col gap-4 rounded border-b shadow-custom'>
             <div className='flex items-center justify-between'>
                 <div className='text-3xl lg:flex-col lg:gap-1 xl:flex-row font-semibold flex gap-2'>
-                    <span>299.000đ</span>
-                    <span className='text-[#929292] line-through text-lg'>700.000đ</span>
+                    <span>{salePrice?.toLocaleString('vi-VN')}đ</span>
+                    <span className='text-[#929292] line-through text-lg'>{price?.toLocaleString('vi-VN')}đ</span>
                 </div>
                 <span className='font-light flex-shrink-0'>
-                    Giảm 57%
+                    Giảm {discount}%
                 </span>
             </div>
 
@@ -57,8 +70,7 @@ const PurchaseCard = () => {
                 </li>
             </ul>
 
-            {/* Nhập mã giảm giá */}
-            <div className='flex gap-2 pb-4 border-b border-solid border-slate-200'>
+            <div className='flex gap-2'>
                 <input
                     type="text"
                     placeholder='Nhập mã giảm giá'
@@ -68,19 +80,6 @@ const PurchaseCard = () => {
                     Áp dụng
                 </button>
             </div>
-
-            {/* Đăng ký cho doanh nghiệp */}
-            <div className='md:border-none border flex flex-col gap-4 border-gray-300 bg-white px-3 py-4 md:p-0 rounded'>
-                <div className='text-lg font-medium'>
-                    Đăng ký cho doanh nghiệp
-                </div>
-                <p className='font-light text-sm'>Giúp nhân viên của bạn truy cập không giới hạn 500 khóa học, mọi lúc, mọi nơi</p>
-                <button className='py-[6px] border border-solid border-black hover:bg-slate-200 rounded-full'>
-                    Đăng ký tư vấn
-                </button>
-            </div>
         </div>
     )
 }
-
-export default PurchaseCard
