@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import Link from "next/link"
 import { useRouter } from 'next/navigation';
 import { useSelector } from 'react-redux';
@@ -8,9 +8,11 @@ import toast from 'react-hot-toast';
 import { FaFacebook } from "react-icons/fa"
 import { FcGoogle } from "react-icons/fc"
 
+import { RootState } from "@/redux/store";
+
 import { register } from "@/api/auth.api";
 
-export default function RegisterPage() {
+export default function Register() {
     const router = useRouter();
 
     const [formData, setFormData] = useState({
@@ -19,6 +21,14 @@ export default function RegisterPage() {
         password: "",
         confirmPassword: ""
     })
+
+    const { userInfo } = useSelector((state: RootState) => state.user)
+
+    useEffect(() => {
+        if (userInfo) {
+            router.push('/info')
+        }
+    }, [router, userInfo])
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -35,9 +45,14 @@ export default function RegisterPage() {
             const data = await register(formData);
             toast.success(data.message)
             router.push("/login")
-        } catch (error: any) {
-            toast.error(error.message)
-            console.error('Register failed:', error.message);
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                toast.error(error.message);
+                console.error('Register failed:', error.message);
+            } else {
+                toast.error('An unknown error occurred');
+                console.error('Register failed with an unknown error');
+            }
         }
     }
 

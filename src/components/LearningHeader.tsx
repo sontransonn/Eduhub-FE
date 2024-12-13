@@ -1,5 +1,6 @@
 "use client"
 import React from 'react'
+import Link from 'next/link';
 
 import { MdArrowBackIos } from "react-icons/md";
 import { FaFile } from "react-icons/fa6";
@@ -14,7 +15,7 @@ const LearningHeader = () => {
         <div className='bg-[#292f3b] text-white'>
             <div className='h-14 px-4 py-2 flex justify-between items-center'>
                 <div className='flex items-center gap-1.5'>
-                    <MdArrowBackIos size={20} />
+                    <Link href={"/overview"}><MdArrowBackIos size={20} /></Link>
                     <span className='text-sm font-semibold'>
                         Xây Dựng Website với ReactJS
                     </span>

@@ -6,7 +6,7 @@ import Header from "@/components/Header";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
-const routeNoUseRootLayout = new Set(["/login", "/register", "/info", "/learning"]);
+const routeNoUseRootLayout = new Set(["/login", "/register", "/info", "/learning/slug"]);
 
 export default function LayoutProvider({ children }: Readonly<{
     children: React.ReactNode;

@@ -1,7 +1,7 @@
 "use client"
 import React, { useEffect } from 'react'
+import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { useSelector, useDispatch } from 'react-redux';
 import PhoneInput from 'react-phone-input-2'
 
@@ -13,13 +13,14 @@ import { AiOutlineLogout } from "react-icons/ai";
 import { LuHistory } from "react-icons/lu";
 import { MdOutlineVerified } from "react-icons/md";
 
+import { RootState } from '@/redux/store';
+
 import { getUserInfo } from '@/api/user.api';
 
-export default function InfoPage() {
-    const router = useRouter();
+export default function Info() {
     const dispatch = useDispatch();
 
-    const { userInfo } = useSelector((state: any) => state.user)
+    const { userInfo } = useSelector((state: RootState) => state.user)
 
     useEffect(() => {
         const fetchData = async () => {
@@ -27,7 +28,7 @@ export default function InfoPage() {
             dispatch(setUserInfo(data.userInfo))
         }
         fetchData()
-    }, [])
+    }, [dispatch])
 
     const handleChange = (value: string) => {
         console.log(value);
@@ -51,7 +52,13 @@ export default function InfoPage() {
                             <label htmlFor="" className='absolute bottom-0 right-0 border-2 rounded-full bg-white p-1 cursor-pointer'>
                                 <IoCameraOutline size={24} color='#666c77' />
                             </label>
-                            <img src="https://lh3.googleusercontent.com/a/ACg8ocKkbsCiNBXVnhwDD2NU1KtBhaFx4IxzcXcIVjIA4mx9yPGLzx9g=s96-c" alt="" className='rounded-full w-full h-full object-cover' />
+                            <Image
+                                src=""
+                                alt="User Avatar"
+                                width={96}
+                                height={96}
+                                className="rounded-full object-cover"
+                            />
                         </div>
 
                         <input

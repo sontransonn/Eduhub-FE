@@ -1,6 +1,31 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-const initialState = {
+interface Course {
+    id: string;
+    courseName: string;
+    description: string;
+    rating: string;
+    level: string;
+    price: number;
+    content: [];
+    progress: string;
+    approvedBy: {};
+    slug: string;
+    sold: number;
+    view: number;
+    discount: number
+}
+interface CourseState {
+    currentCourse: Course | Record<string, any>;
+    collectionCourse: Course[];
+    topSoldCourse: Course[];
+    topViewCourse: Course[];
+    topSaleCourse: Course[];
+    newReleasedCourse: Course[];
+    topAuthors: [];
+}
+
+const initialState: CourseState = {
     currentCourse: {},
     collectionCourse: [],
     topSoldCourse: [],

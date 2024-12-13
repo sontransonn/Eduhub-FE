@@ -33,7 +33,7 @@ export default function HomePage() {
     return () => {
       dispatch(resetDataInfo());
     };
-  }, [])
+  }, [dispatch])
 
   return (
     <main className="bg-[#F1F5F8] text-black">

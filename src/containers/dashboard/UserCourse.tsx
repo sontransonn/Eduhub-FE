@@ -48,8 +48,8 @@ export default function UserCourse() {
                 <div className='grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-x-4 gap-y-6 mt-8'>
                     {/* <span>Chưa mua khóa học trên unica.vn</span> */}
                     {Array.from({ length: 6 }).map((_, index) => (
-                        <div className='flex flex-col gap-4 text-black'>
-                            <Link href={"/"} className='rounded block relative w-full' style={{ paddingBottom: "56.25%" }}>
+                        <div className='flex flex-col gap-4 text-black' key={index}>
+                            <Link href={"/overview"} className='rounded block relative w-full' style={{ paddingBottom: "56.25%" }}>
                                 <img
                                     className='rounded w-full h-full absolute inset-0'
                                     src="https://i.imgur.com/kFLuGCR.jpeg"

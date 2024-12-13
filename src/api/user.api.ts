@@ -9,7 +9,10 @@ export const getUserInfo = async () => {
     try {
         const response = await api.get('/');
         return response.data;
-    } catch (error: any) {
-        throw new Error(error.response?.data?.message || 'Login failed');
+    } catch (error: unknown) {
+        if (axios.isAxiosError(error)) {
+            throw new Error(error.response?.data?.message || 'Failed to fetch user information');
+        }
+        throw new Error('An unknown error occurred while fetching user information');
     }
 }

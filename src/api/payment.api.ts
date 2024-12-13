@@ -9,7 +9,10 @@ export const zalopay = async () => {
     try {
         const response = await api.post('/zalopay/create-payment');
         return response.data;
-    } catch (error: any) {
-        throw new Error(error.response?.data?.message || 'Login failed');
+    } catch (error: unknown) {
+        if (axios.isAxiosError(error)) {
+            throw new Error(error.response?.data?.message || 'Payment creation failed');
+        }
+        throw new Error('An unknown error occurred while creating the payment');
     }
 }

@@ -1,10 +1,11 @@
 import React from 'react'
-import dynamic from 'next/dynamic';
 
-const TeacherForm = dynamic(() => import('@/containers/teacher-page/TeacherForm'), { ssr: false });
-
-export default function page() {
+export default function TeacherForm() {
     return (
-        <TeacherForm />
+        <main className='bg-[#F1F5F8] text-black'>
+            <div className='max-w-8xl mx-auto px-4 xl:px-20 lg:px-10 md:px-10 lg:py-14 py-8'>
+                <h3 className='font-medium text-3xl text-center'>ĐĂNG KÝ GIẢNG VIÊN</h3>
+            </div>
+        </main>
     )
 }

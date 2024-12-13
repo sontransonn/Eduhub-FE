@@ -4,14 +4,10 @@ import Link from 'next/link'
 import { MdNavigateNext } from "react-icons/md";
 
 import { Card, CardContent } from "@/components/ui/card"
-import {
-    Carousel,
-    CarouselContent,
-    CarouselItem,
-} from "@/components/ui/carousel"
+import { Carousel, CarouselContent, CarouselItem, } from "@/components/ui/carousel"
 import LiveCard from '@/components/card/LiveCard';
 
-const LiveSchedule = () => {
+export default function LiveSchedule() {
     return (
         <div className='max-w-8xl mx-auto px-4 xl:px-20 md:px-10 pt-12'>
             <div className='w-full flex items-center justify-between'>
@@ -52,5 +48,3 @@ const LiveSchedule = () => {
         </div>
     )
 }
-
-export default LiveSchedule

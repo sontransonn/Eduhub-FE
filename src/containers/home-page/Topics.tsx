@@ -3,7 +3,7 @@ import Link from "next/link"
 
 import topics from "@/constants/topics"
 
-const Topics = () => {
+export default function Topics() {
     return (
         <div className='max-w-8xl mx-auto px-4 xl:px-20 md:px-10 pt-12'>
             <h4 className='uppercase font-bold text-2xl'>Chủ đề có thể bạn quan tâm</h4>
@@ -18,4 +18,4 @@ const Topics = () => {
     )
 }
 
-export default Topics
+

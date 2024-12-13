@@ -1,7 +1,7 @@
 import React from "react"
 import Link from "next/link"
 
-const Solutions = () => {
+export default function Solutions() {
     return (
         <div className='max-w-8xl mx-auto px-4 xl:px-20 md:px-10 py-12'>
             <h4 className='uppercase text-2xl font-semibold'>GIẢI PHÁP KHÁC TỪ UNICA</h4>
@@ -25,4 +25,4 @@ const Solutions = () => {
     )
 }
 
-export default Solutions
+

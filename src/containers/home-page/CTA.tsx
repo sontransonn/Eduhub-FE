@@ -1,6 +1,7 @@
+import React from "react"
 import Link from "next/link"
 
-const CTA = () => {
+export default function CTA() {
     return (
         <div className='bg-white'>
             <div className='max-w-8xl mx-auto p-5 lg:px-16 md:py-16 md:px-10 '>
@@ -21,4 +22,3 @@ const CTA = () => {
     )
 }
 
-export default CTA
