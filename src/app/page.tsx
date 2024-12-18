@@ -1,9 +1,5 @@
 "use client"
 import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-
-import { setDataInfo } from "@/redux/slices/courseSlice";
-import { resetDataInfo } from "@/redux/slices/courseSlice";
 
 import Banner from "@/containers/home-page/Banner";
 import LiveSchedule from "@/containers/home-page/LiveSchedule";
@@ -16,24 +12,15 @@ import CTA from "@/containers/home-page/CTA";
 import { getAllCourse } from "@/api/course.api";
 
 export default function HomePage() {
-  const dispatch = useDispatch()
-
-  const {
-    topSoldCourse, topViewCourse,
-    topSaleCourse, newReleasedCourse, topAuthors
-  } = useSelector((state: any) => state.course)
+  const [data, setData] = useState<any>({})
 
   useEffect(() => {
     const fetchData = async () => {
       const data = await getAllCourse();
-      dispatch(setDataInfo(data))
+      setData(data)
     }
     fetchData()
-
-    return () => {
-      dispatch(resetDataInfo());
-    };
-  }, [dispatch])
+  }, [])
 
   return (
     <main className="bg-[#F1F5F8] text-black">
@@ -42,25 +29,25 @@ export default function HomePage() {
       <CourseList
         title="Top bán chạy"
         slug="top-ban-chay"
-        courses={topSoldCourse}
+        courses={data?.topSoldCourse}
       />
       <CourseList
         title="Khóa học phổ biến"
         slug="khoa-hoc-duoc-xem-nhieu"
-        courses={topViewCourse}
+        courses={data?.topViewCourse}
       />
       <CourseList
         title="Top ưu đãi"
         slug="top-uu-dai"
-        courses={topSaleCourse}
+        courses={data?.topSaleCourse}
       />
       <CourseList
         title="Khóa học mới ra mắt"
         slug="khoa-hoc-moi-ra-mat"
-        courses={newReleasedCourse}
+        courses={data?.newReleasedCourse}
       />
       <Topics />
-      <Instructors topAuthors={topAuthors} />
+      <Instructors topAuthors={data?.topInstructorsByStudents} />
       <Solutions />
       <CTA />
     </main>

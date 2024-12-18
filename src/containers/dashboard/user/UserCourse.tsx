@@ -11,24 +11,24 @@ export default function UserCourse() {
         <div className='bg-[#F1F5F8] text-black'>
             <div className='max-w-8xl mx-auto lg:px-20 md:px-10 px-4 py-8'>
                 <form action="" className='grid lg:grid-cols-12 grid-cols-4 gap-4 text-sm'>
-                    <select className='custom-select-arrow relative col-span-2 bg-transparent px-4 py-[10px] border rounded border-black outline-none' name="" id="">
+                    <select className='custom-select-arrow border border-solid border-black relative col-span-2 bg-transparent px-4 py-[10px] rounded outline-none' name="" id="">
                         <option value="">-- Sắp xếp theo --</option>
                         <option value="1">Truy cập gần nhất</option>
                         <option value="2">Lâu chưa truy cập</option>
                     </select>
-                    <select className='custom-select-arrow relative col-span-2 bg-transparent px-4 py-[10px] border rounded border-black outline-none' name="" id="">
+                    <select className='custom-select-arrow border border-solid border-black relative col-span-2 bg-transparent px-4 py-[10px] rounded outline-none' name="" id="">
                         <option value="">-- Danh mục --</option>
                         {categories.map((category, index) => (
                             <option value={index}>{category.title}</option>
                         ))}
 
                     </select>
-                    <select className='custom-select-arrow relative col-span-2 bg-transparent px-4 py-[10px] border rounded border-black outline-none' name="" id="">
+                    <select className='custom-select-arrow border border-solid border-black relative col-span-2 bg-transparent px-4 py-[10px] rounded outline-none' name="" id="">
                         <option value="">-- Trạng thái --</option>
                         <option value="1">Đang học</option>
                         <option value="2">Chưa học</option>
                     </select>
-                    <select className='custom-select-arrow relative col-span-2 bg-transparent px-4 py-[10px] border rounded border-black outline-none' name="" id="">
+                    <select className='custom-select-arrow border border-solid border-black relative col-span-2 bg-transparent px-4 py-[10px] rounded outline-none' name="" id="">
                         <option value="">-- Giảng viên --</option>
                         <option value="">Truy cập gần nhất</option>
                         <option value="">Lâu chưa truy cập</option>

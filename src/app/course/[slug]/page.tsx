@@ -1,10 +1,6 @@
 "use client"
 import React, { useEffect, useState } from 'react'
-import { useSelector, useDispatch } from "react-redux";
 import Link from 'next/link';
-
-import { setCurrentCourse } from '@/redux/slices/courseSlice';
-import { resetCurrentCourse } from '@/redux/slices/courseSlice';
 
 import { FaStar } from 'react-icons/fa'
 import { HiUserGroup } from "react-icons/hi2";
@@ -17,16 +13,15 @@ import Teacher from '@/containers/course-page/Teacher';
 import Reviews from '@/containers/course-page/Reviews';
 import PurchaseCard from '@/containers/course-page/PurchaseCard';
 
+import { addToCart } from '@/api/cart.api';
 import { getCourseBySlug } from '@/api/course.api';
 
-export default function page({ params }: { params: { slug: string } }) {
+export default function CourseDetails({ params }: { params: { slug: string } }) {
     const { slug } = params;
-    const dispatch = useDispatch()
 
     const [headerHeight, setHeaderHeight] = useState(0);
     const [visible, setVisible] = useState(false);
-
-    const { currentCourse } = useSelector((state: any) => state.course)
+    const [currentCourse, setCurrentCourse] = useState<any>({})
 
     useEffect(() => {
         const header = document.querySelector("header");
@@ -50,18 +45,14 @@ export default function page({ params }: { params: { slug: string } }) {
     useEffect(() => {
         const fetchData = async () => {
             const data = await getCourseBySlug(slug);
-            dispatch(setCurrentCourse(data))
+            setCurrentCourse(data)
         }
         fetchData()
-
-        return () => {
-            dispatch(resetCurrentCourse());
-        };
     }, [])
 
     return (
         <main className='bg-[#f1f5f8] relative'>
-            <div className={`fixed hidden md:block bg-[#003555] top-0 left-0 w-full text-white px-6 py-4 shadow-md z-20 ${visible ? `translate-y-[80px]` : "-translate-y-full"}`}>
+            <div className={`fixed hidden md:block bg-[#003555] top-0 left-0 w-full text-white px-6 py-4 shadow-md z-20 ${visible ? `translate-y-[73.6px]` : "-translate-y-full"}`}>
                 <div className='font-bold'>{currentCourse.courseName}</div>
                 <div className='flex gap-10'>
                     <div className='flex items-center gap-1'>
@@ -86,7 +77,7 @@ export default function page({ params }: { params: { slug: string } }) {
             <div className='md:bg-[#003555] bg-[#F1F5F8]'>
                 <div className='w-full max-w-8xl mx-auto grid grid-cols-3 gap-3'>
                     <div className='lg:col-span-2 col-span-3 xl:pl-20 lg:pl-10 md:px-10 py-6 px-4 flex flex-col'>
-                        <Hero />
+                        <Hero currentCourse={currentCourse} />
                     </div>
                 </div>
             </div>
@@ -96,15 +87,14 @@ export default function page({ params }: { params: { slug: string } }) {
                     {/* Giới thiệu khóa học */}
                     <div className='md:p-6 md:mt-0 py-4 md:border border-[#929292] rounded md:order-none order-1'>
                         <div className='text-2xl font-medium'>Giới thiệu khóa học</div>
-                        <div className='font-medium'>Bạn có biết:</div>
-                        <Introduction />
+                        <Introduction currentCourse={currentCourse} />
                     </div>
 
                     {/* Nội dung khóa học */}
                     <div className='flex flex-col gap-4'>
                         <div className='text-2xl font-medium'>Nội dung khóa học</div>
                         <div className='text-sm font-light'>5 phần - 42 bài giảng - 06 giờ 29 phút</div>
-                        <CourseContent />
+                        <CourseContent currentCourse={currentCourse} />
                     </div>
 
                     {/* Tags */}
@@ -116,7 +106,7 @@ export default function page({ params }: { params: { slug: string } }) {
                     {/* Giảng viên */}
                     <div className='md:order-none order-2 flex flex-col gap-4'>
                         <div className='text-2xl font-medium'>Giảng viên</div>
-                        <Teacher />
+                        <Teacher currentCourse={currentCourse} />
                     </div>
 
                     {/* Reviews */}

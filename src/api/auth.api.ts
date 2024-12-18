@@ -14,7 +14,7 @@ export const login = async (formData: { email: string, password: string }) => {
         return response.data;
     } catch (error: unknown) {
         if (axios.isAxiosError(error)) {
-            const errorMessage = error.response?.data?.message || 'Login failed';
+            const errorMessage = error.response?.data?.message || 'Failed';
             throw new Error(errorMessage);
         }
         throw new Error('An unknown error occurred');
@@ -31,7 +31,7 @@ export const register = async (formData: { fullName: string, email: string, pass
         return response.data;
     } catch (error: unknown) {
         if (axios.isAxiosError(error)) {
-            const errorMessage = error.response?.data?.message || 'Register failed';
+            const errorMessage = error.response?.data?.message || 'Failed';
             throw new Error(errorMessage);
         }
         throw new Error('An unknown error occurred');
@@ -44,8 +44,9 @@ export const logout = async () => {
         return response.data;
     } catch (error: unknown) {
         if (axios.isAxiosError(error)) {
-            throw new Error(error.response?.data?.message || 'Logout failed');
+            const errorMessage = error.response?.data?.message || 'Failed';
+            throw new Error(errorMessage);
         }
-        throw new Error('An unknown error occurred during logout');
+        throw new Error('An unknown error occurred');
     }
 }

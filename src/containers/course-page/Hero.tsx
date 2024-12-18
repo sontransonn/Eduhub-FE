@@ -10,9 +10,7 @@ import {
     BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
 
-export default function Hero() {
-    const { currentCourse } = useSelector((state: any) => state.course)
-
+export default function Hero({ currentCourse }) {
     return (
         <div className='md:text-white text-back flex flex-col gap-4'>
             <Breadcrumb>

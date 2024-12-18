@@ -1,12 +1,12 @@
 'use client'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { usePathname } from 'next/navigation';
 
 import Header from "@/components/Header";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
-const routeNoUseRootLayout = new Set(["/login", "/register", "/info", "/learning/slug"]);
+const routeNoUseRootLayout = new Set(["/login", "/register", "/info", "/learning", "/course/manage"]);
 
 export default function LayoutProvider({ children }: Readonly<{
     children: React.ReactNode;

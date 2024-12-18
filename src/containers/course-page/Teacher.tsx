@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Teacher = () => {
+export default function Teacher({ currentCourse }) {
     return (
         <div className='flex flex-col gap-2'>
             <a href="" className='block md:text-[#006CCB] text-[#F77321]'>Nguyễn Thu Hương (Choé)</a>
@@ -16,5 +16,3 @@ const Teacher = () => {
         </div>
     )
 }
-
-export default Teacher

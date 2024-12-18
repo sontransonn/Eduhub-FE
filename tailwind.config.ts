@@ -13,6 +13,7 @@ const config: Config = {
 			boxShadow: {
 				custom: '1px 1px 1px #ccc',
 				customT: '0 -2px 3px rgba(0, 0, 0, 0.1)',
+				customB: '0 0 10px #0003'
 			},
 			maxWidth: {
 				'8xl': '90rem'

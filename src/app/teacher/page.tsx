@@ -11,22 +11,22 @@ export default function Teacher() {
                 <div className='flex flex-col gap-5'>
                     <h3 className='font-medium text-2xl text-center'>DANH SÁCH GIẢNG VIÊN TRÊN EDUHUB</h3>
                     <form action="" className='grid lg:grid-cols-12 grid-cols-4 gap-4 text-sm'>
-                        <select className='custom-select-arrow relative col-span-2 bg-transparent px-4 py-[10px] rounded outline-none' name="" id="">
+                        <select className='custom-select-arrow border border-solid border-black relative col-span-2 bg-transparent px-4 py-[10px] rounded outline-none' name="" id="">
                             <option value="">Chọn chiều cao</option>
                             <option value="1">Truy cập gần nhất</option>
                             <option value="2">Lâu chưa truy cập</option>
                         </select>
-                        <select className='custom-select-arrow relative col-span-2 bg-transparent px-4 py-[10px] rounded outline-none' name="" id="">
+                        <select className='custom-select-arrow border border-solid border-black relative col-span-2 bg-transparent px-4 py-[10px] rounded outline-none' name="" id="">
                             <option value="">Chọn cỡ cốc</option>
                             <option value="1">Truy cập gần nhất</option>
                             <option value="2">Lâu chưa truy cập</option>
                         </select>
-                        <select className='custom-select-arrow relative col-span-2 bg-transparent px-4 py-[10px] rounded outline-none' name="" id="">
+                        <select className='custom-select-arrow border border-solid border-black relative col-span-2 bg-transparent px-4 py-[10px] rounded outline-none' name="" id="">
                             <option value="">Chọn độ tuổi</option>
                             <option value="1">Truy cập gần nhất</option>
                             <option value="2">Lâu chưa truy cập</option>
                         </select>
-                        <select className='custom-select-arrow relative col-span-2 bg-transparent px-4 py-[10px] rounded outline-none' name="" id="">
+                        <select className='custom-select-arrow border border-solid border-black relative col-span-2 bg-transparent px-4 py-[10px] rounded outline-none' name="" id="">
                             <option value="">Chọn năm ra mắt</option>
                             <option value="1">Truy cập gần nhất</option>
                             <option value="2">Lâu chưa truy cập</option>

@@ -4,12 +4,13 @@ import { FaStar } from "react-icons/fa6";
 
 type CourseCardProps = {
     courseName: string,
+    instructorName: string,
     rating: string,
     price: number,
     discount: number
 };
 
-export default function CourseCard({ courseName, rating, price, discount }: CourseCardProps) {
+export default function CourseCard({ courseName, instructorName, rating, price, discount }: CourseCardProps) {
     const salePrice = calculateSalePrice(price, discount);
 
     function calculateSalePrice(originalPrice: number, discountPercentage: number) {
@@ -27,7 +28,7 @@ export default function CourseCard({ courseName, rating, price, discount }: Cour
                     alt="" />
             </div>
             <h3 className='font-medium line-clamp-2'>{courseName}</h3>
-            <div className='text-sm font-light'>Hoàng Viết Thắng</div>
+            <div className='text-sm font-light'>{instructorName || "Tran duc son"}</div>
             <div className='flex items-center text-sm gap-1.5'>
                 <span className='font-bold'>{rating}</span>
                 <div className='text-[#F77321] flex'>

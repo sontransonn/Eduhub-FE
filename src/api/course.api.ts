@@ -11,9 +11,10 @@ export const getAllCourse = async () => {
         return response.data;
     } catch (error: unknown) {
         if (axios.isAxiosError(error)) {
-            throw new Error(error.response?.data?.message || 'Failed to fetch all courses');
+            const errorMessage = error.response?.data?.message || 'Failed';
+            throw new Error(errorMessage);
         }
-        throw new Error('An unknown error occurred while fetching all courses');
+        throw new Error('An unknown error occurred');
     }
 }
 
@@ -23,9 +24,10 @@ export const getCourseByOptions = async (option: string, page: number) => {
         return response.data;
     } catch (error: unknown) {
         if (axios.isAxiosError(error)) {
-            throw new Error(error.response?.data?.message || 'Failed to fetch courses by options');
+            const errorMessage = error.response?.data?.message || 'Failed';
+            throw new Error(errorMessage);
         }
-        throw new Error('An unknown error occurred while fetching courses by options');
+        throw new Error('An unknown error occurred');
     }
 }
 
@@ -35,8 +37,47 @@ export const getCourseBySlug = async (slug: string) => {
         return response.data;
     } catch (error: unknown) {
         if (axios.isAxiosError(error)) {
-            throw new Error(error.response?.data?.message || 'Failed to fetch course by slug');
+            const errorMessage = error.response?.data?.message || 'Failed';
+            throw new Error(errorMessage);
         }
-        throw new Error('An unknown error occurred while fetching course by slug');
+        throw new Error('An unknown error occurred');
+    }
+}
+
+export const searchCourseByName = async (name: string) => {
+    try {
+        const response = await api.get(`/searching?name=${name}`);
+        return response.data;
+    } catch (error: unknown) {
+        if (axios.isAxiosError(error)) {
+            const errorMessage = error.response?.data?.message || 'Failed';
+            throw new Error(errorMessage);
+        }
+        throw new Error('An unknown error occurred');
+    }
+}
+
+export const searchCourse = async (name: string, page: number) => {
+    try {
+        const response = await api.get(`/search?name=${name}&page=${page}`);
+        return response.data;
+    } catch (error: unknown) {
+        if (axios.isAxiosError(error)) {
+            const errorMessage = error.response?.data?.message || 'Failed';
+            throw new Error(errorMessage);
+        }
+        throw new Error('An unknown error occurred');
+    }
+}
+
+export const InstructorCreateCourse = async (courseName: string, category: string) => {
+    try {
+
+    } catch (error: unknown) {
+        if (axios.isAxiosError(error)) {
+            const errorMessage = error.response?.data?.message || 'Failed';
+            throw new Error(errorMessage);
+        }
+        throw new Error('An unknown error occurred');
     }
 }

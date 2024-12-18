@@ -28,15 +28,16 @@ export default function CourseList({ title, slug, courses }: CourseListProps) {
 
             {/* Hiển thị khi màn hình > 768px */}
             <div className="md:grid md:grid-cols-2 lg:grid-cols-4 mt-6 gap-4 hidden">
-                {courses.length > 0 ? (
+                {courses?.length > 0 ? (
                     courses.map((course: any, index) => (
                         <div className="w-full col">
                             <Link href={`/course/${course?.slug}`} className="col">
                                 <CourseCard
-                                    courseName={course.courseName}
-                                    rating={course.rating}
-                                    price={course.price}
-                                    discount={course.discount}
+                                    courseName={course?.courseName}
+                                    instructorName={course?.approvedBy?.fullName}
+                                    rating={course?.rating}
+                                    price={course?.price}
+                                    discount={course?.discount}
                                 />
                             </Link>
                         </div>
@@ -54,17 +55,18 @@ export default function CourseList({ title, slug, courses }: CourseListProps) {
             <div className='md:hidden mt-6'>
                 <Carousel className="w-full">
                     <CarouselContent className="-ml-1 gap-4 justify-between">
-                        {courses.length > 0 ? (
+                        {courses?.length > 0 ? (
                             courses.map((course: any, index) => (
                                 <CarouselItem key={index} className="pl-1 basis-2/3 lg:basis-1/4 select-none cursor-pointer">
                                     <Card className='bg-[#F1F5F8] border-none shadow-none'>
                                         <CardContent className='p-0'>
                                             <Link href={`/course/${course?.slug}`}>
                                                 <CourseCard
-                                                    courseName={course.courseName}
-                                                    rating={course.rating}
-                                                    price={course.price}
-                                                    discount={course.discount}
+                                                    courseName={course?.courseName}
+                                                    instructorName={course?.approvedBy?.fullName}
+                                                    rating={course?.rating}
+                                                    price={course?.price}
+                                                    discount={course?.discount}
                                                 />
                                             </Link>
                                         </CardContent>
