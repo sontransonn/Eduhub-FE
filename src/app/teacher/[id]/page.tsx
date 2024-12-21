@@ -1,9 +1,8 @@
 "use client"
 import React from 'react'
 import dynamic from "next/dynamic";
-import Link from 'next/link';
 
-import { FaFacebookSquare, FaStar } from "react-icons/fa";
+import { FaFacebookSquare } from "react-icons/fa";
 import { FaRocketchat } from "react-icons/fa";
 
 const ReactPlayer = dynamic(() => import("react-player"), { ssr: false });
@@ -17,7 +16,7 @@ export default function TeacherDetails() {
                         <div className='flex lg:flex-row md:items-stretch items-center flex-col text-white gap-5'>
                             <img
                                 src="https://unica.vn/uploads/duhq/December72018659am_han-quang-du_thumb.png"
-                                className='rounded-full w-40 h-40'
+                                className='rounded-full w-40 h-40' width={160} height={160}
                                 alt=""
                             />
                             <div className='flex flex-col md:items-stretch items-center justify-between gap-4 lg:gap-0 lg:pt-10'>
@@ -85,7 +84,7 @@ export default function TeacherDetails() {
                         <h4 className='text-lg font-semibold'>Khóa học của giảng viên Hán Quang Dự</h4>
                         <div className='flex flex-col gap-2.5'>
                             {Array.from({ length: 8 }).map((_, index) => (
-                                <div className='flex w-full bg-white justify-between gap-4 p-[10px] border border-solid border-[#e0e0e0]'>
+                                <div className='flex w-full bg-white justify-between gap-4 p-[10px] border border-solid border-[#e0e0e0]' key={index}>
                                     <img
                                         src="https://static.vecteezy.com/system/resources/previews/028/112/827/non_2x/a-cup-of-coffee-with-book-and-pen-on-the-wooden-table-ai-generated-free-photo.jpg"
                                         alt=""

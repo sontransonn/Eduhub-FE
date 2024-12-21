@@ -17,7 +17,7 @@ const chapters = [
     { title: "Chương 6: Kinh doanh hiệu quả", content: "Nội dung chi tiết của Chương 3..." },
 ];
 
-const CourseContent = ({ currentCourse }) => {
+const CourseContent = () => {
     return (
         <div className='rounded border border-gray-400 border-t-0 overflow-hidden'>
             <Accordion type="multiple">

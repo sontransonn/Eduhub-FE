@@ -15,7 +15,7 @@ export default function page() {
 
                     {Array.from({ length: 100 }).map((_, index) => (
                         <div key={index} className="w-full col">
-                            <CourseCard />
+                            <CourseCard poster='' instructorName='' ratingNum={8} courseName={""} rating={""} price={9} discount={5} />
                         </div>
                     ))}
                 </div>

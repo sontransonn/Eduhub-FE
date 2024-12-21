@@ -1,15 +1,20 @@
 "use client"
 import React, { useState } from 'react'
-import Image from 'next/image';
+import { useSearchParams } from 'next/navigation';
+// import Image from 'next/image';
 import Link from 'next/link'
 
 import payment from '@/constants/payments'
 
 import { FaPenToSquare } from "react-icons/fa6";
 
+import { momo } from '@/api/payment.api';
 import { zalopay } from '@/api/payment.api';
 
-export default function Step2Page() {
+export default function Pay() {
+    const searchParams = useSearchParams();
+    const oid = searchParams.get('oid');
+
     const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("");
 
     const handlePayment = async () => {
@@ -19,14 +24,31 @@ export default function Step2Page() {
         }
 
         try {
-            const data = await zalopay()
-            if (data.order_url) {
-                window.location.href = data.order_url;
+            if (selectedPaymentMethod === 'momo') {
+                if (!oid) {
+                    console.error('Order ID is missing');
+                    return;
+                }
+
+                const data = await momo(oid);
+                if (data && data.payUrl) {
+                    window.location.href = data.payUrl;
+                } else {
+                    alert("Không thể tạo giao dịch thanh toán MoMo.");
+                }
+            } else if (selectedPaymentMethod === 'zalopay') {
+                const data = await zalopay();
+                if (data && data.order_url) {
+                    window.location.href = data.order_url; // Điều hướng đến URL thanh toán ZaloPay
+                } else {
+                    alert("Không thể tạo giao dịch thanh toán ZaloPay.");
+                }
             } else {
-                alert("Không thể tạo giao dịch thanh toán.");
+                alert("Phương thức thanh toán không hợp lệ.");
             }
         } catch (err) {
             console.error("Error initiating payment: ", err);
+            alert("Đã xảy ra lỗi trong quá trình thanh toán.");
         }
     };
 
@@ -80,7 +102,7 @@ export default function Step2Page() {
                         <div className='lg:col-span-2 col-span-3 text-sm font-medium flex gap-4 flex-col border rounded p-6 bg-white shadow'>
                             <h3 className='font-semibold text-lg'>Chọn phương thức thanh toán</h3>
                             {payment?.map((payment, index) => (
-                                <div className='flex gap-2 items-center justify-between p-4 border border-gray-200 rounded'>
+                                <div className='flex gap-2 items-center justify-between p-4 border border-gray-200 rounded' key={index}>
                                     <div className='flex gap-2 items-center'>
                                         <input
                                             key={index} type="radio"
@@ -90,7 +112,7 @@ export default function Step2Page() {
                                         />
                                         <p>{payment.title}</p>
                                     </div>
-                                    <Image width={25} src={payment.img} alt="" />
+                                    {/* <Image width={25} height={25} src={payment.img} alt="" /> */}
                                 </div>
                             ))}
                             <button className='w-full py-4 text-center rounded-sm bg-orange-500 text-white hover:bg-orange-600' onClick={handlePayment}>

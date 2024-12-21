@@ -1,11 +1,36 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useRouter } from 'next/navigation';
+import toast from 'react-hot-toast';
 
 import {
     Breadcrumb, BreadcrumbItem,
     BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
 
-export default function CreateCourse({ setActiveTab }: { setActiveTab: any }) {
+import { InstructorCreateCourse } from '@/api/instructor.api';
+
+export default function CreateCourse({ setActiveTab }: { setActiveTab: (tab: string) => void }) {
+    const router = useRouter();
+
+    const [courseName, setCourseName] = useState<string>('')
+
+    const handleCreateCourse = async () => {
+        try {
+            const data = await InstructorCreateCourse(courseName)
+            toast.success(data.message)
+            setActiveTab("course")
+            router.push("/dashboard/instructor")
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                toast.error(error.message);
+                console.error('Failed:', error.message);
+            } else {
+                toast.error('An unknown error occurred');
+                console.error('Failed with an unknown error');
+            }
+        }
+    }
+
     return (
         <div className='flex flex-col gap-8'>
             <Breadcrumb>
@@ -39,10 +64,7 @@ export default function CreateCourse({ setActiveTab }: { setActiveTab: any }) {
             <div className='flex flex-col gap-2'>
                 <h5 className='text-lg font-medium'>Tên khóa học</h5>
                 <p className='text-sm'>Đừng lo nếu bạn không thể nghĩ ra một tên ngay bây giờ. Bạn có thể thay đổi sau</p>
-                <input
-                    type="text" className='w-full px-4 py-3 outline-none shadow-custom'
-                    placeholder='Ví dụ: Word 2019 từ cơ bản đến nâng cao'
-                />
+                <input type="text" className='w-full px-4 py-3 outline-none shadow-custom' placeholder='Ví dụ: Word 2019 từ cơ bản đến nâng cao' onChange={(e) => setCourseName(e.target.value)} />
             </div>
             <div className='flex flex-col gap-2'>
                 <h5 className='text-lg font-medium'>Thể loại</h5>
@@ -53,7 +75,10 @@ export default function CreateCourse({ setActiveTab }: { setActiveTab: any }) {
                     <option value="2">Lâu chưa truy cập</option>
                 </select>
             </div>
-            <button className='bg-blue-500 hover:bg-blue-600 font-medium rounded-sm self-end text-white py-3 px-4' onClick={() => setActiveTab("course")}>Tạo khóa học</button>
+            <button className='bg-blue-500 hover:bg-blue-600 font-medium rounded-sm self-end text-white py-3 px-4' onClick={() => handleCreateCourse()}>Tạo khóa học</button>
         </div>
     )
 }
+
+
+

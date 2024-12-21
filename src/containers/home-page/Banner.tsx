@@ -3,10 +3,11 @@ import React from 'react'
 import Carousel from "react-multi-carousel";
 import Link from 'next/link';
 
+import categories from '@/constants/categories';
+
 import { MdKeyboardArrowRight } from "react-icons/md";
 
 import { banners } from '@/constants/images';
-import categories from '@/constants/categories';
 interface Props {
     onClick: () => void;
     active: boolean;
@@ -55,12 +56,12 @@ export default function Banner() {
                                 </Link>
                                 <div className="absolute top-0 left-full ml-3 w-[calc(300%+24px)] bottom-0 z-[99] group-hover/item:block hidden shadow-custom">
                                     <div className='bg-white text-black grid grid-cols-5 h-full gap-4 p-4'>
-                                        {category.subCategories?.map((subCategory: any, index) => (
-                                            <div className='col-span-1 flex flex-col gap-2'>
+                                        {category.subCategories?.map((subCategory, index) => (
+                                            <div className='col-span-1 flex flex-col gap-2' key={index}>
                                                 <Link href={`/category/${category.slug}/${subCategory.slug}`} className='font-semibold text-[#01314e]'>{subCategory.title}</Link>
                                                 <ul className='text-sm'>
-                                                    {subCategory.tags?.map((tag: any, index: number) => (
-                                                        <li className='font-medium'>
+                                                    {subCategory.tags?.map((tag, index: number) => (
+                                                        <li className='font-medium' key={index}>
                                                             <Link href={`/tag/${tag.slug}`} className='inline-block py-1.5'>
                                                                 {tag.title}
                                                             </Link>
@@ -86,7 +87,7 @@ export default function Banner() {
                         showDots={true}
                         customDot={<CustomDot onClick={() => { }} active={true} />}
                     >
-                        {banners.map((src, index) => (
+                        {banners.map((_, index) => (
                             <div key={index} className="w-full aspect-video">
                                 <img
                                     src={"https://file.unica.vn/storage/db240c65c57e0a4f35edba3312c62511cbac63cc/nutrime-livestream.png"}

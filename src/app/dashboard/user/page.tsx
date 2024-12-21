@@ -2,6 +2,8 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 
+import { RootState } from '@/redux/store'
+
 import UserCourse from '@/containers/dashboard/user/UserCourse'
 import UserOrder from '@/containers/dashboard/user/UserOrder'
 import UserWishlist from '@/containers/dashboard/user/UserWishlist'
@@ -12,7 +14,7 @@ import { Carousel, CarouselContent, CarouselItem, } from "@/components/ui/carous
 export default function UserDashboard() {
     const [activeTab, setActiveTab] = useState('course');
 
-    const { userInfo } = useSelector((state: any) => state.user)
+    const { userInfo } = useSelector((state: RootState) => state.user)
 
     const renderContent = () => {
         switch (activeTab) {

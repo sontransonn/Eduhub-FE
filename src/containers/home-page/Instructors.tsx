@@ -1,5 +1,4 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
 import Link from 'next/link'
 
 import { MdNavigateNext } from 'react-icons/md'
@@ -27,7 +26,7 @@ export default function Instructors({ topAuthors }: InstructorsProps) {
             <Carousel className="flex w-full mt-6" id='carousel-custom'>
                 <CarouselContent className="-ml-4 justify-between">
                     {topAuthors?.length > 0 ? (
-                        topAuthors.map((author: any, index) => (
+                        topAuthors.map((author: { instructorId: string, name: string, title: string }, index) => (
                             <CarouselItem key={index} className="pl-4 basis-1/2 lg:basis-1/4 select-none cursor-pointer">
                                 <Card className='rounded-lg border h-full p-5'>
                                     <CardContent className="p-0 h-full">

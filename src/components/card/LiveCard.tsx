@@ -9,7 +9,7 @@ export default function LiveCard() {
             <Link href={"/"} className='rounded block relative w-full' style={{ paddingBottom: "56.25%" }}>
                 <img
                     className='rounded w-full h-full absolute inset-0'
-                    src="https://static.unica.vn/upload/images/2024/03/Thi%E1%BA%BFt%20k%E1%BA%BF%20ch%C6%B0a%20c%C3%B3%20t%C3%AAn.png_m_1709536433.jpg"
+                    src={"https://i.imgur.com/kFLuGCR.jpeg"}
                     alt="" />
             </Link>
             <h3 className="font-medium line-clamp-2 break-words">Khóa học Bí quyết ăn đúng sống trường thọ</h3>

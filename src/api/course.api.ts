@@ -70,10 +70,12 @@ export const searchCourse = async (name: string, page: number) => {
     }
 }
 
-export const InstructorCreateCourse = async (courseName: string, category: string) => {
-    try {
 
-    } catch (error: unknown) {
+export const getCourseByCategory = async (slug: string) => {
+    try {
+        const response = await api.get(`/categories/${slug}`);
+        return response.data;
+    } catch (error) {
         if (axios.isAxiosError(error)) {
             const errorMessage = error.response?.data?.message || 'Failed';
             throw new Error(errorMessage);

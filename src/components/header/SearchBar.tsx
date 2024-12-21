@@ -6,12 +6,18 @@ import { FiSearch } from 'react-icons/fi'
 import { searchCourseByName } from '@/api/course.api';
 import Link from 'next/link';
 
+type Result = {
+    slug: string,
+    poster: string,
+    courseName: string
+}
+
 export default function SearchBar() {
     const router = useRouter();
     const pathname = usePathname();
 
     const [keyword, setKeyword] = useState('');
-    const [results, setResults] = useState([]);
+    const [results, setResults] = useState<Result[]>([])
     const [showResults, setShowResults] = useState(false);
 
     useEffect(() => {
@@ -67,9 +73,9 @@ export default function SearchBar() {
             {showResults && (
                 <div className='absolute bg-white top-[110%] right-0 left-0 border border-solid border-[#3333] rounded-sm overflow-hidden'>
                     <div className='w-full flex flex-col'>
-                        {results.map((result: any, index) => (
-                            <Link href={`/course/${result.slug}`} className='flex items-center p-1 cursor-pointer hover:bg-[#003555] hover:text-white'>
-                                <img src="" alt="" />
+                        {results.map((result, index) => (
+                            <Link href={`/course/${result.slug}`} key={index} className='flex items-center gap-2 p-1 cursor-pointer hover:bg-[#003555] hover:text-white'>
+                                <img src={result.poster} width={80} height={40} alt='' />
                                 <h4>{result.courseName}</h4>
                             </Link>
                         ))}

@@ -2,13 +2,15 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux';
 
+import { RootState } from '@/redux/store';
+
 import InstructorCourse from '@/containers/dashboard/instructor/InstructorCourse';
 import CreateCourse from '@/containers/dashboard/instructor/CreateCourse';
 
 export default function InstructorDashboard() {
     const [activeTab, setActiveTab] = useState('course');
 
-    const { userInfo } = useSelector((state: any) => state.user)
+    const { userInfo } = useSelector((state: RootState) => state.user)
 
     const renderContent = () => {
         switch (activeTab) {

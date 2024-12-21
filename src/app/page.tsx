@@ -11,13 +11,19 @@ import CTA from "@/containers/home-page/CTA";
 
 import { getAllCourse } from "@/api/course.api";
 
+import { HomeType } from "@/types/home.type";
+
 export default function HomePage() {
-  const [data, setData] = useState<any>({})
+  const [data, setData] = useState<HomeType | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await getAllCourse();
-      setData(data)
+      try {
+        const response = await getAllCourse();
+        setData(response);
+      } catch (error) {
+        console.error("Error fetching courses:", error);
+      }
     }
     fetchData()
   }, [])
@@ -29,25 +35,25 @@ export default function HomePage() {
       <CourseList
         title="Top bán chạy"
         slug="top-ban-chay"
-        courses={data?.topSoldCourse}
+        courses={data?.topSoldCourse || []}
       />
       <CourseList
         title="Khóa học phổ biến"
         slug="khoa-hoc-duoc-xem-nhieu"
-        courses={data?.topViewCourse}
+        courses={data?.topViewCourse || []}
       />
       <CourseList
         title="Top ưu đãi"
         slug="top-uu-dai"
-        courses={data?.topSaleCourse}
+        courses={data?.topSaleCourse || []}
       />
       <CourseList
         title="Khóa học mới ra mắt"
         slug="khoa-hoc-moi-ra-mat"
-        courses={data?.newReleasedCourse}
+        courses={data?.newReleasedCourse || []}
       />
       <Topics />
-      <Instructors topAuthors={data?.topInstructorsByStudents} />
+      <Instructors topAuthors={data?.topInstructorsByStudents || []} />
       <Solutions />
       <CTA />
     </main>

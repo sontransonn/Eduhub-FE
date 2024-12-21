@@ -5,9 +5,22 @@ const api = axios.create({
     withCredentials: true,
 });
 
-export const addToCart = async (courseId: string) => {
+export const handleAddRemoveWithCart = async (courseId: string) => {
     try {
-        const response = await api.post(`/add-to-cart`, courseId);
+        const response = await api.post(`/cart/${courseId}`);
+        return response.data
+    } catch (error: unknown) {
+        if (axios.isAxiosError(error)) {
+            const errorMessage = error.response?.data?.message || 'Failed';
+            throw new Error(errorMessage);
+        }
+        throw new Error('An unknown error occurred');
+    }
+}
+
+export const getMyCart = async () => {
+    try {
+        const response = await api.get(`/my-cart`);
         return response.data
     } catch (error: unknown) {
         if (axios.isAxiosError(error)) {

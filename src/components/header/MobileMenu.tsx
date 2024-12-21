@@ -4,6 +4,8 @@ import Link from "next/link"
 
 import categories from "@/constants/categories"
 
+import { RootState } from "@/redux/store"
+
 import { FiMenu, FiPhoneOutgoing, FiSearch, FiShoppingCart } from "react-icons/fi"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
@@ -12,7 +14,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger, } from "@
 import { MdDownloadForOffline, MdMailOutline, MdOutlineNavigateNext } from "react-icons/md"
 
 export default function MobileMenu() {
-    const { userInfo } = useSelector((state: any) => state.user)
+    const { userInfo } = useSelector((state: RootState) => state.user)
 
     return (
         <div className="flex justify-between items-center p-4">

@@ -1,10 +1,10 @@
 "use client"
 import React, { useState } from 'react'
+import Link from 'next/link';
 
 import OverviewTab from '@/containers/overview-page/OverviewTab';
 import LessonsTab from '@/containers/overview-page/LessonsTab';
 import DocumentsTab from '@/containers/overview-page/DocumentsTab';
-import Link from 'next/link';
 
 export default function Overview() {
     const [activeTab, setActiveTab] = useState('overview');
@@ -34,7 +34,7 @@ export default function Overview() {
                         <div className='md:col-span-6 col-span-12 block relative w-full' style={{ paddingBottom: "56.25%" }}>
                             <img
                                 className='w-full h-full absolute inset-0'
-                                src="https://unica.vn/upload/images/2024/03/Thi%E1%BA%BFt%20k%E1%BA%BF%20ch%C6%B0a%20c%C3%B3%20t%C3%AAn.png_1709536433.jpg"
+                                src={"https://i.imgur.com/kFLuGCR.jpeg"}
                                 alt="" />
                         </div>
                         <div className='md:col-span-6 col-span-12'>

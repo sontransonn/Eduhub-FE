@@ -2,7 +2,9 @@
 import React, { useState } from 'react'
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md';
 
-const Introduction = ({ currentCourse }) => {
+import { CourseProps } from '@/types/course.type';
+
+const Introduction = ({ currentCourse }: { currentCourse: CourseProps }) => {
     const [isExpanded, setIsExpanded] = useState(false);
 
     const toggleExpand = () => {

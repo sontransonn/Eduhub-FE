@@ -1,4 +1,8 @@
 import React from 'react'
+import Image from 'next/image'
+import Link from 'next/link'
+
+import logoBig from "@/public/logo/logoBig.png"
 
 export default function Footer() {
     return (
@@ -6,12 +10,9 @@ export default function Footer() {
             <div className='max-w-8xl mx-auto px-4 xl:px-20 lg:px-10 md:px-10 py-6'>
                 <div className='grid lg:grid-cols-5 md:grid-cols-3 gap-6 md:gap-0'>
                     <div className='flex flex-col text-white'>
-                        <a href={"/"}>
-                            <img
-                                src="https://static.unica.vn/media/images_v2018/logo-unica.png"
-                                alt=""
-                            />
-                        </a>
+                        <Link href={"/"}>
+                            <Image src={logoBig} width={140} height={35} alt="" />
+                        </Link>
                         <div className='mt-6 text-sm flex flex-col gap-4'>
                             <p>247 Cầu Giấy, TP.Hà Nội</p>
                             <p>Hotline 1: 19001568</p>
@@ -56,13 +57,13 @@ export default function Footer() {
                             <ul className="flex flex-col lg:flex-col md:flex-row gap-4">
                                 <li>
                                     <a href="https://itunes.apple.com/us/app/unica-online-learning/id1230853725?ls=1&mt=8">
-                                        <img className="w-[145px]" alt="Unica on App Store"
+                                        <img width={145} height={40} alt="Unica on App Store"
                                             src="https://unica.vn/master/image/app-store.png" />
                                     </a>
                                 </li>
                                 <li>
                                     <a href="https://play.google.com/store/apps/details?id=com.inet.Learning">
-                                        <img className="w-[145px]" alt="Unica on Google Play"
+                                        <img width={145} height={40} alt="Unica on Google Play"
                                             src="https://unica.vn/master/image/google.png" />
                                     </a>
                                 </li>

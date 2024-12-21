@@ -1,6 +1,5 @@
 "use client"
 import React, { useEffect } from 'react'
-import Image from 'next/image';
 import Link from 'next/link';
 import { useSelector, useDispatch } from 'react-redux';
 import PhoneInput from 'react-phone-input-2'
@@ -52,7 +51,7 @@ export default function Info() {
                             <label htmlFor="" className='absolute bottom-0 right-0 border-2 rounded-full bg-white p-1 cursor-pointer'>
                                 <IoCameraOutline size={24} color='#666c77' />
                             </label>
-                            <Image
+                            <img
                                 src=""
                                 alt="User Avatar"
                                 width={96}

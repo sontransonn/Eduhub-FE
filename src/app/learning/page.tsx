@@ -1,11 +1,9 @@
 "use client"
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux';
 import dynamic from "next/dynamic";
-import Image from 'next/image';
 import Link from 'next/link';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
-import Joyride from "react-joyride";
+import Image from 'next/image';
 
 import { IoIosArrowBack } from "react-icons/io";
 import { HiArrowSmRight } from "react-icons/hi";
@@ -23,37 +21,11 @@ const ReactPlayer = dynamic(() => import("react-player"), { ssr: false });
 import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer"
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
 
-import small from "@/public/logo/small.png"
-
 const percentage = 15;
-
-const steps = [
-    {
-        target: "body",
-        content: "Chào cậu! Mình là Miu - hướng dẫn viên tại F8, mình sẽ đưa cậu đi thăm quan và giới thiệu cho cậu hiểu rõ hơn về F8 nhé. Đi thôi!",
-        placement: 'center',
-    },
-    {
-        target: ".video",
-        content: "Đây là khu vực trung tâm màn hình, nơi bạn xem video.",
-        placement: 'right',
-    },
-    {
-        target: ".content",
-        content: "Tiếp theo là khu vực quan trọng không kém, đây là danh sách các bài học tại khóa này. Cậu sẽ rất thường xuyên tương tác tại đây để chuyển bài học và làm bài tập đấy >_<",
-        placement: 'left',
-    },
-    {
-        target: ".comment",
-        content: "Và đây là khu vực dành cho việc hỏi đáp, trao đổi trong mỗi bài học. Nếu có bài học nào hay thì cậu bình luận một lời động viên vào đây cũng được nhé. Miu sẽ rất vui và cảm thấy biết ơn đấy <3",
-        placement: 'top',
-    },
-];
 
 export default function LearningPage() {
     const [screenWidth, setScreenWidth] = useState(window.innerWidth);
     const [showMenu, setShowMenu] = useState(true)
-    const [run, setRun] = useState(false);
 
     useEffect(() => {
         const handleResize = () => {
@@ -67,13 +39,6 @@ export default function LearningPage() {
         };
     }, []);
 
-    const handleStartTour = () => {
-        setRun(false); // Đặt run về false
-        setTimeout(() => {
-            setRun(true); // Sau một thời gian ngắn, set lại run thành true để bắt đầu tour lại
-        }, 100); // Đặt delay ngắn để đảm bảo tour bắt đầu lại
-    };
-
     return (
         <>
             <header className='bg-[#292f3b] text-white'>
@@ -82,7 +47,8 @@ export default function LearningPage() {
                         <IoIosArrowBack size={20} className='m-auto' />
                     </div>
                     <Link href={"/"} className='hidden md:block'>
-                        <Image src={small} alt="" width={30} height={30} className='rounded-lg' />
+                        <Image
+                            src="https://i.imgur.com/kFLuGCR.jpeg" alt="" width={30} height={30} className='rounded-lg' />
                     </Link>
                     <span className='text-sm md:ml-5 font-bold'>
                         HTML CSS từ Zero đến Hero
@@ -108,27 +74,13 @@ export default function LearningPage() {
                             <FaFile size={14} />
                             <span className='hidden lg:block'>Ghi chú</span>
                         </li>
-                        <li className='items-center gap-1.5 cursor-pointer hidden lg:flex' onClick={handleStartTour}>
+                        <li className='items-center gap-1.5 cursor-pointer hidden lg:flex'>
                             <FaQuestionCircle size={14} />
                             <span className=''>Hướng dẫn</span>
                         </li>
                     </ul>
                 </div>
             </header>
-
-            <Joyride
-                steps={steps}
-                run={run}
-                continuous
-                showSkipButton
-                showProgress
-                disableScrolling={true}
-                styles={{
-                    options: {
-                        zIndex: 10000,
-                    },
-                }}
-            />
 
             <main className='flex bg-[#f1f5f8] h-[calc(100vh-100px)]'>
                 <div className={`${showMenu ? "lg:w-3/4 w-full" : "w-full"} relative h-full flex flex-col`}>
@@ -137,7 +89,7 @@ export default function LearningPage() {
                             <div className='max-w-6xl md:px-20 mx-auto'>
                                 <div className="video relative" style={{ aspectRatio: "16/9" }}>
                                     <ReactPlayer
-                                        url='https://www.youtube.com/watch?v=zwsPND378OQ&embeds_referring_euri=https%3A%2F%2Ffullstack.edu.vn%2F&embeds_referring_origin=https%3A%2F%2Ffullstack.edu.vn&source_ve_path=MjM4NTE'
+                                        url='https://www.youtube.com/watch?v=FaEqTKk2k0c'
                                         controls
                                         width="100%"
                                         height="100%"
@@ -161,7 +113,7 @@ export default function LearningPage() {
                             </div>
 
                             <div className='flex flex-col gap-4'>
-                                <h4 className=''>Tham gia các cộng đồng để cùng học hỏi, chia sẻ và "thám thính" xem Eduhub sắp có gì mới nhé!</h4>
+                                <h4 className=''>Tham gia các cộng đồng để cùng học hỏi, chia sẻ và &quot;thám thính&quot; xem Eduhub sắp có gì mới nhé!</h4>
                                 <ul className='flex flex-col gap-2 list-disc list-inside'>
                                     <li>
                                         <span>Fanpage:{" "}</span>

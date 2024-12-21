@@ -1,4 +1,3 @@
-import banner1 from "@/public/images/banner1.jpeg"
 import banner2 from "@/public/images/banner2.png"
 import banner3 from "@/public/images/banner3.jpg"
 import banner4 from "@/public/images/banner4.png"

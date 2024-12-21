@@ -1,7 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Link from 'next/link'
 
+import { RootState } from '@/redux/store'
+
+import { setWishlistItems } from '@/redux/slices/wishlistSlice'
+import { setCartItems } from '@/redux/slices/cartSlice';
 import { resetUserInfo } from '@/redux/slices/userSlice'
 
 import { FaArrowRightToBracket, FaCircleUser, FaRightToBracket, FaTableList } from 'react-icons/fa6'
@@ -13,6 +17,8 @@ import { HiMiniUserGroup } from 'react-icons/hi2'
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
+import { getMyCart } from '@/api/cart.api'
+import { getMyWishlist } from '@/api/wishlist.api'
 import { logout } from '@/api/auth.api'
 
 export default function UserMenu() {
@@ -20,15 +26,33 @@ export default function UserMenu() {
 
     const [openAccountMenu, setOpenAccountMenu] = useState(false)
 
-    const { userInfo } = useSelector((state: any) => state.user)
+    const { userInfo } = useSelector((state: RootState) => state.user)
+    const { quantity: quantityOfCart } = useSelector((state: RootState) => state.cart);
+    const { quantity: quantityOfWishList } = useSelector((state: RootState) => state.wishlist)
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const cartData = await getMyCart();
+            dispatch(setCartItems(cartData.items))
+
+            const wishlistData = await getMyWishlist();
+            dispatch(setWishlistItems(wishlistData.items));
+        }
+
+        fetchData()
+    }, [dispatch])
 
     const handleLogout = async () => {
         try {
-            const data = await logout()
+            await logout()
             localStorage.removeItem("userInfo")
             dispatch(resetUserInfo())
-        } catch (error: any) {
-            console.error('Logout failed:', error.message);
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                console.error('Failed:', error.message);
+            } else {
+                console.error('Failed with an unknown error');
+            }
         }
     };
 
@@ -43,13 +67,15 @@ export default function UserMenu() {
                         </Link>
                     </div>
                     <div className="my-auto">
-                        <Link href={"/dashboard/user"}>
+                        <Link href={"/dashboard/user"} className='relative'>
                             <FaRegHeart size={24} />
+                            <div className='absolute bg-[#1782FB] flex justify-center items-center rounded-full text-xs w-5 h-5 text-white right-[-10px] top-[-10px]'>{quantityOfWishList}</div>
                         </Link>
                     </div>
                     <div className="my-auto">
-                        <Link href={"/cart"}>
+                        <Link href={"/cart"} className='relative'>
                             <FiShoppingCart size={24} />
+                            <div className='absolute bg-[#1782FB] flex justify-center items-center rounded-full text-xs w-5 h-5 text-white right-[-10px] top-[-10px]'>{quantityOfCart}</div>
                         </Link>
                     </div>
                     <div className="my-auto relative cursor-pointer" onClick={() => setOpenAccountMenu(prev => !prev)}>
@@ -68,10 +94,12 @@ export default function UserMenu() {
                                         <HiMiniUserGroup size={18} />
                                         <Link href="/dashboard/user">Hội viên</Link>
                                     </li>
-                                    <li className="flex items-center gap-2 px-4 py-2 hover:bg-gray-300">
-                                        <HiMiniUserGroup size={18} />
-                                        <Link href="/dashboard/instructor">Giảng viên</Link>
-                                    </li>
+                                    {userInfo.role == "INSTRUCTOR" && (
+                                        <li className="flex items-center gap-2 px-4 py-2 hover:bg-gray-300">
+                                            <HiMiniUserGroup size={18} />
+                                            <Link href="/dashboard/instructor">Giảng viên</Link>
+                                        </li>
+                                    )}
                                     <li className="flex items-center gap-2 px-4 py-2 hover:bg-gray-300">
                                         <GiSkeletonKey size={18} />
                                         <Link href="/">Kích hoạt khóa học</Link>

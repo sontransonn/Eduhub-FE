@@ -1,6 +1,7 @@
 "use client"
 import React, { useEffect, useState } from 'react'
 import { useSearchParams } from "next/navigation";
+import Link from 'next/link';
 
 import { IoIosArrowDown } from 'react-icons/io'
 import { RiErrorWarningLine, RiFilter3Fill } from 'react-icons/ri'
@@ -9,6 +10,8 @@ import { FaStar } from 'react-icons/fa';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger, } from "@/components/ui/accordion"
 
 import { searchCourse } from '@/api/course.api';
+
+import { CourseProps } from '@/types/course.type';
 
 export default function Search() {
     const searchParams = useSearchParams();
@@ -23,16 +26,23 @@ export default function Search() {
         const fetchSearchResults = async () => {
             if (keyword) {
                 const data = await searchCourse(keyword, page);
-                console.log(data);
-
+                setResults(data.data.courses);
             }
         }
-
         fetchSearchResults()
     }, [keyword, page])
 
+    const calculateSalePrice = (originalPrice: number, discountPercentage: number) => {
+        const remainingPercentage = 100 - discountPercentage;
+        const salePrice = originalPrice * (remainingPercentage / 100);
+        return salePrice;
+    }
+
     const handleSortBy = (type: string) => {
         setShowMenuSortBy(false)
+        console.log(type);
+
+        setPage(2)
     }
 
     return (
@@ -41,7 +51,7 @@ export default function Search() {
                 {results.length > 0 ? (
                     <div className='flex flex-col gap-8'>
                         <div className='flex items-center justify-between flex-wrap gap-4'>
-                            <h4 className='font-medium text-2xl'>{results.length} kết quả cho "{keyword}"</h4>
+                            <h4 className='font-medium text-2xl'>{results.length} kết quả cho &quot;{keyword}&quot;</h4>
                             <div className='flex items-center gap-3'>
                                 <div className='flex bg-white gap-2 items-center py-4 px-5 border border-solid border-black rounded-sm' onClick={() => setIsFilter(prev => !prev)}>
                                     <RiFilter3Fill size={24} />
@@ -183,22 +193,22 @@ export default function Search() {
                             )}
 
                             <div className={`lg:col-span-3 ${!isFilter && "lg:col-span-4"} flex flex-col gap-4`}>
-                                {results.map((result, index) => (
+                                {results.map((result: CourseProps, index) => (
                                     <div key={index} className="w-full col">
-                                        <a href="" className='flex lg:flex-row lg:gap-4 flex-col border border-grey rounded-xl lg:rounded-none lg:border-none'>
+                                        <Link href={`/course/${result.slug}`} className='flex lg:flex-row lg:gap-4 flex-col border border-grey rounded-xl lg:rounded-none lg:border-none'>
                                             <div className='lg:w-[310px]'>
                                                 <img
-                                                    src="https://static.unica.vn/upload/images/2019/04/hoc-tieng-nhat-that-de_m_1555562005.jpg"
+                                                    src={result.poster}
                                                     alt="" className='w-full rounded-tl-xl rounded-tr-xl lg:rounded-none'
                                                 />
                                             </div>
                                             <div className='flex-1 flex p-4 lg:p-0'>
                                                 <div className='flex flex-1 flex-col gap-4'>
-                                                    <span className='font-bold text-base'>Học tiếng Nhật thật dễ</span>
+                                                    <span className='font-bold text-base'>{result.courseName}</span>
                                                     <div className='flex flex-col gap-1.5 text-sm font-light'>
                                                         <span className=''>Trần Quang Vũ</span>
                                                         <span className='flex gap-1.5 items-center'>
-                                                            <span className='font-bold'>3.7</span>
+                                                            <span className='font-bold'>{result.rating}</span>
                                                             <span className='text-[#F77321] flex'>
                                                                 <FaStar />
                                                                 <FaStar />
@@ -206,18 +216,18 @@ export default function Search() {
                                                                 <FaStar />
                                                                 <FaStar />
                                                             </span>
-                                                            <span className=''>(107)</span>
+                                                            <span className=''>({result.ratingNum})</span>
                                                         </span>
                                                         <span>Thời lượng: 9.8 giờ, Giáo trình: 46 bài giảng </span>
                                                     </div>
                                                 </div>
 
                                                 <div className='w-20 flex flex-col text-end'>
-                                                    <span className='font-bold text-base'>549.000<sup>đ</sup></span>
-                                                    <span className='line-through text-sm text-[#929292]'>700.000<sup>đ</sup></span>
+                                                    <span className='font-bold text-base'>{calculateSalePrice(result.price, result.discount)?.toLocaleString('vi-VN')}<sup>đ</sup></span>
+                                                    <span className='line-through text-sm text-[#929292]'>{result.price?.toLocaleString('vi-VN')}<sup>đ</sup></span>
                                                 </div>
                                             </div>
-                                        </a>
+                                        </Link>
                                     </div>
                                 ))}
 
@@ -226,7 +236,7 @@ export default function Search() {
                     </div>
                 ) : (
                     <div className='flex flex-col gap-8 min-h-[400px]'>
-                        <h4 className='font-semibold text-4xl'>Xin lỗi, chúng tôi không thấy kết quả cho "{keyword}"</h4>
+                        <h4 className='font-semibold text-4xl'>Xin lỗi, chúng tôi không thấy kết quả cho &quot;{keyword}&quot;</h4>
                         <div className='flex flex-col gap-2'>
                             <p className='text-2xl font-semibold'>Hãy thử điều chỉnh tìm kiếm của bạn. Đây là một số gợi ý:</p>
                             <ul className='list-disc mt-6 pl-5'>

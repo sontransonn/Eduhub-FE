@@ -21,7 +21,7 @@ export default function LiveSchedule() {
             {/* Hiển thị khi màn hình > 768px */}
             <div className="md:grid md:grid-cols-2 lg:grid-cols-4 mt-6 gap-4 hidden">
                 {Array.from({ length: 4 }).map((_, index) => (
-                    <Link href={"/"} className='col'>
+                    <Link href={"/"} key={index} className='col'>
                         <LiveCard />
                     </Link>
                 ))}

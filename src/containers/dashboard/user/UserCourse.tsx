@@ -1,12 +1,25 @@
 "use client"
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Link from 'next/link';
-
-import { FiSearch } from "react-icons/fi";
 
 import categories from '@/constants/categories'
 
+import { FiSearch } from "react-icons/fi";
+
+import { getCoursePurchased } from '@/api/user.api';
+
 export default function UserCourse() {
+    const [coursePurchased, setCoursePurchased] = useState([])
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const data = await getCoursePurchased();
+            setCoursePurchased(data.coursePurchased)
+        }
+
+        fetchData()
+    }, [])
+
     return (
         <div className='bg-[#F1F5F8] text-black'>
             <div className='max-w-8xl mx-auto lg:px-20 md:px-10 px-4 py-8'>
@@ -19,7 +32,7 @@ export default function UserCourse() {
                     <select className='custom-select-arrow border border-solid border-black relative col-span-2 bg-transparent px-4 py-[10px] rounded outline-none' name="" id="">
                         <option value="">-- Danh mục --</option>
                         {categories.map((category, index) => (
-                            <option value={index}>{category.title}</option>
+                            <option value={index} key={index}>{category.title}</option>
                         ))}
 
                     </select>
@@ -47,7 +60,7 @@ export default function UserCourse() {
 
                 <div className='grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-x-4 gap-y-6 mt-8'>
                     {/* <span>Chưa mua khóa học trên unica.vn</span> */}
-                    {Array.from({ length: 6 }).map((_, index) => (
+                    {coursePurchased.map((course, index) => (
                         <div className='flex flex-col gap-4 text-black' key={index}>
                             <Link href={"/overview"} className='rounded block relative w-full' style={{ paddingBottom: "56.25%" }}>
                                 <img

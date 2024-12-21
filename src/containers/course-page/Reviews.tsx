@@ -7,7 +7,7 @@ const Reviews = () => {
         <>
             <div className='grid grid-cols-2'>
                 {Array.from({ length: 10 }).map((_, index) => (
-                    <div className='md:col-span-1 col-span-2 py-6 border-t border-gray-300 odd:pr-4 even:pl-4'>
+                    <div className='md:col-span-1 col-span-2 py-6 border-t border-gray-300 odd:pr-4 even:pl-4' key={index}>
                         <div className='flex gap-2 mb-4.5'>
                             <img className='w-[35px] h-[35px] rounded-full' src="https://ui-avatars.com/api/?name=Tran Thi Thanh Trang&color=FFF&background=031B49" alt="" />
                             <div>

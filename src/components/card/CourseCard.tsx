@@ -2,15 +2,17 @@ import React from 'react'
 
 import { FaStar } from "react-icons/fa6";
 
-type CourseCardProps = {
+type Props = {
     courseName: string,
     instructorName: string,
+    poster: string
     rating: string,
     price: number,
-    discount: number
+    discount: number,
+    ratingNum: number
 };
 
-export default function CourseCard({ courseName, instructorName, rating, price, discount }: CourseCardProps) {
+export default function CourseCard({ courseName, instructorName, poster, rating, price, discount, ratingNum }: Props) {
     const salePrice = calculateSalePrice(price, discount);
 
     function calculateSalePrice(originalPrice: number, discountPercentage: number) {
@@ -24,11 +26,11 @@ export default function CourseCard({ courseName, instructorName, rating, price, 
             <div className='rounded block relative w-full' style={{ paddingBottom: "56.25%" }}>
                 <img
                     className='rounded w-full h-full absolute inset-0'
-                    src="https://i.imgur.com/kFLuGCR.jpeg"
+                    src={poster || "https://i.imgur.com/kFLuGCR.jpeg"}
                     alt="" />
             </div>
             <h3 className='font-medium line-clamp-2'>{courseName}</h3>
-            <div className='text-sm font-light'>{instructorName || "Tran duc son"}</div>
+            <div className='text-sm font-light'>{instructorName}</div>
             <div className='flex items-center text-sm gap-1.5'>
                 <span className='font-bold'>{rating}</span>
                 <div className='text-[#F77321] flex'>
@@ -38,7 +40,7 @@ export default function CourseCard({ courseName, instructorName, rating, price, 
                     <FaStar />
                     <FaStar />
                 </div>
-                <div className='text-[#5C5C5C]'>(108)</div>
+                <div className='text-[#5C5C5C]'>{ratingNum}</div>
             </div>
             <div className='flex gap-1.5 items-center'>
                 <div className='text-xl font-medium'>

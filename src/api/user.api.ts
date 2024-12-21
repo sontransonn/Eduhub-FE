@@ -7,7 +7,7 @@ const api = axios.create({
 
 export const getUserInfo = async () => {
     try {
-        const response = await api.get('/');
+        const response = await api.get('/profile');
         return response.data;
     } catch (error: unknown) {
         if (axios.isAxiosError(error)) {
@@ -22,6 +22,31 @@ export const applyInstructor = async (data: FormData) => {
         const response = await api.post("/apply", data, {
             headers: { "Content-Type": "multipart/form-data" },
         });
+        return response.data;
+    } catch (error: unknown) {
+        if (axios.isAxiosError(error)) {
+            const errorMessage = error.response?.data?.message || 'Failed';
+            throw new Error(errorMessage);
+        }
+        throw new Error('An unknown error occurred');
+    }
+}
+
+export const getCoursePurchased = async () => {
+    try {
+        const response = await api.get('/course-purchased');
+        return response.data;
+    } catch (error: unknown) {
+        if (axios.isAxiosError(error)) {
+            throw new Error(error.response?.data?.message || 'Failed to fetch user information');
+        }
+        throw new Error('An unknown error occurred while fetching user information');
+    }
+}
+
+export const getAllInstructor = async (pageNumber: number) => {
+    try {
+        const response = await api.get(`/instructor?page=${pageNumber}`);
         return response.data;
     } catch (error: unknown) {
         if (axios.isAxiosError(error)) {

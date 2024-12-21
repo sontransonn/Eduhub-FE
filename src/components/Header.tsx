@@ -1,10 +1,13 @@
 import React from "react";
+import Image from "next/image";
 import Link from "next/link";
 
 import CategoryMenu from "@/components/header/CategoryMenu";
 import SearchBar from "@/components/header/SearchBar";
 import UserMenu from "@/components/header/UserMenu";
 import MobileMenu from "@/components/header/MobileMenu";
+
+import logoBig from "@/public/logo/logoBig.png"
 
 export default function Header() {
     return (
@@ -15,12 +18,7 @@ export default function Header() {
                     <div className='2xl:basis-7/12 lg:basis-6/12 basis-7/12 flex w-auto items-center gap-4'>
                         {/* Logo */}
                         <Link href={"/"}>
-                            <img
-                                width={140}
-                                src="https://unica.vn/media/img/logo-unica.svg"
-                                alt="Học Online: 2000+ Khóa học trực tuyến cho người đi làm"
-                                className="max-w-none"
-                            />
+                            <Image src={logoBig} width={180} height={45} alt="" />
                         </Link>
 
                         {/* Danh mục */}

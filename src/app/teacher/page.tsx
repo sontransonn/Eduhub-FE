@@ -1,10 +1,25 @@
-import React from 'react'
+"use client"
+import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 
-import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination"
+import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination"
 import { FiSearch } from 'react-icons/fi'
 
+import { getAllInstructor } from '@/api/user.api'
+
+import { TeacherType } from '@/types/teacher.type'
+
 export default function Teacher() {
+    const [listTeacher, setListTeacher] = useState([])
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const data = await getAllInstructor(1)
+            setListTeacher(data)
+        }
+        fetchData()
+    }, [])
+
     return (
         <main className='bg-[#F1F5F8] text-black'>
             <div className='max-w-8xl mx-auto px-4 xl:px-20 md:px-10 lg:py-14 py-8'>
@@ -43,19 +58,19 @@ export default function Teacher() {
                         </div>
                     </form>
                     <div className='grid grid-cols-10 p-8 bg-[#00314f] rounded-sm gap-8'>
-                        {Array.from({ length: 20 }).map((_, index) => (
-                            <div className='md:col-span-2 col-span-5'>
-                                <Link href={`/teacher/${"cscasc"}`} className='w-full flex flex-col gap-3 justify-center items-center' >
+                        {listTeacher.map((teacher: TeacherType, index) => (
+                            <div className='md:col-span-2 col-span-5' key={index}>
+                                <Link href={`/teacher/${teacher.user._id}`} className='w-full flex flex-col gap-3 justify-center items-center' >
                                     <div className='overflow-hidden mx-auto h-24 w-24 rounded-full border-2 border-solid border-white lg:w-28 lg:h-28'>
                                         <img
-                                            src="https://fivetiu.com/actress/26225-t.jpg"
+                                            src={teacher.user.avatar || "https://i.imgur.com/kFLuGCR.jpeg"}
                                             alt=""
                                             className='object-cover object-top w-full h-full'
                                         />
                                     </div>
                                     <div className='flex flex-col gap-1 text-center'>
-                                        <span className='text-yellow-500 text-lg font-semibold'>Yui Hatano</span>
-                                        <span className='text-white text-sm'>Diễn giả - Tổng giám đốc điều hành Thời trang YODY</span>
+                                        <span className='text-yellow-500 text-lg font-semibold'>{teacher.user.fullName}</span>
+                                        <span className='text-white text-sm'>{teacher.description}</span>
                                     </div>
                                 </Link>
                             </div>

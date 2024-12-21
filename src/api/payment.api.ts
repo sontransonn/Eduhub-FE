@@ -16,3 +16,15 @@ export const zalopay = async () => {
         throw new Error('An unknown error occurred while creating the payment');
     }
 }
+
+export const momo = async (orderId: (string)) => {
+    try {
+        const response = await api.post('/momo', { id: orderId });
+        return response.data;
+    } catch (error: unknown) {
+        if (axios.isAxiosError(error)) {
+            throw new Error(error.response?.data?.message || 'Payment creation failed');
+        }
+        throw new Error('An unknown error occurred while creating the payment');
+    }
+}

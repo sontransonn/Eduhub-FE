@@ -9,7 +9,7 @@ export default function InstructorCard({ name, title }: InstructorCardProps) {
     return (
         <div className='w-full h-full flex flex-col gap-5 items-center'>
             <img
-                src="https://static.unica.vn/uploads/thaoptt09@gmail.com/August282017155pm_vera-ha-anh_thumb.jpg"
+                src={"https://i.imgur.com/kFLuGCR.jpeg"}
                 alt=""
                 className='rounded-full w-[150px] h-[150px]'
             />

@@ -1,53 +1,22 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Link from 'next/link'
-import Joyride from "react-joyride";
 
 import categories from '@/constants/categories'
 
 import { IoMdArrowDropright } from 'react-icons/io'
 import { FiMenu } from "react-icons/fi"
 
-const steps = [
-    {
-        target: ".banner",
-        content: "Chào cậu! Mình là Miu - hướng dẫn viên tại F8, mình sẽ đưa cậu đi thăm quan và giới thiệu cho cậu hiểu rõ hơn về F8 nhé. Đi thôi!",
-        placement: 'right',
-    },
-];
-
 export default function CategoryMenu() {
-    const [run, setRun] = useState(false);
-
-    const handleStartTour = () => {
-        setRun(false);
-        setTimeout(() => {
-            setRun(true);
-        }, 100);
-    };
-
     return (
         <>
             <div className="flex-shrink-0 text-white bg-[#003555] rounded-sm hidden xl:block">
-                <div className="flex text-sm items-center gap-1.5 px-4 py-2.5 border border-solid border-[#3333] rounded-sm cursor-pointer" onClick={handleStartTour}>
+                <div className="flex text-sm items-center gap-1.5 px-4 py-2.5 border border-solid border-[#3333] rounded-sm cursor-pointer">
                     <FiMenu size={20} />
                     Danh mục
                 </div>
             </div>
-            <Joyride
-                steps={steps}
-                run={run}
-                continuous
-                showSkipButton
-                showProgress
-                disableScrolling={true}
-                styles={{
-                    options: {
-                        zIndex: 10000,
-                    },
-                }}
-            />
             <div className="my-auto flex-shrink-0 relative group xl:hidden">
-                <div className="flex text-sm items-center text-white gap-1.5 px-4 py-2.5 bg-[#003555] border border-solid border-[#3333] rounded-sm cursor-pointer" onClick={handleStartTour}>
+                <div className="flex text-sm items-center text-white gap-1.5 px-4 py-2.5 bg-[#003555] border border-solid border-[#3333] rounded-sm cursor-pointer">
                     <FiMenu size={20} />
                     Danh mục
                 </div>
@@ -65,7 +34,7 @@ export default function CategoryMenu() {
                                 </Link>
                                 <div className="absolute top-[-1px] left-full bg-slate-100 text-black z-[1000] group-hover/item:block hidden shadow-custom border border-solid border-[#eee]">
                                     <ul className="h-[520px] w-[305px] border border-solid border-[#eee] relative">
-                                        {category.subCategories?.map((subCategory: any, index) => (
+                                        {category.subCategories?.map((subCategory, index) => (
                                             <li key={index} className="flex group/sub-item text-sm cursor-pointer hover:text-blue-500">
                                                 <Link href={`/category/${category.slug}/${subCategory.slug}`} className="p-[10px] w-full flex items-center justify-between">
                                                     {subCategory.title}
@@ -73,7 +42,7 @@ export default function CategoryMenu() {
                                                 </Link>
                                                 <div className="absolute top-[-1px] left-full bg-slate-100 text-black z-[1000] group-hover/sub-item:block hidden shadow-custom border border-solid border-[#eee]">
                                                     <ul className="h-[520px] w-[305px] border border-solid border-[#eee]">
-                                                        {subCategory.tags?.map((tag: any, index: number) => (
+                                                        {subCategory.tags?.map((tag, index: number) => (
                                                             <li key={index} className="w-full flex group/sub-item text-sm cursor-pointer hover:text-blue-500">
                                                                 <Link href={`/tag/${tag.slug}`} className="w-full p-[10px] ">
                                                                     {tag.title}

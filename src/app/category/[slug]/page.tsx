@@ -1,5 +1,7 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useParams } from 'next/navigation';
+import Link from 'next/link';
 
 import { RiErrorWarningLine } from "react-icons/ri";
 import { RiFilter3Fill } from "react-icons/ri";
@@ -12,12 +14,37 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger, } from "@
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination"
 import CourseCard from '@/components/card/CourseCard'
 
+import { getCourseByCategory } from '@/api/course.api';
+
+import { CourseProps } from '@/types/course.type';
+
 export default function Category() {
+    const params = useParams();
+    const slug = Array.isArray(params.slug) ? params.slug[0] : params.slug;
+
     const [activeTab, setActiveTab] = useState("popular");
     const [isFilter, setIsFilter] = useState(true)
     const [showMenuSortBy, setShowMenuSortBy] = useState(false)
+    const [listData, setListData] = useState([])
+    const [suggestCourse, setSuggetCourse] = useState([])
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const data = await getCourseByCategory(slug)
+            setListData(data.data.courses)
+            setSuggetCourse(data.data.suggestedCourses)
+        }
+        fetchData()
+    }, [])
+
+    const calculateSalePrice = (originalPrice: number, discountPercentage: number) => {
+        const remainingPercentage = 100 - discountPercentage;
+        const salePrice = originalPrice * (remainingPercentage / 100);
+        return salePrice;
+    }
 
     const handleSortBy = (type: string) => {
+        console.log(type);
         setShowMenuSortBy(false)
     }
 
@@ -44,11 +71,19 @@ export default function Category() {
 
                         <Carousel className="w-full">
                             <CarouselContent className="-ml-4">
-                                {Array.from({ length: 8 }).map((_, index) => (
+                                {suggestCourse.map((course: CourseProps, index) => (
                                     <CarouselItem key={index} className="pl-4 md:basis-1/2 basis-2/3 lg:basis-1/4">
                                         <Card className='bg-[#F1F5F8] border-none shadow-none'>
                                             <CardContent className="flex items-center justify-center p-0">
-                                                <CourseCard courseName={""} rating={""} price={9} discount={5} />
+                                                <CourseCard
+                                                    poster={course.poster}
+                                                    instructorName=''
+                                                    ratingNum={course.ratingNum}
+                                                    courseName={course.courseName}
+                                                    rating={course.rating}
+                                                    price={course.price}
+                                                    discount={course.discount}
+                                                />
                                             </CardContent>
                                         </Card>
                                     </CarouselItem>
@@ -200,22 +235,22 @@ export default function Category() {
                         )}
 
                         <div className={`lg:col-span-3 ${!isFilter && "lg:col-span-4"} flex flex-col gap-4`}>
-                            {Array.from({ length: 8 }).map((_, index) => (
+                            {listData?.map((course: CourseProps, index) => (
                                 <div key={index} className="w-full col">
-                                    <a href="" className='flex lg:flex-row lg:gap-4 flex-col border border-grey rounded-xl lg:rounded-none lg:border-none'>
+                                    <Link href={`/course/${course.slug}`} className='flex lg:flex-row lg:gap-4 flex-col border border-grey rounded-xl lg:rounded-none lg:border-none'>
                                         <div className='lg:w-[310px]'>
                                             <img
-                                                src="https://static.unica.vn/upload/images/2019/04/hoc-tieng-nhat-that-de_m_1555562005.jpg"
+                                                src={course.poster}
                                                 alt="" className='w-full rounded-tl-xl rounded-tr-xl lg:rounded-none'
                                             />
                                         </div>
                                         <div className='flex-1 flex p-4 lg:p-0'>
                                             <div className='flex flex-1 flex-col gap-4'>
-                                                <span className='font-bold text-base'>Học tiếng Nhật thật dễ</span>
+                                                <span className='font-bold text-base'>{course.courseName}</span>
                                                 <div className='flex flex-col gap-1.5 text-sm font-light'>
                                                     <span className=''>Trần Quang Vũ</span>
                                                     <span className='flex gap-1.5 items-center'>
-                                                        <span className='font-bold'>3.7</span>
+                                                        <span className='font-bold'>{course.rating}</span>
                                                         <span className='text-[#F77321] flex'>
                                                             <FaStar />
                                                             <FaStar />
@@ -223,45 +258,47 @@ export default function Category() {
                                                             <FaStar />
                                                             <FaStar />
                                                         </span>
-                                                        <span className=''>(107)</span>
+                                                        <span className=''>({course.ratingNum})</span>
                                                     </span>
                                                     <span>Thời lượng: 9.8 giờ, Giáo trình: 46 bài giảng </span>
                                                 </div>
                                             </div>
 
                                             <div className='w-20 flex flex-col text-end'>
-                                                <span className='font-bold text-base'>549.000<sup>đ</sup></span>
-                                                <span className='line-through text-sm text-[#929292]'>700.000<sup>đ</sup></span>
+                                                <span className='font-bold text-base'>{calculateSalePrice(course.price, course.discount)?.toLocaleString('vi-VN')}<sup>đ</sup></span>
+                                                <span className='line-through text-sm text-[#929292]'>{course.price?.toLocaleString('vi-VN')}<sup>đ</sup></span>
                                             </div>
                                         </div>
-                                    </a>
+                                    </Link>
                                 </div>
                             ))}
-                            <Pagination>
-                                <PaginationContent>
-                                    <PaginationItem>
-                                        <PaginationPrevious href="#" />
-                                    </PaginationItem>
-                                    <PaginationItem>
-                                        <PaginationLink href="#">1</PaginationLink>
-                                    </PaginationItem>
-                                    <PaginationItem>
-                                        <PaginationLink href="#">2</PaginationLink>
-                                    </PaginationItem>
-                                    <PaginationItem>
-                                        <PaginationLink href="#">3</PaginationLink>
-                                    </PaginationItem>
-                                    <PaginationItem>
-                                        <PaginationLink href="#">4</PaginationLink>
-                                    </PaginationItem>
-                                    <PaginationItem>
-                                        <PaginationLink href="#">5</PaginationLink>
-                                    </PaginationItem>
-                                    <PaginationItem>
-                                        <PaginationNext href="#" />
-                                    </PaginationItem>
-                                </PaginationContent>
-                            </Pagination>
+                            {listData.length >= 8 && (
+                                <Pagination>
+                                    <PaginationContent>
+                                        <PaginationItem>
+                                            <PaginationPrevious href="#" />
+                                        </PaginationItem>
+                                        <PaginationItem>
+                                            <PaginationLink href="#">1</PaginationLink>
+                                        </PaginationItem>
+                                        <PaginationItem>
+                                            <PaginationLink href="#">2</PaginationLink>
+                                        </PaginationItem>
+                                        <PaginationItem>
+                                            <PaginationLink href="#">3</PaginationLink>
+                                        </PaginationItem>
+                                        <PaginationItem>
+                                            <PaginationLink href="#">4</PaginationLink>
+                                        </PaginationItem>
+                                        <PaginationItem>
+                                            <PaginationLink href="#">5</PaginationLink>
+                                        </PaginationItem>
+                                        <PaginationItem>
+                                            <PaginationNext href="#" />
+                                        </PaginationItem>
+                                    </PaginationContent>
+                                </Pagination>
+                            )}
                         </div>
                     </div>
                 </div>
