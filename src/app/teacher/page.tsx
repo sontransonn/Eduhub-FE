@@ -27,22 +27,22 @@ export default function Teacher() {
                     <h3 className='font-medium text-2xl text-center'>DANH SÁCH GIẢNG VIÊN TRÊN EDUHUB</h3>
                     <form action="" className='grid lg:grid-cols-12 grid-cols-4 gap-4 text-sm'>
                         <select className='custom-select-arrow border border-solid border-black relative col-span-2 bg-transparent px-4 py-[10px] rounded outline-none' name="" id="">
-                            <option value="">Chọn chiều cao</option>
+                            <option value="">Lĩnh vực giảng dạy</option>
                             <option value="1">Truy cập gần nhất</option>
                             <option value="2">Lâu chưa truy cập</option>
                         </select>
                         <select className='custom-select-arrow border border-solid border-black relative col-span-2 bg-transparent px-4 py-[10px] rounded outline-none' name="" id="">
-                            <option value="">Chọn cỡ cốc</option>
+                            <option value="">Trình độ giảng viên</option>
                             <option value="1">Truy cập gần nhất</option>
                             <option value="2">Lâu chưa truy cập</option>
                         </select>
                         <select className='custom-select-arrow border border-solid border-black relative col-span-2 bg-transparent px-4 py-[10px] rounded outline-none' name="" id="">
-                            <option value="">Chọn độ tuổi</option>
+                            <option value="">Kinh nghiệm</option>
                             <option value="1">Truy cập gần nhất</option>
                             <option value="2">Lâu chưa truy cập</option>
                         </select>
                         <select className='custom-select-arrow border border-solid border-black relative col-span-2 bg-transparent px-4 py-[10px] rounded outline-none' name="" id="">
-                            <option value="">Chọn năm ra mắt</option>
+                            <option value="">Trạng thái công tác</option>
                             <option value="1">Truy cập gần nhất</option>
                             <option value="2">Lâu chưa truy cập</option>
                         </select>
@@ -63,9 +63,9 @@ export default function Teacher() {
                                 <Link href={`/teacher/${teacher.user._id}`} className='w-full flex flex-col gap-3 justify-center items-center' >
                                     <div className='overflow-hidden mx-auto h-24 w-24 rounded-full border-2 border-solid border-white lg:w-28 lg:h-28'>
                                         <img
-                                            src={teacher.user.avatar || "https://i.imgur.com/kFLuGCR.jpeg"}
+                                            src={teacher.user.avatar}
                                             alt=""
-                                            className='object-cover object-top w-full h-full'
+                                            className='object-cover object-center w-full h-full'
                                         />
                                     </div>
                                     <div className='flex flex-col gap-1 text-center'>

@@ -48,7 +48,7 @@ export default function OverviewTab() {
                             <div className='col-span-1 flex flex-col gap-1 items-center text-sm'>
                                 <div className='overflow-hidden mx-auto h-24 w-24 rounded-full lg:w-28 lg:h-28'>
                                     <img
-                                        src="https://fivetiu.com/actress/26225-t.jpg"
+                                        src="https://t3.ftcdn.net/jpg/02/65/18/30/360_F_265183063_Qhws5HebqXncNjlIW3WknSwDIjq5FCiV.jpg"
                                         alt=""
                                         className='object-cover object-top w-full h-full'
                                     />
