@@ -3,6 +3,7 @@ import React, { useEffect } from 'react'
 import Link from 'next/link';
 import { useSelector, useDispatch } from 'react-redux';
 import PhoneInput from 'react-phone-input-2'
+import toast from 'react-hot-toast';
 
 import { setUserInfo } from "@/redux/slices/userSlice";
 
@@ -23,8 +24,18 @@ export default function Info() {
 
     useEffect(() => {
         const fetchData = async () => {
-            const data = await getUserInfo()
-            dispatch(setUserInfo(data.userInfo))
+            try {
+                const data = await getUserInfo()
+                dispatch(setUserInfo(data.userInfo))
+            } catch (error) {
+                if (error instanceof Error) {
+                    toast.error(error.message);
+                    console.error('Failed:', error.message);
+                } else {
+                    toast.error('An unknown error occurred');
+                    console.error('Failed with an unknown error');
+                }
+            }
         }
         fetchData()
     }, [dispatch])
@@ -52,7 +63,7 @@ export default function Info() {
                                 <IoCameraOutline size={24} color='#666c77' />
                             </label>
                             <img
-                                src=""
+                                src={userInfo?.avatar}
                                 alt="User Avatar"
                                 width={96}
                                 height={96}
@@ -114,11 +125,10 @@ export default function Info() {
                                 />
                             </div>
                             <div className='flex-1'>
-                                <input
-                                    type="text"
-                                    className='border-0 px-3 py-3 text-gray-700 bg-white text-sm shadow focus:outline-none focus:ring w-full'
-                                    placeholder='Giới tính'
-                                />
+                                <select value={userInfo?.gender == "MALE" ? 1 : 2} className='appearance-none border-0 px-3 py-3 text-gray-700 bg-white text-sm shadow focus:outline-none focus:ring w-full'>
+                                    <option value="1">Nam</option>
+                                    <option value="2">Nữ</option>
+                                </select>
                             </div>
                         </div>
 

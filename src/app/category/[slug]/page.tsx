@@ -1,7 +1,9 @@
 "use client"
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'next/navigation';
+import { useParams } from "next/navigation";
 import Link from 'next/link';
+
+import categories from '@/constants/categories';
 
 import { RiErrorWarningLine } from "react-icons/ri";
 import { RiFilter3Fill } from "react-icons/ri";
@@ -48,12 +50,14 @@ export default function Category() {
         setShowMenuSortBy(false)
     }
 
+    const category = categories.find((cat) => cat.slug === slug);
+
     return (
         <main className='bg-[#F1F5F8] text-black'>
             <div className='max-w-8xl mx-auto px-4 xl:px-20 md:px-10 lg:py-14 py-8'>
                 <div className='flex flex-col gap-8'>
                     <div className='flex flex-col gap-4'>
-                        <h3 className='font-medium text-2xl'>Khóa học Tin Học Văn Phòng</h3>
+                        <h3 className='font-medium text-2xl'>Khóa học {category?.title}</h3>
                         <div className='text-sm font-medium text-center text-black border-b border-gray-400'>
                             <ul className='flex flex-wrap text-base gap-7'>
                                 <li className=''>
@@ -93,7 +97,7 @@ export default function Category() {
                     </div>
 
                     <div className='flex items-center justify-between flex-wrap gap-4'>
-                        <h4 className='font-medium text-2xl'>Tất cả khóa học Tin Học Văn Phòng</h4>
+                        <h4 className='font-medium text-2xl'>Tất cả khóa học {category?.title}</h4>
                         <div className='flex items-center gap-3'>
                             <div className='flex bg-white gap-2 items-center py-4 px-5 border border-solid border-black rounded-sm' onClick={() => setIsFilter(prev => !prev)}>
                                 <RiFilter3Fill size={24} />

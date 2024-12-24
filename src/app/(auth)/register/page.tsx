@@ -48,10 +48,10 @@ export default function Register() {
         } catch (error: unknown) {
             if (error instanceof Error) {
                 toast.error(error.message);
-                console.error('Register failed:', error.message);
+                console.error('Failed:', error.message);
             } else {
                 toast.error('An unknown error occurred');
-                console.error('Register failed with an unknown error');
+                console.error('Failed with an unknown error');
             }
         }
     }

@@ -40,7 +40,7 @@ export default function CourseCard({ courseName, instructorName, poster, rating,
                     <FaStar />
                     <FaStar />
                 </div>
-                <div className='text-[#5C5C5C]'>{ratingNum}</div>
+                <div className='text-[#5C5C5C]'>({ratingNum})</div>
             </div>
             <div className='flex gap-1.5 items-center'>
                 <div className='text-xl font-medium'>

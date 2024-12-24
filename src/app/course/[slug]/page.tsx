@@ -105,7 +105,7 @@ export default function CourseDetails({ params }: { params: { slug: string } }) 
                 </div>
 
                 {/*  */}
-                <div className='lg:col-span-1 col-span-3 order-first lg:order-last relative xl:mr-20 lg:mr-10 lg:-mt-[236px] rounded'>
+                <div className='lg:col-span-1 col-span-3 order-first lg:order-last xl:mr-20 lg:mr-10 lg:-mt-[236px] rounded'>
                     <button className='relative w-full md:block hidden' data-link="https://www.youtube.com/embed/JKFeTVseaRg?rel=0">
                         <img
                             className='opacity-75 w-full rounded-sm'

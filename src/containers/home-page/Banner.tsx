@@ -87,7 +87,7 @@ export default function Banner() {
                         showDots={true}
                         customDot={<CustomDot onClick={() => { }} active={true} />}
                     >
-                        {banners.map((_, index) => (
+                        {banners.map((banner, index) => (
                             <div key={index} className="w-full aspect-video">
                                 <img
                                     src={"https://file.unica.vn/storage/db240c65c57e0a4f35edba3312c62511cbac63cc/nutrime-livestream.png"}

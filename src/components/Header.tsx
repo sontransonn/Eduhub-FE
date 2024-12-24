@@ -11,7 +11,7 @@ import logoBig from "@/public/logo/logoBig.png"
 
 export default function Header() {
     return (
-        <header className='sticky z-30 md:z-[9999] top-0 bg-white shadow-2xl'>
+        <header className='sticky z-30 md:z-[100] top-0 bg-white shadow-2xl'>
             {/* --------------- Hiển thị khi màn hình > 768px --------------- */}
             <div className='max-w-8xl mx-auto px-0 xl:px-20 md:px-10 py-4 md:block hidden'>
                 <div className='flex flex-row'>

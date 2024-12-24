@@ -4,7 +4,7 @@ export type CourseProps = {
     description: string
     introduce: string
     slug: string,
-    video: []
+    videos: [{ _id: string, lessonName: string }]
     progress: string
     poster: string
     sold: number

@@ -65,7 +65,7 @@ export default function Teacher() {
                                         <img
                                             src={teacher.user.avatar}
                                             alt=""
-                                            className='object-cover object-center w-full h-full'
+                                            className='object-cover w-full h-full'
                                         />
                                     </div>
                                     <div className='flex flex-col gap-1 text-center'>

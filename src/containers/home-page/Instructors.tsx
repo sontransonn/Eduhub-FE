@@ -26,12 +26,12 @@ export default function Instructors({ topAuthors }: InstructorsProps) {
             <Carousel className="flex w-full mt-6" id='carousel-custom'>
                 <CarouselContent className="-ml-4 justify-between">
                     {topAuthors?.length > 0 ? (
-                        topAuthors.map((author: { instructorId: string, name: string, title: string }, index) => (
+                        topAuthors.map((author: { instructorId: string, name: string, avatar: string, title: string }, index) => (
                             <CarouselItem key={index} className="pl-4 basis-1/2 lg:basis-1/4 select-none cursor-pointer">
                                 <Card className='rounded-lg border h-full p-5'>
                                     <CardContent className="p-0 h-full">
                                         <Link href={`/teacher/${author.instructorId}`}>
-                                            <InstructorCard name={author.name} title={author.title} />
+                                            <InstructorCard name={author.name} avatar={author.avatar} title={author.title} />
                                         </Link>
                                     </CardContent>
                                 </Card>

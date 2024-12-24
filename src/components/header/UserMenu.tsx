@@ -32,11 +32,13 @@ export default function UserMenu() {
 
     useEffect(() => {
         const fetchData = async () => {
-            const cartData = await getMyCart();
-            dispatch(setCartItems(cartData.items))
+            if (userInfo) {
+                const cartData = await getMyCart();
+                dispatch(setCartItems(cartData.items))
 
-            const wishlistData = await getMyWishlist();
-            dispatch(setWishlistItems(wishlistData.items));
+                const wishlistData = await getMyWishlist();
+                dispatch(setWishlistItems(wishlistData.items));
+            }
         }
 
         fetchData()
@@ -60,8 +62,8 @@ export default function UserMenu() {
         <>
             {userInfo ? (
                 <>
-                    <div className="my-auto px-4 py-2.5 text-white bg-[#1782FB] hover:bg-blue-600 cursor-pointer rounded font-bold border border-solid border-[#3333]">
-                        <Link className="flex gap-1.5 items-center text-sm" href={"/dashboard/user"}>
+                    <div className="my-auto p-3 text-white bg-[#1782FB] hover:bg-blue-600 cursor-pointer rounded font-bold">
+                        <Link className="flex gap-1.5 items-center" href={"/dashboard/user"}>
                             <FaArrowRightToBracket size={14} />
                             Vào học
                         </Link>
@@ -79,8 +81,8 @@ export default function UserMenu() {
                         </Link>
                     </div>
                     <div className="my-auto relative cursor-pointer" onClick={() => setOpenAccountMenu(prev => !prev)}>
-                        <Avatar className='w-[41.6px] h-[41.6px]'>
-                            <AvatarImage src={userInfo.avatar ? userInfo.avatar : "https://github.com/shadcn.png"} />
+                        <Avatar className='w-10 h-10'>
+                            <AvatarImage src={userInfo.avatar} />
                             <AvatarFallback>CN</AvatarFallback>
                         </Avatar>
                         {openAccountMenu ? (
@@ -139,7 +141,7 @@ export default function UserMenu() {
                             Đăng nhập
                         </Link>
                     </div>
-                    <div className="my-auto p-3 text-white bg-[#1782FB] hover:bg-blue-500 rounded font-bold">
+                    <div className="my-auto p-3 text-white bg-blue-500 hover:bg-blue-600 rounded font-bold">
                         <Link className="block" href={"/register"}>
                             Đăng ký
                         </Link>
