@@ -17,6 +17,6 @@ export type CourseProps = {
     category: string
     createdAt: string
     updatedAt: string
-    subCategory: []
+    subCategories: []
     approvedBy: { _id: string, fullName: string }
 }

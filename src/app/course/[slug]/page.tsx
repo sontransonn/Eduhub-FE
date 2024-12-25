@@ -1,7 +1,8 @@
 "use client"
 import React, { useEffect, useState } from 'react'
 
-import { FaStar } from 'react-icons/fa'
+import { TbJewishStarFilled } from "react-icons/tb";
+import { BsDot } from "react-icons/bs";
 
 import Hero from '@/containers/course-page/Hero';
 import WhatWillYouLearn from '@/containers/course-page/WhatWillYouLearn';
@@ -25,7 +26,7 @@ export default function CourseDetails({ params }: { params: { slug: string } }) 
         description: '',
         introduce: '',
         slug: '',
-        video: [],
+        videos: [{ _id: '', lessonName: "" }],
         progress: '',
         poster: '',
         sold: 0,
@@ -38,7 +39,7 @@ export default function CourseDetails({ params }: { params: { slug: string } }) 
         category: '',
         createdAt: '',
         updatedAt: '',
-        subCategory: [],
+        subCategories: [],
         approvedBy: { _id: '', fullName: '' }
     })
 
@@ -70,8 +71,9 @@ export default function CourseDetails({ params }: { params: { slug: string } }) 
                     </div>
 
                     {/* Giới thiệu khóa học */}
-                    <div className='md:p-6 md:mt-0 py-4 md:border border-[#929292] rounded md:order-none order-1'>
-                        <div className='text-2xl font-medium'>Giới thiệu khóa học</div>
+                    <div className='md:p-6 md:border border-[#929292] rounded md:order-none order-1'>
+                        <div className='mb-4 text-2xl font-medium'>Giới thiệu khóa học</div>
+                        <div className='font-medium mb-3'>Bạn có biết:</div>
                         <Introduction currentCourse={currentCourse} />
                     </div>
 
@@ -79,13 +81,13 @@ export default function CourseDetails({ params }: { params: { slug: string } }) 
                     <div className='flex flex-col gap-4'>
                         <div className='text-2xl font-medium'>Nội dung khóa học</div>
                         <div className='text-sm font-light'>5 phần - 42 bài giảng - 06 giờ 29 phút</div>
-                        <CourseContent />
+                        <CourseContent currentCourse={currentCourse} />
                     </div>
 
                     {/* Tags */}
                     <div className='flex gap-4'>
                         <div className='text-sm font-medium'>Tags:</div>
-                        <Tags />
+                        <Tags currentCourse={currentCourse} />
                     </div>
 
                     {/* Giảng viên */}
@@ -97,22 +99,26 @@ export default function CourseDetails({ params }: { params: { slug: string } }) 
                     {/* Reviews */}
                     <div className='md:order-none order-2 flex flex-col gap-4'>
                         <div className='flex gap-1.5 font-medium md:text-2xl text-xl items-center'>
-                            <FaStar />
-                            4.5 xếp hạng khóa học 10 đánh giá
+                            <div className='flex gap-1.5 items-center'>
+                                <TbJewishStarFilled size={24} color='#f8731f' />
+                                {currentCourse.rating} xếp hạng khóa học
+                            </div>
+                            <BsDot className='md:block hidden' />
+                            <span className='md:block hidden'>{currentCourse.ratingNum} đánh giá</span>
                         </div>
                         <Reviews />
                     </div>
                 </div>
 
                 {/*  */}
-                <div className='lg:col-span-1 col-span-3 order-first lg:order-last xl:mr-20 lg:mr-10 lg:-mt-[236px] rounded'>
-                    <button className='relative w-full md:block hidden' data-link="https://www.youtube.com/embed/JKFeTVseaRg?rel=0">
+                <div className='lg:col-span-1 col-span-3 order-first lg:order-last xl:mr-20 lg:mr-10 lg:-mt-[240px] rounded'>
+                    <div className='relative w-full md:block hidden' style={{ paddingBottom: "56.25%" }}>
                         <img
-                            className='opacity-75 w-full rounded-sm'
+                            className='rounded w-full h-full absolute inset-0'
                             src={currentCourse.poster}
                             alt=""
                         />
-                    </button>
+                    </div>
                     <PurchaseCard currentCourse={currentCourse} />
                 </div>
             </div>

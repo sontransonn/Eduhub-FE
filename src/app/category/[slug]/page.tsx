@@ -8,7 +8,7 @@ import categories from '@/constants/categories';
 import { RiErrorWarningLine } from "react-icons/ri";
 import { RiFilter3Fill } from "react-icons/ri";
 import { IoIosArrowDown } from "react-icons/io";
-import { FaStar } from "react-icons/fa6";
+import { TbJewishStarFilled } from "react-icons/tb";
 
 import { Card, CardContent } from "@/components/ui/card"
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel"
@@ -144,55 +144,55 @@ export default function Category() {
                                                 <div className='flex items-center gap-2'>
                                                     <input name='radio' type="radio" className='w-5 h-5' />
                                                     <div className='flex'>
-                                                        <FaStar size={18} color='#F77321' />
-                                                        <FaStar size={18} color='#F77321' />
-                                                        <FaStar size={18} color='#F77321' />
-                                                        <FaStar size={18} color='#F77321' />
-                                                        <FaStar size={18} color='#F77321' />
+                                                        <TbJewishStarFilled size={18} color='#F77321' />
+                                                        <TbJewishStarFilled size={18} color='#F77321' />
+                                                        <TbJewishStarFilled size={18} color='#F77321' />
+                                                        <TbJewishStarFilled size={18} color='#F77321' />
+                                                        <TbJewishStarFilled size={18} color='#F77321' />
                                                     </div>
                                                     Từ 4.5 trở lên
                                                 </div>
                                                 <div className='flex items-center gap-2'>
                                                     <input name='radio' type="radio" className='w-5 h-5' />
                                                     <div className='flex'>
-                                                        <FaStar size={18} color='#F77321' />
-                                                        <FaStar size={18} color='#F77321' />
-                                                        <FaStar size={18} color='#F77321' />
-                                                        <FaStar size={18} color='#F77321' />
-                                                        <FaStar size={18} />
+                                                        <TbJewishStarFilled size={18} color='#F77321' />
+                                                        <TbJewishStarFilled size={18} color='#F77321' />
+                                                        <TbJewishStarFilled size={18} color='#F77321' />
+                                                        <TbJewishStarFilled size={18} color='#F77321' />
+                                                        <TbJewishStarFilled size={18} />
                                                     </div>
                                                     Từ 4.0 trở lên
                                                 </div>
                                                 <div className='flex items-center gap-2'>
                                                     <input name='radio' type="radio" className='w-5 h-5' />
                                                     <div className='flex'>
-                                                        <FaStar size={18} color='#F77321' />
-                                                        <FaStar size={18} color='#F77321' />
-                                                        <FaStar size={18} color='#F77321' />
-                                                        <FaStar size={18} />
-                                                        <FaStar size={18} />
+                                                        <TbJewishStarFilled size={18} color='#F77321' />
+                                                        <TbJewishStarFilled size={18} color='#F77321' />
+                                                        <TbJewishStarFilled size={18} color='#F77321' />
+                                                        <TbJewishStarFilled size={18} />
+                                                        <TbJewishStarFilled size={18} />
                                                     </div>
                                                     Từ 3.0 trở lên
                                                 </div>
                                                 <div className='flex items-center gap-2'>
                                                     <input name='radio' type="radio" className='w-5 h-5' />
                                                     <div className='flex'>
-                                                        <FaStar size={18} color='#F77321' />
-                                                        <FaStar size={18} color='#F77321' />
-                                                        <FaStar size={18} />
-                                                        <FaStar size={18} />
-                                                        <FaStar size={18} />
+                                                        <TbJewishStarFilled size={18} color='#F77321' />
+                                                        <TbJewishStarFilled size={18} color='#F77321' />
+                                                        <TbJewishStarFilled size={18} />
+                                                        <TbJewishStarFilled size={18} />
+                                                        <TbJewishStarFilled size={18} />
                                                     </div>
                                                     Từ 2.0 trở lên
                                                 </div>
                                                 <div className='flex items-center gap-2'>
                                                     <input name='radio' type="radio" className='w-5 h-5' />
                                                     <div className='flex'>
-                                                        <FaStar size={18} color='#F77321' />
-                                                        <FaStar size={18} />
-                                                        <FaStar size={18} />
-                                                        <FaStar size={18} />
-                                                        <FaStar size={18} />
+                                                        <TbJewishStarFilled size={18} color='#F77321' />
+                                                        <TbJewishStarFilled size={18} />
+                                                        <TbJewishStarFilled size={18} />
+                                                        <TbJewishStarFilled size={18} />
+                                                        <TbJewishStarFilled size={18} />
                                                     </div>
                                                     Từ 1.0 trở lên
                                                 </div>
@@ -256,11 +256,11 @@ export default function Category() {
                                                     <span className='flex gap-1.5 items-center'>
                                                         <span className='font-bold'>{course.rating}</span>
                                                         <span className='text-[#F77321] flex'>
-                                                            <FaStar />
-                                                            <FaStar />
-                                                            <FaStar />
-                                                            <FaStar />
-                                                            <FaStar />
+                                                            <TbJewishStarFilled />
+                                                            <TbJewishStarFilled />
+                                                            <TbJewishStarFilled />
+                                                            <TbJewishStarFilled />
+                                                            <TbJewishStarFilled />
                                                         </span>
                                                         <span className=''>({course.ratingNum})</span>
                                                     </span>
@@ -268,7 +268,7 @@ export default function Category() {
                                                 </div>
                                             </div>
 
-                                            <div className='w-20 flex flex-col text-end'>
+                                            <div className='min-w-20 w-max flex flex-col text-end'>
                                                 <span className='font-bold text-base'>{calculateSalePrice(course.price, course.discount)?.toLocaleString('vi-VN')}<sup>đ</sup></span>
                                                 <span className='line-through text-sm text-[#929292]'>{course.price?.toLocaleString('vi-VN')}<sup>đ</sup></span>
                                             </div>

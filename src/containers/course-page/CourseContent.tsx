@@ -1,41 +1,27 @@
 import React from 'react'
 
-import { MdKeyboardArrowDown } from 'react-icons/md';
+import { CourseProps } from '@/types/course.type';
 
-import {
-    Accordion,
-    AccordionItem,
-    AccordionTrigger, AccordionContent
-} from "@/components/ui/accordion";
-
-const chapters = [
-    { title: "Chương 1: Giới thiệu", content: "Nội dung chi tiết của Chương 1..." },
-    { title: "Chương 2: Các món ăn vặt", content: "Nội dung chi tiết của Chương 2..." },
-    { title: "Chương 3: Kinh doanh hiệu quả", content: "Nội dung chi tiết của Chương 3..." },
-    { title: "Chương 4: Kinh doanh hiệu quả", content: "Nội dung chi tiết của Chương 3..." },
-    { title: "Chương 5: Kinh doanh hiệu quả", content: "Nội dung chi tiết của Chương 3..." },
-    { title: "Chương 6: Kinh doanh hiệu quả", content: "Nội dung chi tiết của Chương 3..." },
-];
-
-const CourseContent = () => {
+const CourseContent = ({ currentCourse }: { currentCourse: CourseProps }) => {
     return (
-        <div className='rounded border border-gray-400 border-t-0 overflow-hidden'>
-            <Accordion type="multiple">
-                {chapters.map((chapter, index) => (
-                    <AccordionItem key={index} value={`chapter-${index}`}>
-                        <AccordionTrigger className="accordion-trigger text-base p-4 flex bg-[#E3F3FD] hover:no-underline border-t border-gray-400 items-center cursor-pointer">
-                            <div className='flex items-center gap-2'>
-                                <MdKeyboardArrowDown size={24} />
-                                <h3 className="flex-auto font-medium">{chapter.title}</h3>
+        <div className='rounded border border-solid border-[#929292] md:p-6 p-4 overflow-hidden'>
+            <div className='scrollable w-full flex flex-col gap-2 h-[400px] overflow-scroll'>
+                {Array.from({ length: 15 }).map(() => (
+                    <div className='flex'>
+                        <div className='md:basis-3/4 flex gap-2.5 items-center'>
+                            <img src={currentCourse.poster} alt="" className='w-40 rounded-lg' />
+                            <div className='flex flex-col self-stretch justify-between'>
+                                <span>Bài 1: Redmine là gì? Một số ví dụ về quản lý dự án phần mềm bằng Redmine.</span>
+                                <span className='text-xs text-gray-400'>{currentCourse.approvedBy.fullName}</span>
                             </div>
-                            <p className="flex-none font-light hidden md:block">
-                                {13} bài giảng - 2 giờ 07 phút
-                            </p>
-                        </AccordionTrigger>
-                        <AccordionContent className='bg-[#f1f5f8] border-t border-gray-400'>{chapter.content}</AccordionContent>
-                    </AccordionItem>
+                        </div>
+                        <div className='md:basis-1/4 md:flex hidden gap-8 items-center justify-end'>
+                            <span className='text-sm text-[#006CCB] hover:text-blue-700 cursor-pointer'>Học thử</span>
+                            <span className=''>00:05:28</span>
+                        </div>
+                    </div>
                 ))}
-            </Accordion>
+            </div>
         </div>
     )
 }

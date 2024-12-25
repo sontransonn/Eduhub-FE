@@ -1,7 +1,7 @@
 "use client"
 import React, { useEffect, useState } from 'react'
 
-import { FaStar } from "react-icons/fa6";
+import { TbJewishStarFilled } from "react-icons/tb";
 import { BsDot } from "react-icons/bs";
 import { RiCloseLargeFill } from "react-icons/ri";
 
@@ -32,13 +32,13 @@ export default function Reviews() {
                             <img className='w-[35px] h-[35px] rounded-full' src="https://ui-avatars.com/api/?name=Tran Thi Thanh Trang&color=FFF&background=031B49" alt="" />
                             <div>
                                 <div className='font-medium'>Tran Thi Thanh Trang</div>
-                                <div className='flex gap-2'>
+                                <div className='flex gap-2 items-center'>
                                     <div className='flex text-[#F77321]'>
-                                        <FaStar />
-                                        <FaStar />
-                                        <FaStar />
-                                        <FaStar />
-                                        <FaStar />
+                                        <TbJewishStarFilled />
+                                        <TbJewishStarFilled />
+                                        <TbJewishStarFilled />
+                                        <TbJewishStarFilled />
+                                        <TbJewishStarFilled />
                                     </div>
                                     3 năm trước
                                 </div>
@@ -58,13 +58,13 @@ export default function Reviews() {
                 <>
                     <div className="overlay"></div>
                     <div className='fixed top-0 left-0 right-0 bottom-0 z-[1999] w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full justify-center items-center flex'>
-                        <div className='relative w-full max-w-7xl max-h-full p-5'>
+                        <div className='relative w-full max-w-7xl max-h-full'>
                             <div className='flex flex-col gap-6 relative bg-white rounded-lg shadow'>
                                 <div className='flex items-center justify-between p-4 md:p-5 md:pb-0 pb-0 rounded-t'>
                                     <h3 className='text-xl font-medium text-gray-900'>
                                         <div className='flex items-center gap-2 font-medium text-2xl'>
                                             <div className='flex gap-1.5 items-center'>
-                                                <FaStar size={24} color='#f8731f' />
+                                                <TbJewishStarFilled size={24} color='#f8731f' />
                                                 4.3 xếp hạng khóa học
                                             </div>
                                             <BsDot className='md:block hidden' />
@@ -82,11 +82,11 @@ export default function Reviews() {
                                                 <div className='bg-[#6A6F73] h-2.5' style={{ width: "70%" }}></div>
                                             </div>
                                             <div className='flex items-center text-sm'>
-                                                <FaStar size={18} color='#F77321' />
-                                                <FaStar size={18} color='#F77321' />
-                                                <FaStar size={18} color='#F77321' />
-                                                <FaStar size={18} color='#F77321' />
-                                                <FaStar size={18} color='#F77321' />
+                                                <TbJewishStarFilled size={18} color='#F77321' />
+                                                <TbJewishStarFilled size={18} color='#F77321' />
+                                                <TbJewishStarFilled size={18} color='#F77321' />
+                                                <TbJewishStarFilled size={18} color='#F77321' />
+                                                <TbJewishStarFilled size={18} color='#F77321' />
                                             </div>
                                             <div className='text-sm text-blue-500'>70%</div>
                                         </div>
@@ -95,11 +95,11 @@ export default function Reviews() {
                                                 <div className='bg-[#6A6F73] h-2.5' style={{ width: "11%" }}></div>
                                             </div>
                                             <div className='flex items-center text-sm'>
-                                                <FaStar size={18} color='#F77321' />
-                                                <FaStar size={18} color='#F77321' />
-                                                <FaStar size={18} color='#F77321' />
-                                                <FaStar size={18} color='#F77321' />
-                                                <FaStar size={18} />
+                                                <TbJewishStarFilled size={18} color='#F77321' />
+                                                <TbJewishStarFilled size={18} color='#F77321' />
+                                                <TbJewishStarFilled size={18} color='#F77321' />
+                                                <TbJewishStarFilled size={18} color='#F77321' />
+                                                <TbJewishStarFilled size={18} />
                                             </div>
                                             <div className='text-sm text-blue-500'>11%</div>
                                         </div>
@@ -108,11 +108,11 @@ export default function Reviews() {
                                                 <div className='bg-[#6A6F73] h-2.5' style={{ width: "5%" }}></div>
                                             </div>
                                             <div className='flex items-center text-sm'>
-                                                <FaStar size={18} color='#F77321' />
-                                                <FaStar size={18} color='#F77321' />
-                                                <FaStar size={18} color='#F77321' />
-                                                <FaStar size={18} />
-                                                <FaStar size={18} />
+                                                <TbJewishStarFilled size={18} color='#F77321' />
+                                                <TbJewishStarFilled size={18} color='#F77321' />
+                                                <TbJewishStarFilled size={18} color='#F77321' />
+                                                <TbJewishStarFilled size={18} />
+                                                <TbJewishStarFilled size={18} />
                                             </div>
                                             <div className='text-sm text-blue-500'>5%</div>
                                         </div>
@@ -121,11 +121,11 @@ export default function Reviews() {
                                                 <div className='bg-[#6A6F73] h-2.5' style={{ width: "3%" }}></div>
                                             </div>
                                             <div className='flex items-center text-sm'>
-                                                <FaStar size={18} color='#F77321' />
-                                                <FaStar size={18} color='#F77321' />
-                                                <FaStar size={18} />
-                                                <FaStar size={18} />
-                                                <FaStar size={18} />
+                                                <TbJewishStarFilled size={18} color='#F77321' />
+                                                <TbJewishStarFilled size={18} color='#F77321' />
+                                                <TbJewishStarFilled size={18} />
+                                                <TbJewishStarFilled size={18} />
+                                                <TbJewishStarFilled size={18} />
                                             </div>
                                             <div className='text-sm text-blue-500'>3%</div>
                                         </div>
@@ -134,11 +134,11 @@ export default function Reviews() {
                                                 <div className='bg-[#6A6F73] h-2.5' style={{ width: "9%" }}></div>
                                             </div>
                                             <div className='flex items-center text-sm'>
-                                                <FaStar size={18} color='#F77321' />
-                                                <FaStar size={18} />
-                                                <FaStar size={18} />
-                                                <FaStar size={18} />
-                                                <FaStar size={18} />
+                                                <TbJewishStarFilled size={18} color='#F77321' />
+                                                <TbJewishStarFilled size={18} />
+                                                <TbJewishStarFilled size={18} />
+                                                <TbJewishStarFilled size={18} />
+                                                <TbJewishStarFilled size={18} />
                                             </div>
                                             <div className='text-sm text-blue-500'>9%</div>
                                         </div>
@@ -153,11 +153,11 @@ export default function Reviews() {
                                                             <div className='font-medium'>Phạm đình Sơn</div>
                                                             <div className='flex gap-2'>
                                                                 <div className='flex items-center text-sm text-[#F77321]'>
-                                                                    <FaStar size={18} />
-                                                                    <FaStar size={18} />
-                                                                    <FaStar size={18} />
-                                                                    <FaStar size={18} />
-                                                                    <FaStar size={18} />
+                                                                    <TbJewishStarFilled size={18} />
+                                                                    <TbJewishStarFilled size={18} />
+                                                                    <TbJewishStarFilled size={18} />
+                                                                    <TbJewishStarFilled size={18} />
+                                                                    <TbJewishStarFilled size={18} />
                                                                 </div>
                                                                 3 năm trước
                                                             </div>

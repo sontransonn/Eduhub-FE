@@ -2,7 +2,7 @@ import React from 'react'
 import Link from 'next/link';
 
 import { AiFillHome } from 'react-icons/ai';
-import { FaStar } from 'react-icons/fa';
+import { TbJewishStarFilled } from "react-icons/tb";
 
 import {
     Breadcrumb, BreadcrumbItem,
@@ -44,19 +44,19 @@ export default function Hero({ currentCourse }: { currentCourse: CourseProps }) 
             <div className='flex flex-col gap-4'>
                 <h1 className='lg:text-[40px] text-2xl leading-normal font-semibold md:text-[#ECECEC]'>{currentCourse.courseName}</h1>
                 <div className='md:text-[#ECECEC] md:font-normal font-light'>{currentCourse.description}</div>
-                <div className='flex lg:gap-10 gap-6'>
+                <div className='flex items-center lg:gap-10 gap-6'>
                     <div className='flex items-center gap-1'>
-                        <div className='text-[#F77321] text-sm font-medium'>{currentCourse.rating}</div>
+                        <div className='text-[#F77321] font-medium'>{currentCourse.rating}</div>
                         <div className='text-[#F77321] flex gap-0.5'>
-                            <FaStar />
-                            <FaStar />
-                            <FaStar />
-                            <FaStar />
-                            <FaStar />
+                            <TbJewishStarFilled size={18} />
+                            <TbJewishStarFilled size={18} />
+                            <TbJewishStarFilled size={18} />
+                            <TbJewishStarFilled size={18} />
+                            <TbJewishStarFilled size={18} />
                         </div>
                         <div className='md:text-sm md:text-white'>({currentCourse.ratingNum} đánh giá)</div>
                     </div>
-                    <span className='text-sm'>{currentCourse.view} Học viên</span>
+                    <span className='text-base'>{currentCourse.view} Học viên</span>
                 </div>
                 <div className='md:text-sm'>
                     Giảng viên: <Link href={`/teacher/${currentCourse?.approvedBy?._id}`} className='md:text-[#A5DEFF] text-[#F77321] underline'>{currentCourse?.approvedBy?.fullName}</Link>

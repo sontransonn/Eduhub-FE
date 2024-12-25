@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { FaStar } from "react-icons/fa6";
+import { TbJewishStarFilled } from "react-icons/tb";
 
 type Props = {
     courseName: string,
@@ -30,15 +30,15 @@ export default function CourseCard({ courseName, instructorName, poster, rating,
                     alt="" />
             </div>
             <h3 className='font-medium line-clamp-2'>{courseName}</h3>
-            <div className='text-sm font-light'>{instructorName}</div>
-            <div className='flex items-center text-sm gap-1.5'>
-                <span className='font-bold'>{rating}</span>
-                <div className='text-[#F77321] flex'>
-                    <FaStar />
-                    <FaStar />
-                    <FaStar />
-                    <FaStar />
-                    <FaStar />
+            <div className='text-sm font-light text-gray-600'>{instructorName}</div>
+            <div className='flex items-center  line-clamp-1 text-sm gap-1.5'>
+                <span className='font-bold text-base'>{rating}</span>
+                <div className='text-[#F77321] items-center flex'>
+                    <TbJewishStarFilled size={18} />
+                    <TbJewishStarFilled size={18} />
+                    <TbJewishStarFilled size={18} />
+                    <TbJewishStarFilled size={18} />
+                    <TbJewishStarFilled size={18} />
                 </div>
                 <div className='text-[#5C5C5C]'>({ratingNum})</div>
             </div>

@@ -1,5 +1,8 @@
 import React from 'react'
 
+import { FaRankingStar, FaRegCirclePlay, FaRegStar } from "react-icons/fa6";
+import { FiUsers } from 'react-icons/fi';
+
 import { CourseProps } from '@/types/course.type'
 
 export default function Teacher({ currentCourse }: { currentCourse: CourseProps }) {
@@ -9,7 +12,24 @@ export default function Teacher({ currentCourse }: { currentCourse: CourseProps 
             <div className='italic font-light'>Blogger ẩm thực</div>
             <div className='flex gap-6'>
                 <img src="https://static.unica.vn/uploads/thaoptt09@gmail.com/June720181115am_nguyen-thu-huong-huong-choe-choe-cooking_thumb.jpg" className='w-[117px] h-[117px] rounded-full' alt="" />
-                <div className='text-sm'></div>
+                <div className='text-sm flex flex-col justify-between'>
+                    <div className='flex items-center gap-2'>
+                        <FaRankingStar size={16} />
+                        4.5 xếp hạng
+                    </div>
+                    <div className='flex items-center gap-2'>
+                        <FaRegStar size={16} />
+                        2.0 đánh giá
+                    </div>
+                    <div className='flex items-center gap-2'>
+                        <FiUsers size={16} />
+                        819 học viên
+                    </div>
+                    <div className='flex items-center gap-2'>
+                        <FaRegCirclePlay size={16} />
+                        3 khóa học
+                    </div>
+                </div>
             </div>
             <div className='leading-5 md:leading-10 text-justify text-sm'>
                 <p>Hương Choé có hơn 4 năm kinh nghiệm làm việc với lĩnh vực ẩm thực.</p>

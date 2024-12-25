@@ -134,3 +134,7 @@
 .body-no-scroll {
   overflow: hidden;
 }
+
+.scrollable::-webkit-scrollbar {
+  display: none;         /* Ẩn thanh cuộn */
+}
