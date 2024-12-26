@@ -1,5 +1,5 @@
 "use client"
-import React, { useEffect } from 'react'
+import React from 'react'
 import dynamic from "next/dynamic";
 
 import { FaFacebookSquare } from "react-icons/fa";

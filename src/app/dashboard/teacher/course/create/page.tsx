@@ -1,3 +1,4 @@
+"use client"
 import React, { useState } from 'react'
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
@@ -9,7 +10,7 @@ import {
 
 import { InstructorCreateCourse } from '@/api/instructor.api';
 
-export default function CreateCourse({ setActiveTab }: { setActiveTab: (tab: string) => void }) {
+export default function CreateCourse() {
     const router = useRouter();
 
     const [courseName, setCourseName] = useState<string>('')
@@ -18,8 +19,7 @@ export default function CreateCourse({ setActiveTab }: { setActiveTab: (tab: str
         try {
             const data = await InstructorCreateCourse(courseName)
             toast.success(data.message)
-            setActiveTab("course")
-            router.push("/dashboard/instructor")
+            router.push("/dashboard/teacher/course")
         } catch (error: unknown) {
             if (error instanceof Error) {
                 toast.error(error.message);

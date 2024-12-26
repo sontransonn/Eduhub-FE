@@ -9,7 +9,7 @@ import { addToWishlist, removeFromWishlist } from "@/redux/slices/wishlistSlice"
 import { removeFromCart } from "@/redux/slices/cartSlice";
 import { addToCart } from "@/redux/slices/cartSlice";
 
-import { FaHeart, FaStar } from "react-icons/fa";
+import { FaHeart } from "react-icons/fa";
 import { FaRegHeart } from "react-icons/fa";
 import { HiOutlineVideoCamera } from "react-icons/hi";
 import { LuClipboardList } from "react-icons/lu";
@@ -21,8 +21,6 @@ import { handleAddRemoveWithWishlist } from "@/api/wishlist.api";
 import { handleAddRemoveWithCart } from "@/api/cart.api";
 
 import { CourseProps } from "@/types/course.type";
-import { RiCloseLargeFill } from "react-icons/ri";
-import { BsDot } from "react-icons/bs";
 
 export default function PurchaseCard({ currentCourse }: { currentCourse: CourseProps }) {
     const dispatch = useDispatch();

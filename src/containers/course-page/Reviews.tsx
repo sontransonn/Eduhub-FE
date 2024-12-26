@@ -145,8 +145,8 @@ export default function Reviews() {
                                     </div>
                                     <div className='flex-1'>
                                         <div className='load_feedback'>
-                                            {[1, 2, 3, 4, 5, 6, 7].map(() => (
-                                                <div className='pb-6 border-t pt-6 border-gray-400'>
+                                            {[1, 2, 3, 4, 5, 6, 7].map((_, index) => (
+                                                <div className='pb-6 border-t pt-6 border-gray-400' key={index}>
                                                     <div className='flex gap-2 mb-4.5'>
                                                         <img src="https://ui-avatars.com/api/?name=Phạm đình Sơn&color=FFF&background=031B49" alt="" className='w-[35px] h-[35px] rounded-full' />
                                                         <div>

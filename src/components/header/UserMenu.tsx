@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Link from 'next/link'
 
@@ -8,12 +8,9 @@ import { setWishlistItems } from '@/redux/slices/wishlistSlice'
 import { setCartItems } from '@/redux/slices/cartSlice';
 import { resetUserInfo } from '@/redux/slices/userSlice'
 
-import { FaArrowRightToBracket, FaCircleUser, FaRightToBracket, FaTableList } from 'react-icons/fa6'
-import { FaBitcoin, FaRegHeart } from 'react-icons/fa'
+import { FaArrowRightToBracket, FaRightToBracket } from 'react-icons/fa6'
 import { FiShoppingCart } from 'react-icons/fi'
-import { BiSolidBusiness } from 'react-icons/bi'
-import { GiSkeletonKey } from 'react-icons/gi'
-import { HiMiniUserGroup } from 'react-icons/hi2'
+import { FaUserGraduate, FaUserCircle, FaUserAstronaut, FaKey, FaBitcoin, FaRegHeart, FaCity, FaCalendarAlt } from "react-icons/fa";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
@@ -29,6 +26,23 @@ export default function UserMenu() {
     const { userInfo } = useSelector((state: RootState) => state.user)
     const { quantity: quantityOfCart } = useSelector((state: RootState) => state.cart);
     const { quantity: quantityOfWishList } = useSelector((state: RootState) => state.wishlist)
+
+    const menuRef = useRef<HTMLDivElement>(null);
+    const avatarRef = useRef<HTMLDivElement>(null);
+
+    const handleClickOutside = (e: MouseEvent) => {
+        if (menuRef.current && !menuRef.current?.contains(e.target as Node) && !avatarRef.current?.contains(e.target as Node)) {
+            setOpenAccountMenu(false);
+        }
+    }
+
+    useEffect(() => {
+        document.addEventListener('click', handleClickOutside);
+
+        return () => {
+            document.removeEventListener('click', handleClickOutside);
+        };
+    }, []);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -63,13 +77,13 @@ export default function UserMenu() {
             {userInfo ? (
                 <>
                     <div className="my-auto p-3 text-white bg-[#1782FB] hover:bg-blue-600 cursor-pointer rounded font-bold">
-                        <Link className="flex gap-1.5 items-center" href={"/dashboard/user"}>
+                        <Link className="flex gap-1.5 items-center" href={"/dashboard/user/course"}>
                             <FaArrowRightToBracket size={14} />
                             Vào học
                         </Link>
                     </div>
                     <div className="my-auto">
-                        <Link href={"/dashboard/user"} className='relative'>
+                        <Link href={"/dashboard/user/wishlist"} className='relative'>
                             <FaRegHeart size={24} />
                             <div className='absolute bg-[#1782FB] flex justify-center items-center rounded-full text-xs w-5 h-5 text-white right-[-10px] top-[-10px]'>{quantityOfWishList}</div>
                         </Link>
@@ -80,38 +94,38 @@ export default function UserMenu() {
                             <div className='absolute bg-[#1782FB] flex justify-center items-center rounded-full text-xs w-5 h-5 text-white right-[-10px] top-[-10px]'>{quantityOfCart}</div>
                         </Link>
                     </div>
-                    <div className="my-auto relative cursor-pointer" onClick={() => setOpenAccountMenu(prev => !prev)}>
+                    <div className="my-auto relative cursor-pointer" ref={avatarRef} onClick={() => setOpenAccountMenu(prev => !prev)}>
                         <Avatar className='w-10 h-10'>
                             <AvatarImage src={userInfo.avatar} />
                             <AvatarFallback>CN</AvatarFallback>
                         </Avatar>
                         {openAccountMenu ? (
-                            <div className="absolute top-[120%] w-max right-0 bg-white shadow-2xl border rounded-sm">
+                            <div ref={menuRef} className="absolute top-[120%] w-max right-0 bg-white shadow-2xl border rounded-sm">
                                 <ul className="py-2 text-sm text-gray-700">
                                     <li className="flex items-center gap-2 px-4 py-2 hover:bg-gray-300">
-                                        <FaTableList size={18} />
-                                        <Link href="/dashboard/user">Vào học</Link>
+                                        <FaCalendarAlt size={18} />
+                                        <Link href="/dashboard/user/course">Vào học</Link>
                                     </li>
                                     <li className="flex items-center gap-2 px-4 py-2 hover:bg-gray-300">
-                                        <HiMiniUserGroup size={18} />
-                                        <Link href="/dashboard/user">Hội viên</Link>
+                                        <FaUserAstronaut size={18} />
+                                        <Link href="/dashboard/user/group">Hội viên</Link>
                                     </li>
                                     {userInfo.role == "INSTRUCTOR" && (
                                         <li className="flex items-center gap-2 px-4 py-2 hover:bg-gray-300">
-                                            <HiMiniUserGroup size={18} />
-                                            <Link href="/dashboard/instructor">Giảng viên</Link>
+                                            <FaUserGraduate size={18} />
+                                            <Link href="/dashboard/teacher/course">Giảng viên</Link>
                                         </li>
                                     )}
                                     <li className="flex items-center gap-2 px-4 py-2 hover:bg-gray-300">
-                                        <GiSkeletonKey size={18} />
+                                        <FaKey size={18} />
                                         <Link href="/">Kích hoạt khóa học</Link>
                                     </li>
                                     <li className="flex items-center gap-2 px-4 py-2 hover:bg-gray-300">
-                                        <BiSolidBusiness size={18} />
+                                        <FaCity size={18} />
                                         <Link href="/">Doanh nghiệp</Link>
                                     </li>
                                     <li className="flex items-center gap-2 px-4 py-2 hover:bg-gray-300">
-                                        <FaCircleUser size={18} />
+                                        <FaUserCircle size={18} />
                                         <Link href="/info">Cập nhật hồ sơ</Link>
                                     </li>
                                     <li className="flex items-center gap-2 px-4 py-2 hover:bg-gray-300">

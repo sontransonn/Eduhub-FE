@@ -1,3 +1,4 @@
+"use client"
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link';
 
@@ -8,7 +9,7 @@ import { getInstructorCourse } from '@/api/instructor.api';
 
 import { CourseProps } from '@/types/course.type';
 
-export default function InstructorCourse({ setActiveTab }: { setActiveTab: (tab: string) => void }) {
+export default function TeacherCourse() {
     const [instructorCourse, setInstructorCourse] = useState([])
 
     useEffect(() => {
@@ -25,14 +26,14 @@ export default function InstructorCourse({ setActiveTab }: { setActiveTab: (tab:
             <div className='flex justify-between items-center'>
                 <h4 className='text-2xl font-medium'>BÀI GIẢNG CỦA TÔI</h4>
                 <div className='flex items-center gap-4'>
-                    <button className='bg-white py-2 px-3 flex items-center gap-2 font-medium rounded-sm border border-solid border-[#3333]'>
+                    <Link href={"/"} className='bg-white py-2 px-3 flex items-center gap-2 font-medium rounded-sm border border-solid border-[#3333]'>
                         <FaSyncAlt />
                         Đồng bộ Edubit
-                    </button>
-                    <button className='bg-blue-500 hover:bg-blue-600 flex items-center font-medium gap-2 text-white py-2 px-3 rounded-sm' onClick={() => setActiveTab('course/create')}>
+                    </Link>
+                    <Link href={"/dashboard/teacher/course/create"} className='bg-blue-500 hover:bg-blue-600 flex items-center font-medium gap-2 text-white py-2 px-3 rounded-sm'>
                         <FaPlus />
                         Tạo khóa học
-                    </button>
+                    </Link>
                 </div>
             </div>
 
@@ -46,9 +47,9 @@ export default function InstructorCourse({ setActiveTab }: { setActiveTab: (tab:
                             />
                         </div>
                         <div className='flex w-full justify-between items-center p-4 gap-4'>
-                            <div className='flex flex-col self-stretch justify-between'>
+                            <div className='flex flex-1 flex-col self-stretch justify-between'>
                                 <span className='text-lg font-medium'>{course.courseName}</span>
-                                <span className='text-sm bg-[#a94442] text-center text-white'>{course.approvalStatus}</span>
+                                <span className='text-sm bg-[#a94442] text-center text-white w-32'>{course.approvalStatus}</span>
                             </div>
                             <p className='flex-shrink-0'>Hoàn thành khóa học</p>
                             <div className='flex-1 bg-[#929292] h-2'>

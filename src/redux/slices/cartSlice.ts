@@ -29,7 +29,7 @@ const cartSlice = createSlice({
             state.quantity = action.payload.length;
         },
         addToCart(state, action: PayloadAction<CartItem>) {
-            state.items.push(action.payload);
+            state.items.unshift(action.payload);
             state.quantity += 1;
         },
         removeFromCart(state, action: PayloadAction<string>) {

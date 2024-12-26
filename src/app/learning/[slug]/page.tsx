@@ -7,7 +7,6 @@ import toast from 'react-hot-toast';
 
 import { MdKeyboardArrowDown } from 'react-icons/md';
 import { GrClose } from "react-icons/gr";
-import { PiCertificateBold } from "react-icons/pi";
 import { PiWarningCircleBold } from "react-icons/pi";
 import { IoIosArrowForward } from "react-icons/io";
 import { IoIosArrowBack } from "react-icons/io";
@@ -31,11 +30,19 @@ export default function LearningPage() {
     const id = searchParams.get('id');
 
     const [activeTab, setActiveTab] = useState('overview');
-    const [data, setData] = useState({})
+    const [data, setData] = useState({
+        courseId: { courseName: "" },
+        lessonContent: "",
+        lessonName: ""
+    })
 
     useEffect(() => {
         const fetchData = async () => {
             try {
+                if (!id) {
+                    console.error('ID is missing');
+                    return;
+                }
                 const data = await getLessonByID(slug, id);
                 setData(data)
             } catch (error: unknown) {
@@ -80,9 +87,7 @@ export default function LearningPage() {
                             <div className='ms-4 text-lg font-medium line-clamp-1'>{data?.courseId?.courseName}</div>
                         </div>
                         <div className='md:flex hidden gap-4 items-center'>
-                            <div className='relative w-8 h-8'>
-                                <PiCertificateBold />
-                            </div>
+
                             <button className='flex items-center justify-center'>
                                 Tiến độ của bạn
                                 <MdKeyboardArrowDown className='w-5 h-5' />
@@ -155,18 +160,6 @@ export default function LearningPage() {
                         </div>
                         <ul className="h-full border-none bg-white">
                             <li className='px-4 text-sm py-2 flex gap-2 items-center bg-gray-400'>
-                                <FaPlayCircle size={16} />
-                                <FaCheckCircle size={16} />
-                                <p className='flex-1 break-words'>Bài 1: Cách học SEO hiệu quả - Phuơng pháp học SEO hiệu quả - Học SEO như nào mới đúng</p>
-                                <span>12:06</span>
-                            </li>
-                            <li className='px-4 text-sm py-2 flex gap-2 items-center'>
-                                <FaPlayCircle size={16} />
-                                <FaCheckCircle size={16} />
-                                <p className='flex-1 break-words'>Bài 1: Cách học SEO hiệu quả - Phuơng pháp học SEO hiệu quả - Học SEO như nào mới đúng</p>
-                                <span>12:06</span>
-                            </li>
-                            <li className='px-4 text-sm py-2 flex gap-2 items-center'>
                                 <FaPlayCircle size={16} />
                                 <FaCheckCircle size={16} />
                                 <p className='flex-1 break-words'>Bài 1: Cách học SEO hiệu quả - Phuơng pháp học SEO hiệu quả - Học SEO như nào mới đúng</p>

@@ -10,6 +10,8 @@ export default function Introduction({ currentCourse }: { currentCourse: CourseP
 
     const toggleExpand = () => {
         setIsExpanded(!isExpanded);
+        console.log(currentCourse);
+
     };
 
     return (
