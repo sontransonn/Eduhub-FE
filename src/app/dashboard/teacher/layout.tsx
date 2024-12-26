@@ -51,7 +51,7 @@ export default function TeacherDashboardLayout({
                                 {slug == "order" && <div className='h-[4px] bg-white w-full'></div>}
                             </li>
                             <li className='flex flex-col gap-4 cursor-pointer'>
-                                <Link href={"/dashboard/teacher/"} className='hover:text-slate-400'>Thu nhập</Link>
+                                <Link href={"/dashboard/teacher/revenue"} className='hover:text-slate-400'>Thu nhập</Link>
                                 {slug == "order" && <div className='h-[4px] bg-white w-full'></div>}
                             </li>
                             <li className='flex flex-col gap-4 cursor-pointer'>
@@ -59,7 +59,7 @@ export default function TeacherDashboardLayout({
                                 {slug == "order" && <div className='h-[4px] bg-white w-full'></div>}
                             </li>
                             <li className='flex flex-col gap-4 cursor-pointer'>
-                                <Link href={"/dashboard/teacher/"} className='hover:text-slate-400'>Hồ sơ</Link>
+                                <Link href={"/dashboard/teacher/profile"} className='hover:text-slate-400'>Hồ sơ</Link>
                                 {slug == "order" && <div className='h-[4px] bg-white w-full'></div>}
                             </li>
                             <li className='flex flex-col gap-4 cursor-pointer'>
