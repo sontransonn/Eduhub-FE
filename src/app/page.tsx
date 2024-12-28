@@ -1,6 +1,5 @@
 "use client"
 import React, { useState, useEffect } from "react";
-import toast from "react-hot-toast";
 
 import Banner from "@/containers/home-page/Banner";
 import LiveSchedule from "@/containers/home-page/LiveSchedule";
@@ -24,10 +23,8 @@ export default function HomePage() {
         setData(data);
       } catch (error: unknown) {
         if (error instanceof Error) {
-          toast.error(error.message);
           console.error('Failed:', error.message);
         } else {
-          toast.error('An unknown error occurred');
           console.error('Failed with an unknown error');
         }
       }

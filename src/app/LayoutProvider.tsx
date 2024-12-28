@@ -12,7 +12,7 @@ export default function LayoutProvider({ children }: Readonly<{
     children: React.ReactNode;
 }>) {
     const pathname = usePathname()
-    const isRoute = routeNoUseRootLayout.has(pathname)
+    const isRoute = routeNoUseRootLayout.has(pathname) || pathname.startsWith('/quiz') || pathname.startsWith('/join')
     const learningRoute = pathname.startsWith('/learning');
 
     if (learningRoute) {

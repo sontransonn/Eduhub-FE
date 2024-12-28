@@ -28,6 +28,10 @@ const wishlistItemSlice = createSlice({
             state.items = action.payload;
             state.quantity = action.payload.length;
         },
+        resetWishlistItems: (state) => {
+            state.items = [];
+            state.quantity = 0;
+        },
         addToWishlist(state, action: PayloadAction<WishlistItem>) {
             state.items.unshift(action.payload);
             state.quantity += 1;
@@ -41,6 +45,7 @@ const wishlistItemSlice = createSlice({
 
 export const {
     setWishlistItems,
+    resetWishlistItems,
     addToWishlist,
     removeFromWishlist
 } = wishlistItemSlice.actions

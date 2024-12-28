@@ -27,8 +27,8 @@ export default function UserDashboardLayout({
                         <span className='text-[40px] font-medium'>Học viên : {userInfo?.fullName}</span>
                     </div>
 
-                    {/* Hiển thị khi màn hình > 768px */}
-                    <div className='md:flex hidden'>
+                    {/* Hiển thị khi màn hình > 1024px */}
+                    <div className='lg:flex hidden'>
                         <ul className='flex gap-5 font-medium'>
                             <li className='flex flex-col gap-4 cursor-pointer'>
                                 <Link href={"/dashboard/user/course"} className='hover:text-slate-400'>Khóa học</Link>
@@ -53,35 +53,39 @@ export default function UserDashboardLayout({
                         </ul>
                     </div>
 
-                    {/* Hiển thị Slide khi màn hình < 768px */}
-                    <div className='md:hidden'>
+                    {/* Hiển thị Slide khi màn hình < 1024px */}
+                    <div className='lg:hidden'>
                         <Carousel className='w-full'>
-                            <CarouselContent className='m-0 cursor-pointer justify-between flex'>
+                            <CarouselContent className='m-0 cursor-pointer justify-between flex gap-5 font-medium'>
                                 <CarouselItem className="p-0 basis-auto">
-                                    <div className='flex'>
-                                        <ul className='flex gap-5 font-medium'>
-                                            <li className='flex flex-col gap-4 cursor-pointer'>
-                                                <Link href={"/dashboard/user/course"} className='hover:text-slate-400'>Khóa học</Link>
-                                                {slug == "course" && <div className='h-[4px] bg-white w-full'></div>}
-                                            </li>
-                                            <li className='flex flex-col gap-4 cursor-pointer'>
-                                                <Link href={"/dashboard/user/group"} className='hover:text-slate-400'>Hội viên</Link>
-                                                {slug == "group" && <div className='h-[4px] bg-white w-full'></div>}
-                                            </li>
-                                            <li className='flex flex-col gap-4 cursor-pointer'>
-                                                <Link href={"/dashboard/user/wishlist"} className='hover:text-slate-400'>Yêu thích</Link>
-                                                {slug == "wishlist" && <div className='h-[4px] bg-white w-full'></div>}
-                                            </li>
-                                            <li className='flex flex-col gap-4 cursor-pointer'>
-                                                <Link href={"/dashboard/user/wallet"} className='hover:text-slate-400'>Ví của bạn</Link>
-                                                {slug == "wallet" && <div className='h-[4px] bg-white w-full'></div>}
-                                            </li>
-                                            <li className='flex flex-col gap-4 cursor-pointer'>
-                                                <Link href={"/dashboard/user/order"} className='hover:text-slate-400'>Lịch sử đặt hàng</Link>
-                                                {slug == "order" && <div className='h-[4px] bg-white w-full'></div>}
-                                            </li>
-                                        </ul>
-                                    </div>
+                                    <li className='flex flex-col gap-4 cursor-pointer'>
+                                        <Link href={"/dashboard/user/course"} className='hover:text-slate-400'>Khóa học</Link>
+                                        {slug == "course" && <div className='h-[4px] bg-white w-full'></div>}
+                                    </li>
+                                </CarouselItem>
+                                <CarouselItem className="p-0 basis-auto">
+                                    <li className='flex flex-col gap-4 cursor-pointer'>
+                                        <Link href={"/dashboard/user/group"} className='hover:text-slate-400'>Hội viên</Link>
+                                        {slug == "group" && <div className='h-[4px] bg-white w-full'></div>}
+                                    </li>
+                                </CarouselItem>
+                                <CarouselItem className="p-0 basis-auto">
+                                    <li className='flex flex-col gap-4 cursor-pointer'>
+                                        <Link href={"/dashboard/user/wishlist"} className='hover:text-slate-400'>Yêu thích</Link>
+                                        {slug == "wishlist" && <div className='h-[4px] bg-white w-full'></div>}
+                                    </li>
+                                </CarouselItem>
+                                <CarouselItem className="p-0 basis-auto">
+                                    <li className='flex flex-col gap-4 cursor-pointer'>
+                                        <Link href={"/dashboard/user/wallet"} className='hover:text-slate-400'>Ví của bạn</Link>
+                                        {slug == "wallet" && <div className='h-[4px] bg-white w-full'></div>}
+                                    </li>
+                                </CarouselItem>
+                                <CarouselItem className="p-0 basis-auto">
+                                    <li className='flex flex-col gap-4 cursor-pointer'>
+                                        <Link href={"/dashboard/user/order"} className='hover:text-slate-400'>Lịch sử đặt hàng</Link>
+                                        {slug == "order" && <div className='h-[4px] bg-white w-full'></div>}
+                                    </li>
                                 </CarouselItem>
                             </CarouselContent>
                         </Carousel>

@@ -28,6 +28,10 @@ const cartSlice = createSlice({
             state.items = action.payload;
             state.quantity = action.payload.length;
         },
+        resetCartItems: (state) => {
+            state.items = [];
+            state.quantity = 0;
+        },
         addToCart(state, action: PayloadAction<CartItem>) {
             state.items.unshift(action.payload);
             state.quantity += 1;
@@ -41,6 +45,7 @@ const cartSlice = createSlice({
 
 export const {
     setCartItems,
+    resetCartItems,
     addToCart,
     removeFromCart
 } = cartSlice.actions

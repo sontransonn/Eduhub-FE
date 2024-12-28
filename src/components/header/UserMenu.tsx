@@ -4,8 +4,8 @@ import Link from 'next/link'
 
 import { RootState } from '@/redux/store'
 
-import { setWishlistItems } from '@/redux/slices/wishlistSlice'
-import { setCartItems } from '@/redux/slices/cartSlice';
+import { setWishlistItems, resetWishlistItems } from '@/redux/slices/wishlistSlice'
+import { setCartItems, resetCartItems } from '@/redux/slices/cartSlice';
 import { resetUserInfo } from '@/redux/slices/userSlice'
 
 import { FaArrowRightToBracket, FaRightToBracket } from 'react-icons/fa6'
@@ -30,12 +30,6 @@ export default function UserMenu() {
     const menuRef = useRef<HTMLDivElement>(null);
     const avatarRef = useRef<HTMLDivElement>(null);
 
-    const handleClickOutside = (e: MouseEvent) => {
-        if (menuRef.current && !menuRef.current?.contains(e.target as Node) && !avatarRef.current?.contains(e.target as Node)) {
-            setOpenAccountMenu(false);
-        }
-    }
-
     useEffect(() => {
         document.addEventListener('click', handleClickOutside);
 
@@ -46,23 +40,31 @@ export default function UserMenu() {
 
     useEffect(() => {
         const fetchData = async () => {
-            if (userInfo) {
-                const cartData = await getMyCart();
-                dispatch(setCartItems(cartData.items))
+            try {
+                if (userInfo) {
+                    const cartData = await getMyCart();
+                    dispatch(setCartItems(cartData.items))
 
-                const wishlistData = await getMyWishlist();
-                dispatch(setWishlistItems(wishlistData.items));
+                    const wishlistData = await getMyWishlist();
+                    dispatch(setWishlistItems(wishlistData.items));
+                }
+            } catch (error: unknown) {
+                if (error instanceof Error) {
+                    console.error('Failed:', error.message);
+                } else {
+                    console.error('Failed with an unknown error');
+                }
             }
         }
-
         fetchData()
     }, [dispatch])
 
     const handleLogout = async () => {
         try {
             await logout()
-            localStorage.removeItem("userInfo")
             dispatch(resetUserInfo())
+            dispatch(resetCartItems())
+            dispatch(resetWishlistItems())
         } catch (error: unknown) {
             if (error instanceof Error) {
                 console.error('Failed:', error.message);
@@ -71,6 +73,12 @@ export default function UserMenu() {
             }
         }
     };
+
+    const handleClickOutside = (e: MouseEvent) => {
+        if (menuRef.current && !menuRef.current?.contains(e.target as Node) && !avatarRef.current?.contains(e.target as Node)) {
+            setOpenAccountMenu(false);
+        }
+    }
 
     return (
         <>

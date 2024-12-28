@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams, useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 
+import Document from '@/containers/course-page/manage/Document';
 import Infomation from '@/containers/course-page/manage/Infomation';
 import Price from '@/containers/course-page/manage/Price';
 
@@ -78,7 +79,7 @@ export default function ManageCourse() {
             case 'lessons':
                 return <></>
             case 'document':
-                return <></>
+                return <Document />
             case 'price':
                 return <Price />
         }
@@ -144,7 +145,6 @@ export default function ManageCourse() {
                             </h1>
                             {renderContent()}
                         </div>
-                        <button onClick={handleSubmit} className='bg-blue-500 hover:bg-blue-600 py-2 text-white font-semibold'>Cập nhật khóa học</button>
                     </div>
                 </div>
             </div>

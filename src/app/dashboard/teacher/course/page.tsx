@@ -23,7 +23,7 @@ export default function TeacherCourse() {
 
     return (
         <div className='flex flex-col gap-8'>
-            <div className='flex justify-between items-center'>
+            <div className='flex justify-between items-center flex-wrap gap-4'>
                 <h4 className='text-2xl font-medium'>BÀI GIẢNG CỦA TÔI</h4>
                 <div className='flex items-center gap-4'>
                     <Link href={"/"} className='bg-white py-2 px-3 flex items-center gap-2 font-medium rounded-sm border border-solid border-[#3333]'>
