@@ -25,15 +25,15 @@ export default function TeacherDashboardLayout({
                 <div className='max-w-8xl mx-auto lg:px-20 md:px-10 px-4 pt-12 flex flex-col gap-[60px] leading-normal'>
                     <div className='flex justify-between items-center'>
                         <span className='text-[40px] font-medium'>Giảng viên : {userInfo?.fullName}</span>
-                        <div className='flex-col gap-1.5 hidden md:flex'>
+                        <div className='flex-col gap-1.5 hidden lg:flex'>
                             <span>Hỗ trợ giảng viên</span>
                             <span>Hotline: +84 88888888</span>
                             <span>Email: teacher@eduhub.vn</span>
                         </div>
                     </div>
 
-                    {/* Hiển thị khi màn hình > 1024px */}
-                    <div className='lg:flex hidden'>
+                    {/* Hiển thị khi màn hình > 1280px */}
+                    <div className='xl:flex hidden'>
                         <ul className='flex gap-5 font-medium'>
                             <li className='flex flex-col gap-4 cursor-pointer'>
                                 <Link href={"/dashboard/teacher/course"} className='hover:text-slate-400'>Bài giảng</Link>
@@ -78,8 +78,8 @@ export default function TeacherDashboardLayout({
                         </ul>
                     </div>
 
-                    {/* Hiển thị Slide khi màn hình < 1024px */}
-                    <div className='lg:hidden'>
+                    {/* Hiển thị Slide khi màn hình < 1280px */}
+                    <div className='xl:hidden'>
                         <Carousel className='w-full'>
                             <CarouselContent className='m-0 cursor-pointer justify-between flex gap-5 font-medium'>
                                 <CarouselItem className="p-0 basis-auto">

@@ -162,7 +162,7 @@ export default function LearningPage() {
                             <li className='px-4 text-sm py-2 flex gap-2 items-center bg-gray-400'>
                                 <FaPlayCircle size={16} />
                                 <FaCheckCircle size={16} />
-                                <p className='flex-1 break-words'>Bài 1: Cách học SEO hiệu quả - Phuơng pháp học SEO hiệu quả - Học SEO như nào mới đúng</p>
+                                <p className='flex-1 break-words'>{data.lessonName}</p>
                                 <span>12:06</span>
                             </li>
                         </ul>

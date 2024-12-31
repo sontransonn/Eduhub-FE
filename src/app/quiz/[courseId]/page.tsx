@@ -1,8 +1,10 @@
 "use client"
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux';
+import { useParams, useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
+import toast from 'react-hot-toast';
 
 import { RootState } from '@/redux/store';
 
@@ -21,63 +23,109 @@ import { LuPalette } from "react-icons/lu";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
+import { createQuiz } from '@/api/instructor.api';
+
 import logoBig from "@/public/logo/logoBig.png"
 
 export default function Quiz() {
-    const [questions, setQuestions] = useState([
-        {
-            question: "",
-            answers: [{ name: "Tùy chọn 1", isCorrect: false }],
-        },
-    ]);
+    const router = useRouter()
+    const params = useParams();
+    const courseId = Array.isArray(params.courseId) ? params.courseId[0] : params.courseId;
+
+    const [formData, setFormData] = useState({
+        quizName: "",
+        courseId: courseId,
+        durationTime: 60,
+        maxScore: 100,
+        questions: [
+            {
+                text: "",
+                maxScore: 10,
+                answers: [
+                    {
+                        text: "Tùy chọn 1",
+                        isCorrect: false
+                    }
+                ]
+            }
+        ]
+    })
 
     const { userInfo } = useSelector((state: RootState) => state.user)
 
     const handleAddQuestion = () => {
-        setQuestions([
-            ...questions,
-            {
-                question: "",
-                answers: [{ name: "Tùy chọn 1", isCorrect: false }],
-            },
-        ]);
+        setFormData((prev) => ({
+            ...prev,
+            questions: [
+                ...prev.questions,
+                {
+                    text: "",
+                    maxScore: 10,
+                    answers: [
+                        {
+                            text: "Tùy chọn 1",
+                            isCorrect: false,
+                        },
+                    ],
+                },
+            ],
+        }));
     };
 
     const handleAddAnswer = (qIndex: number) => {
-        const updatedQuestions = [...questions];
-        updatedQuestions[qIndex].answers.push({ name: `Tùy chọn ${updatedQuestions[qIndex].answers.length + 1}`, isCorrect: false });
-        setQuestions(updatedQuestions);
+        const updatedQuestions = [...formData.questions];
+        updatedQuestions[qIndex].answers.push({
+            text: `Tùy chọn ${updatedQuestions[qIndex].answers.length + 1}`,
+            isCorrect: false,
+        });
+        setFormData((prev) => ({ ...prev, questions: updatedQuestions }));
     };
 
-    const handleUpdateQuestion = (index: number, value: string) => {
-        const updatedQuestions = [...questions];
-        updatedQuestions[index].question = value;
-        setQuestions(updatedQuestions);
+    const handleUpdateQuestion = (qIndex: number, value: string) => {
+        const updatedQuestions = [...formData.questions];
+        updatedQuestions[qIndex].text = value;
+        setFormData((prev) => ({ ...prev, questions: updatedQuestions }));
     };
 
     const handleUpdateAnswer = (qIndex: number, aIndex: number, value: string) => {
-        const updatedQuestions = [...questions];
-        updatedQuestions[qIndex].answers[aIndex].name = value;
-        setQuestions(updatedQuestions);
+        const updatedQuestions = [...formData.questions];
+        updatedQuestions[qIndex].answers[aIndex].text = value;
+        setFormData((prev) => ({ ...prev, questions: updatedQuestions }));
     };
 
     const toggleCorrectAnswer = (qIndex: number, aIndex: number) => {
-        const updatedQuestions = [...questions];
+        const updatedQuestions = [...formData.questions];
         updatedQuestions[qIndex].answers.forEach((answer, index) => {
             answer.isCorrect = index === aIndex ? !answer.isCorrect : false;
         });
-        setQuestions(updatedQuestions);
+        setFormData((prev) => ({ ...prev, questions: updatedQuestions }));
     };
 
     const handleRemoveAnswer = (qIndex: number, aIndex: number) => {
-        const updatedQuestions = [...questions];
-        updatedQuestions[qIndex].answers = updatedQuestions[qIndex].answers.filter((_, index) => index !== aIndex);
-        setQuestions(updatedQuestions);
+        const updatedQuestions = [...formData.questions];
+        updatedQuestions[qIndex].answers = updatedQuestions[qIndex].answers.filter(
+            (_, index) => index !== aIndex
+        );
+        setFormData((prev) => ({ ...prev, questions: updatedQuestions }));
     };
 
     const handleRemoveQuestion = (qIndex: number) => {
-        const updatedQuestions = questions.filter((_, index) => index !== qIndex);
-        setQuestions(updatedQuestions);
+        const updatedQuestions = formData.questions.filter((_, index) => index !== qIndex);
+        setFormData((prev) => ({ ...prev, questions: updatedQuestions }));
+    };
+
+    const handleCreateQuiz = async () => {
+        try {
+            const data = await createQuiz(formData)
+            toast.success(data.message)
+            router.push(`/manage/${courseId}/document`)
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                console.error('Failed:', error.message);
+            } else {
+                console.error('Failed with an unknown error');
+            }
+        }
     };
 
     return (
@@ -96,7 +144,7 @@ export default function Quiz() {
                                 <RiArrowGoForwardFill size={20} className='hidden md:block' />
                                 <FiLink2 size={20} className='hidden md:block' />
                                 <FiUserPlus size={20} className='hidden md:block' />
-                                <button className=' bg-purple-800 text-white rounded-md px-6 text-sm p-2 hover:bg-purple-900'>Xuất bản</button>
+                                <button className=' bg-purple-800 text-white rounded-md px-6 text-sm p-2 hover:bg-purple-900' onClick={handleCreateQuiz}>Xuất bản</button>
                                 <BsThreeDotsVertical size={20} />
                                 <Avatar className='w-10 h-10'>
                                     <AvatarImage src={userInfo?.avatar} />
@@ -117,6 +165,8 @@ export default function Quiz() {
                                 type="text"
                                 placeholder="Tiêu đề biểu mẫu"
                                 defaultValue={"Mẫu không có tiêu đề"}
+                                value={formData.quizName}
+                                onChange={(e) => setFormData({ ...formData, quizName: e.target.value })}
                                 className="w-full font-light text-2xl focus:border-b-2 focus:border-purple-800 outline-none"
                             />
                             <input
@@ -125,12 +175,12 @@ export default function Quiz() {
                                 className="w-full text-sm focus:border-b-2 focus:border-purple-800 outline-none"
                             />
                         </div>
-                        {questions.map((q, qIndex) => (
+                        {formData.questions.map((q, qIndex) => (
                             <div key={qIndex} className='bg-white flex flex-col p-5 rounded-md border border-solid border-[#3333]'>
                                 <div className='flex items-center gap-4'>
                                     <input
                                         type="text" placeholder='Câu hỏi'
-                                        value={q.question} onChange={(e) => handleUpdateQuestion(qIndex, e.target.value)}
+                                        value={q.text} onChange={(e) => handleUpdateQuestion(qIndex, e.target.value)}
                                         className='outline-none border-b-2 border-black border-solid focus:border-purple-800 p-3 text-[13px] flex-1 bg-gray-100 hover:bg-gray-200'
                                     />
                                     <MdOutlineInsertPhoto size={24} color='#606366' />
@@ -145,7 +195,7 @@ export default function Quiz() {
                                         <div key={aIndex} className='flex items-center gap-2'>
                                             <input type="radio" name={`answer-${qIndex}`} checked={answer.isCorrect} className='w-5 h-5' onChange={() => toggleCorrectAnswer(qIndex, aIndex)} />
                                             <input
-                                                type="text" name="" id="" value={answer.name}
+                                                type="text" name="" id="" value={answer.text}
                                                 onChange={(e) => handleUpdateAnswer(qIndex, aIndex, e.target.value)}
                                                 className='outline-none hover:border-b-2 focus:border-b-2 border-solid border-black focus:border-purple-800 flex-1'
                                             />

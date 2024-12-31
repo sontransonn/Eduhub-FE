@@ -27,8 +27,8 @@ export default function UserDashboardLayout({
                         <span className='text-[40px] font-medium'>Học viên : {userInfo?.fullName}</span>
                     </div>
 
-                    {/* Hiển thị khi màn hình > 1024px */}
-                    <div className='lg:flex hidden'>
+                    {/* Hiển thị khi màn hình > 768px */}
+                    <div className='md:flex hidden'>
                         <ul className='flex gap-5 font-medium'>
                             <li className='flex flex-col gap-4 cursor-pointer'>
                                 <Link href={"/dashboard/user/course"} className='hover:text-slate-400'>Khóa học</Link>
@@ -53,8 +53,8 @@ export default function UserDashboardLayout({
                         </ul>
                     </div>
 
-                    {/* Hiển thị Slide khi màn hình < 1024px */}
-                    <div className='lg:hidden'>
+                    {/* Hiển thị Slide khi màn hình < 768px */}
+                    <div className='md:hidden'>
                         <Carousel className='w-full'>
                             <CarouselContent className='m-0 cursor-pointer justify-between flex gap-5 font-medium'>
                                 <CarouselItem className="p-0 basis-auto">
