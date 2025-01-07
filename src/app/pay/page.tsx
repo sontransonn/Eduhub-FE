@@ -1,7 +1,7 @@
 "use client"
 import React, { useState } from 'react'
 import { useSearchParams } from 'next/navigation';
-// import Image from 'next/image';
+import Image from 'next/image';
 import Link from 'next/link'
 
 import payment from '@/constants/payments'
@@ -39,7 +39,7 @@ export default function Pay() {
             } else if (selectedPaymentMethod === 'zalopay') {
                 const data = await zalopay();
                 if (data && data.order_url) {
-                    window.location.href = data.order_url; // Điều hướng đến URL thanh toán ZaloPay
+                    window.location.href = data.order_url;
                 } else {
                     alert("Không thể tạo giao dịch thanh toán ZaloPay.");
                 }
@@ -112,7 +112,7 @@ export default function Pay() {
                                         />
                                         <p>{payment.title}</p>
                                     </div>
-                                    {/* <Image width={25} height={25} src={payment.img} alt="" /> */}
+                                    <Image width={25} height={25} src={payment.img} alt="" />
                                 </div>
                             ))}
                             <button className='w-full py-4 text-center rounded-sm bg-orange-500 text-white hover:bg-orange-600' onClick={handlePayment}>

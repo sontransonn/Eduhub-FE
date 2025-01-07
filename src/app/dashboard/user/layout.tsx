@@ -1,10 +1,10 @@
 "use client"
-import React from 'react'
-import { usePathname } from 'next/navigation';
+import React, { useEffect } from 'react'
+import { usePathname, useRouter } from 'next/navigation';
 import { useSelector } from 'react-redux'
 import Link from 'next/link';
 
-import { RootState } from '@/redux/store'
+import { RootState } from '@/store'
 
 import { Carousel, CarouselContent, CarouselItem, } from "@/components/ui/carousel"
 
@@ -14,10 +14,19 @@ export default function UserDashboardLayout({
     children: React.ReactNode;
 }>) {
     const pathname = usePathname();
-    const segments = pathname.split('/');
-    const slug = segments[segments.length - 1];
+    const slug = React.useMemo(() => pathname.split("/").pop(), [pathname]);
+
+    const router = useRouter();
 
     const { userInfo } = useSelector((state: RootState) => state.user)
+
+    useEffect(() => {
+        if (!userInfo) {
+            router.push("/login");
+        }
+    }, [userInfo, router]);
+
+    if (!userInfo) return null;
 
     return (
         <>

@@ -50,7 +50,7 @@ export default function TeacherCourse() {
                     <div className='w-full flex md:flex-row flex-col bg-white border border-solid border-[#3333]'>
                         <div className='lg:w-[380px]'>
                             <img
-                                src="https://static.unica.vn/upload/images/2019/04/hoc-tieng-nhat-that-de_m_1555562005.jpg"
+                                src={course?.poster || "https://static.unica.vn/upload/images/2019/04/hoc-tieng-nhat-that-de_m_1555562005.jpg"}
                                 alt="" className='w-full'
                             />
                         </div>

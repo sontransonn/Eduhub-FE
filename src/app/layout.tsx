@@ -6,6 +6,7 @@ import { Toaster } from 'react-hot-toast';
 import "@/styles/global.css";
 import 'react-multi-carousel/lib/styles.css';
 import 'react-phone-input-2/lib/style.css'
+import 'react-circular-progressbar/dist/styles.css';
 
 import LayoutProvider from "@/app/LayoutProvider";
 import StoreProvider from "@/app/StoreProvider";

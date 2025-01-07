@@ -2,11 +2,11 @@ import React, { useState, useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Link from 'next/link'
 
-import { RootState } from '@/redux/store'
+import { RootState } from '@/store'
 
-import { setWishlistItems, resetWishlistItems } from '@/redux/slices/wishlistSlice'
-import { setCartItems, resetCartItems } from '@/redux/slices/cartSlice';
-import { resetUserInfo } from '@/redux/slices/userSlice'
+import { setWishlistItems, resetWishlistItems } from '@/store/slices/wishlistSlice'
+import { setCartItems, resetCartItems } from '@/store/slices/cartSlice';
+import { resetUserInfo } from '@/store/slices/userSlice'
 
 import { FaArrowRightToBracket, FaRightToBracket } from 'react-icons/fa6'
 import { FiShoppingCart } from 'react-icons/fi'

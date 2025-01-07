@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import toast from 'react-hot-toast'
 
-import { RootState } from '@/redux/store'
+import { RootState } from '@/store'
 
 import { applyInstructor } from '@/api/user.api'
 

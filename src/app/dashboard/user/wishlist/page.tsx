@@ -3,7 +3,7 @@ import React from 'react'
 import Link from 'next/link'
 import { useSelector } from 'react-redux';
 
-import { RootState } from '@/redux/store';
+import { RootState } from '@/store';
 
 import { FiSearch } from 'react-icons/fi'
 import { FaStar } from 'react-icons/fa6'

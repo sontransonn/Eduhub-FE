@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import PhoneInput from 'react-phone-input-2'
 import toast from 'react-hot-toast';
 
-import { setUserInfo } from "@/redux/slices/userSlice";
+import { setUserInfo } from "@/store/slices/userSlice";
 
 import { IoCameraOutline } from "react-icons/io5";
 import { FaRegTrashCan } from "react-icons/fa6";
@@ -13,7 +13,7 @@ import { AiOutlineLogout } from "react-icons/ai";
 import { LuHistory } from "react-icons/lu";
 import { MdOutlineVerified } from "react-icons/md";
 
-import { RootState } from '@/redux/store';
+import { RootState } from '@/store';
 
 import { getUserInfo } from '@/api/user.api';
 

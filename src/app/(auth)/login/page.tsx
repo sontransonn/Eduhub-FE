@@ -5,14 +5,14 @@ import { useRouter } from 'next/navigation';
 import { useDispatch, useSelector } from 'react-redux';
 import toast from 'react-hot-toast';
 
-import { setUserInfo } from "@/redux/slices/userSlice";
+import { setUserInfo } from "@/store/slices/userSlice";
 
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import { FaFacebook } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 
-import { RootState } from "@/redux/store";
+import { RootState } from "@/store";
 
 import { login } from "@/api/auth.api"
 

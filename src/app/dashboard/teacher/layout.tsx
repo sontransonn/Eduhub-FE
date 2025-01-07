@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 
-import { RootState } from '@/redux/store';
+import { RootState } from '@/store';
 
 import { Carousel, CarouselContent, CarouselItem, } from "@/components/ui/carousel"
 

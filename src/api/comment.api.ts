@@ -1,13 +1,13 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: 'http://localhost:5000/v1/lesson',
+    baseURL: 'http://localhost:5000/v1/comment',
     withCredentials: true,
 });
 
-export const getInfoCourse = async (courseSlug: string) => {
+export const getAllComments = async (courseId: string) => {
     try {
-        const response = await api.get(`/${courseSlug}`);
+        const response = await api.get(`/${courseId}`);
         return response.data
     } catch (error: unknown) {
         if (axios.isAxiosError(error)) {
@@ -18,9 +18,11 @@ export const getInfoCourse = async (courseSlug: string) => {
     }
 }
 
-export const getLessonByID = async (courseSlug: string, lessonId: string) => {
+export const createComment = async (courseId: string, commentContent: string) => {
     try {
-        const response = await api.get(`/${courseSlug}/${lessonId}`);
+        const response = await api.post(`/create/${courseId}`, {
+            commentContent: commentContent
+        });
         return response.data
     } catch (error: unknown) {
         if (axios.isAxiosError(error)) {
@@ -31,11 +33,10 @@ export const getLessonByID = async (courseSlug: string, lessonId: string) => {
     }
 }
 
-export const createLessonByLink = async (courseId: string, data: { lessonName: string, lessonContent: string }) => {
+export const createReply = async (commentId: string, replyContent: string) => {
     try {
-        const response = await api.post(`/uplink/${courseId}`, {
-            lessonName: data.lessonName,
-            lessonContent: data.lessonContent
+        const response = await api.post(`/reply/${commentId}`, {
+            replyContent: replyContent
         });
         return response.data
     } catch (error: unknown) {

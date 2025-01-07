@@ -3,7 +3,9 @@ import React from 'react';
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react';
 
-import { store, persistor } from '../redux/store'
+import LoadingPage from '@/app/LoadingPage';
+
+import { store, persistor } from '@/store'
 
 export default function StoreProvider({
     children,
@@ -12,7 +14,7 @@ export default function StoreProvider({
 }) {
     return (
         <Provider store={store}>
-            <PersistGate loading={<div>Loading...</div>} persistor={persistor}>
+            <PersistGate loading={<LoadingPage />} persistor={persistor}>
                 {children}
             </PersistGate>
         </Provider>

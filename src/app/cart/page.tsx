@@ -5,9 +5,9 @@ import { useRouter } from 'next/navigation';
 import Link from "next/link"
 import toast from 'react-hot-toast';
 
-import { RootState } from '@/redux/store';
+import { RootState } from '@/store';
 
-import { removeFromCart } from '@/redux/slices/cartSlice';
+import { removeFromCart } from '@/store/slices/cartSlice';
 
 import { FaTrashAlt } from "react-icons/fa";
 import { FaStar } from "react-icons/fa";

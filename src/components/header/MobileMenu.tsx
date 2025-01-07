@@ -4,7 +4,7 @@ import Link from "next/link"
 
 import categories from "@/constants/categories"
 
-import { RootState } from "@/redux/store"
+import { RootState } from "@/store"
 
 import { FiMenu, FiPhoneOutgoing, FiSearch, FiShoppingCart } from "react-icons/fi"
 

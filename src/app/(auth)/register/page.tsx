@@ -8,7 +8,7 @@ import toast from 'react-hot-toast';
 import { FaFacebook } from "react-icons/fa"
 import { FcGoogle } from "react-icons/fc"
 
-import { RootState } from "@/redux/store";
+import { RootState } from "@/store";
 
 import { register } from "@/api/auth.api";
 
