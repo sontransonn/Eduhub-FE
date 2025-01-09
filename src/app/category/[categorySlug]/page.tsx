@@ -22,7 +22,7 @@ import { CourseProps } from '@/types/course.type';
 
 export default function Category() {
     const params = useParams();
-    const courseSlug = Array.isArray(params.courseSlug) ? params.courseSlug[0] : params.courseSlug;
+    const categorySlug = Array.isArray(params.categorySlug) ? params.categorySlug[0] : params.categorySlug;
 
     const [activeTab, setActiveTab] = useState("popular");
     const [isFilter, setIsFilter] = useState(true)
@@ -32,9 +32,17 @@ export default function Category() {
 
     useEffect(() => {
         const fetchData = async () => {
-            const data = await getCourseByCategory(courseSlug)
-            setListData(data.data.courses)
-            setSuggetCourse(data.data.suggestedCourses)
+            try {
+                const data = await getCourseByCategory(categorySlug)
+                setListData(data.data.courses)
+                setSuggetCourse(data.data.suggestedCourses)
+            } catch (error: unknown) {
+                if (error instanceof Error) {
+                    console.error('Failed:', error.message);
+                } else {
+                    console.error('Failed with an unknown error');
+                }
+            }
         }
         fetchData()
     }, [])
@@ -50,7 +58,7 @@ export default function Category() {
         setShowMenuSortBy(false)
     }
 
-    const category = categories.find((cat) => cat.slug === courseSlug);
+    const category = categories.find((cat) => cat.slug === categorySlug);
 
     return (
         <main className='bg-[#F1F5F8] text-black'>

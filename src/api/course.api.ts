@@ -71,9 +71,22 @@ export const searchCourse = async (name: string, page: number) => {
 }
 
 
-export const getCourseByCategory = async (slug: string) => {
+export const getCourseByCategory = async (categorySlug: string) => {
     try {
-        const response = await api.get(`/categories/${slug}`);
+        const response = await api.get(`/categories/${categorySlug}`);
+        return response.data;
+    } catch (error) {
+        if (axios.isAxiosError(error)) {
+            const errorMessage = error.response?.data?.message || 'Failed';
+            throw new Error(errorMessage);
+        }
+        throw new Error('An unknown error occurred');
+    }
+}
+
+export const getCourseBySubCategory = async (subCategorySlug: string) => {
+    try {
+        const response = await api.get(`/subCategories/${subCategorySlug}`);
         return response.data;
     } catch (error) {
         if (axios.isAxiosError(error)) {

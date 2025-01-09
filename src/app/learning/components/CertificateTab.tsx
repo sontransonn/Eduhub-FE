@@ -5,9 +5,9 @@ import { GoDownload } from "react-icons/go";
 
 export default function CertificateTab() {
     return (
-        <div className='text-sm font-light py-5 border-b border-gray-300 w-[80%]'>
-            <div className='flex items-center gap-2 border border-solid border-[#c4c4c4] rounded p-2 min-h-[76px]'>
-                <div className='w-[10%] h-full flex justify-center items-center'>
+        <div className='text-sm font-light py-5 w-[75%]'>
+            <div className='flex items-center justify-between gap-2 border border-solid border-[#c4c4c4] rounded py-2 px-4 min-h-[76px]'>
+                <div className='h-full flex justify-center items-center'>
                     <PiCertificateBold size={40} color='green' />
                 </div>
                 <div>
@@ -16,12 +16,10 @@ export default function CertificateTab() {
                     </p>
                     <span>Bạn cần hoàn thành ít nhất 80% khóa học để được cấp giấy chứng nhận</span>
                 </div>
-                <div className='flex-1 flex justify-end'>
-                    <button className='flex items-center border border-black px-4 py-1 w-fit rounded hover:bg-gray-300'>
-                        <GoDownload size={16} />
-                        <div className='ms-2 text-black font-medium'>Tải về</div>
-                    </button>
-                </div>
+                <button className='flex items-center border border-black px-4 py-1 w-fit rounded hover:bg-gray-300'>
+                    <GoDownload size={16} />
+                    <div className='ms-2 text-black font-medium'>Tải về</div>
+                </button>
             </div>
         </div>
     )

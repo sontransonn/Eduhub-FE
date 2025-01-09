@@ -104,8 +104,8 @@ export default function EvaluateTab() {
                 </div>
             </div>
             <div className='flex flex-col gap-5'>
-                {Array.from({ length: 5 }).map(() => (
-                    <div className='pb-5 border-b border-solid border-[#d1d7dc]'>
+                {Array.from({ length: 5 }).map((_, index) => (
+                    <div key={index} className='pb-5 border-b border-solid border-[#d1d7dc]'>
                         <div className='flex gap-6'>
                             <img src="https://unica.vn/icon/profile.png" alt="" className='w-9 h-9 rounded-full' />
                             <div className='flex flex-col gap-2'>

@@ -109,7 +109,7 @@ export default function Register() {
 
                     {/* Quên mật khẩu và Đăng nhập với SMS*/}
                     <div className="flex text-xs justify-between my-[10px]">
-                        <Link href={""}>Quên mật khẩu?</Link>
+                        <Link href={"/forgot-password"}>Quên mật khẩu?</Link>
                     </div>
 
                     {/* Đăng nhập với Facebook hoặc Google */}

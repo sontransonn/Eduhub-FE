@@ -2,11 +2,11 @@ import React from 'react'
 
 import { CourseProps } from '@/types/course.type';
 
-const CourseContent = ({ currentCourse }: { currentCourse: CourseProps }) => {
+export default function CourseContent({ currentCourse }: { currentCourse: CourseProps }) {
     return (
         <div className='rounded border border-solid border-[#929292] md:p-6 p-4 overflow-hidden'>
             <div className='scrollable w-full flex flex-col gap-2 h-[450px] overflow-scroll'>
-                {currentCourse.videos.map((video, index) => (
+                {currentCourse?.videos?.map((video: { lessonName: string }, index) => (
                     <div className='flex' key={index}>
                         <div className='md:basis-3/4 flex gap-2.5 items-center'>
                             <img src={currentCourse.poster} alt="" className='w-40 rounded-lg' />
@@ -25,5 +25,3 @@ const CourseContent = ({ currentCourse }: { currentCourse: CourseProps }) => {
         </div>
     )
 }
-
-export default CourseContent

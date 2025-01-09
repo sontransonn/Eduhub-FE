@@ -30,20 +30,19 @@ export default function JoinQuiz() {
         quizName: '',
         durationTime: '',
         maxScore: 0,
-        questions: [
-            {
-                _id: '',
-                questionText: '',
-                maxScore: 0,
-                answers: [
-                    {
-                        _id: '',
-                        text: ''
-                    }
-                ]
-            }
-        ]
+        questions: [{
+            _id: '',
+            questionText: '',
+            maxScore: 0,
+            answers: [
+                {
+                    _id: '',
+                    text: ''
+                }
+            ]
+        }]
     })
+    const [remainingTime, setRemainingTime] = useState(0);
 
     const { userInfo } = useSelector((state: RootState) => state.user)
 
@@ -52,6 +51,7 @@ export default function JoinQuiz() {
             try {
                 const data = await getQuizDetails(courseId, quizId);
                 setQuiz(data)
+                setRemainingTime(data.durationTime * 60);
             } catch (error: unknown) {
                 if (error instanceof Error) {
                     toast.error(error.message);
@@ -63,7 +63,19 @@ export default function JoinQuiz() {
             }
         }
         fetchData()
-    }, [])
+    }, [courseId, quizId])
+
+    useEffect(() => {
+        if (remainingTime > 0) {
+            const interval = setInterval(() => {
+                setRemainingTime((prevTime) => prevTime - 1);
+            }, 1000);
+
+            return () => clearInterval(interval);
+        } else if (remainingTime === 0 && Number(quiz.durationTime) > 0) {
+            handleSubmitQuiz();
+        }
+    }, [remainingTime]);
 
     const handleAnswerChange = (questionId: string, answerId: string) => {
         setDataSubmit((prev) => {
@@ -94,7 +106,7 @@ export default function JoinQuiz() {
         try {
             const data = await submitQuiz(dataSubmit)
             toast.success(data.message)
-            router.push(`/quiz/${courseId}/${quizId}/result`)
+            router.push(`/quiz/${courseId}/${quizId}/response`)
         } catch (error: unknown) {
             if (error instanceof Error) {
                 toast.error(error.message);
@@ -111,8 +123,13 @@ export default function JoinQuiz() {
             <header className='fixed z-10 top-0 right-0 left-0 bg-white'>
                 <div className='max-w-8xl mx-auto xl:px-20 md:px-10 py-4 px-4'>
                     <div className='flex items-center gap-6'>
-                        <span className='text-2xl text-purple-800 font-medium'>{quiz?.durationTime} min</span>
-                        <div className='flex h-2 bg-purple-800 flex-1 rounded-full'></div>
+                        <span className='text-2xl text-purple-800 font-medium' style={{ width: '4ch' }}>{Math.floor(remainingTime / 60)}:{remainingTime % 60 < 10 ? `0${remainingTime % 60}` : remainingTime % 60}</span>
+                        <div className='relative flex flex-1 h-2 bg-gray-300 rounded-full overflow-hidden'>
+                            <div
+                                className='absolute top-0 left-0 h-full bg-purple-800 transition-all duration-100'
+                                style={{ width: `${(remainingTime / (Number(quiz.durationTime) * 60)) * 100}%` }}
+                            ></div>
+                        </div>
                         <LuAlarmCheck size={32} color='gray' />
                     </div>
                 </div>
@@ -123,7 +140,6 @@ export default function JoinQuiz() {
                         <div className='flex flex-col bg-white rounded-md border border-solid border-[#3333] p-5 gap-4 border-t-[10px] border-t-purple-800'>
                             <div className='flex flex-col gap-4 pb-4 border-b border-solid border-[#3333]'>
                                 <h3 className='text-3xl font-medium'>{quiz.quizName}</h3>
-                                <span>Test kiến thức</span>
                             </div>
                             <div className='flex flex-col gap-2 pb-4 border-b border-solid border-[#3333]'>
                                 <div className='flex justify-between items-center text-sm'>

@@ -1,13 +1,43 @@
 "use client"
-import React from 'react'
-import dynamic from "next/dynamic";
+import React, { useEffect, useState } from 'react'
+import { useParams } from "next/navigation";
 
 import { FaFacebookSquare } from "react-icons/fa";
 import { FaRocketchat } from "react-icons/fa";
 
-const ReactPlayer = dynamic(() => import("react-player"), { ssr: false });
+import { getTeacherById } from '@/api/user.api';
 
 export default function TeacherDetails() {
+    const params = useParams();
+    const teacherId = Array.isArray(params.teacherId) ? params.teacherId[0] : params.teacherId;
+
+    const [teacherInfo, setTeacherInfo] = useState({
+        user: {
+            avatar: "",
+            fullName: ""
+        },
+        title: "",
+        students: 0,
+        rating: 0,
+        courseAmount: 0
+    })
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const data = await getTeacherById(teacherId)
+                setTeacherInfo(data)
+            } catch (error: unknown) {
+                if (error instanceof Error) {
+                    console.error('Failed:', error.message);
+                } else {
+                    console.error('Failed with an unknown error');
+                }
+            }
+        }
+        fetchData()
+    }, [params])
+
     return (
         <main className='w-full bg-[#f1f5f8]'>
             <div className='w-full bg-[url("https://static.vecteezy.com/system/resources/previews/028/112/827/non_2x/a-cup-of-coffee-with-book-and-pen-on-the-wooden-table-ai-generated-free-photo.jpg")]'>
@@ -15,13 +45,13 @@ export default function TeacherDetails() {
                     <div className='flex w-full md:flex-row md:items-stretch items-center flex-col justify-between lg:pt-32'>
                         <div className='flex lg:flex-row md:items-stretch items-center flex-col text-white gap-5'>
                             <img
-                                src="https://unica.vn/uploads/duhq/December72018659am_han-quang-du_thumb.png"
-                                className='rounded-full w-40 h-40' width={160} height={160}
+                                src={teacherInfo?.user.avatar ? teacherInfo?.user.avatar : "https://unica.vn/uploads/duhq/December72018659am_han-quang-du_thumb.png"}
+                                className='rounded-full w-40 h-40 object-cover' width={160} height={160}
                                 alt=""
                             />
                             <div className='flex flex-col md:items-stretch items-center justify-between gap-4 lg:gap-0 lg:pt-10'>
-                                <h4 className='text-3xl font-semibold'>Hán Quang Dự</h4>
-                                <span className='text-xl font-light'>Giám đốc đào tạo công ty GCC Việt Nam</span>
+                                <h4 className='text-3xl font-semibold'>{teacherInfo.user.fullName}</h4>
+                                <span className='text-xl font-light'>{teacherInfo.title}</span>
                                 <div className='flex gap-3 text-sm'>
                                     <button className='flex gap-2 items-center py-2 px-5 border border-solid border-white bg-white text-black font-medium rounded-sm flex-shrink-0'>
                                         <FaFacebookSquare size={20} />
@@ -37,15 +67,15 @@ export default function TeacherDetails() {
 
                         <ul className='pt-10 flex gap-16 text-white'>
                             <li className='flex-shrink-0'>
-                                <h5 className='text-5xl font-semibold'>12</h5>
+                                <h5 className='text-5xl font-semibold'>{teacherInfo.courseAmount}</h5>
                                 <h6 className='text-center'>Khóa học</h6>
                             </li>
                             <li className='flex-shrink-0'>
-                                <h5 className='text-5xl font-semibold'>13218</h5>
+                                <h5 className='text-5xl font-semibold'>{teacherInfo.students}</h5>
                                 <h6 className='text-center'>Học viên</h6>
                             </li>
                             <li className='flex-shrink-0'>
-                                <h5 className='text-5xl font-semibold'>12</h5>
+                                <h5 className='text-5xl font-semibold'>{teacherInfo.rating}</h5>
                                 <h6 className='text-center'>Đánh giá</h6>
                             </li>
                         </ul>
@@ -69,19 +99,13 @@ export default function TeacherDetails() {
                         </div>
                         <div className='md:col-span-1 col-span-2'>
                             <div className="relative" style={{ paddingTop: "56.25%" }}>
-                                <ReactPlayer
-                                    url='https://www.youtube.com/watch?v=zwsPND378OQ&embeds_referring_euri=https%3A%2F%2Ffullstack.edu.vn%2F&embeds_referring_origin=https%3A%2F%2Ffullstack.edu.vn&source_ve_path=MjM4NTE'
-                                    controls
-                                    width="100%"
-                                    height="100%"
-                                    style={{ position: "absolute", top: 0, left: 0 }}
-                                />
+
                             </div>
                         </div>
                     </div>
 
                     <div className='flex flex-col gap-4'>
-                        <h4 className='text-lg font-semibold'>Khóa học của giảng viên Hán Quang Dự</h4>
+                        <h4 className='text-lg font-semibold'>Khóa học của giảng viên {teacherInfo.user.fullName}</h4>
                         <div className='flex flex-col gap-2.5'>
                             {Array.from({ length: 8 }).map((_, index) => (
                                 <div className='flex w-full bg-white justify-between gap-4 p-[10px] border border-solid border-[#e0e0e0]' key={index}>

@@ -100,7 +100,7 @@ export default function LoginPage() {
 
                     {/* Quên mật khẩu và Đăng nhập với SMS*/}
                     <div className="flex text-xs justify-between my-4">
-                        <Link href={""}>Quên mật khẩu?</Link>
+                        <Link href={"/forgot-password"}>Quên mật khẩu?</Link>
                     </div>
 
                     {/* Đăng nhập với Facebook hoặc Google */}

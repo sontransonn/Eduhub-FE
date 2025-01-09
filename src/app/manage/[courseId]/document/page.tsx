@@ -14,11 +14,13 @@ import { FaEdit, FaPlusCircle, FaTrashAlt } from 'react-icons/fa';
 import { getQuizs } from '@/api/instructor.api';
 
 export default function Document() {
-    const router = useRouter()
     const params = useParams();
     const id = Array.isArray(params.id) ? params.id[0] : params.id;
 
-    const [listQuiz, setListQuiz] = useState<any[]>([])
+    const [listQuiz, setListQuiz] = useState([{
+        quizName: "",
+        questions: []
+    }])
 
     const { userInfo } = useSelector((state: RootState) => state.user)
 

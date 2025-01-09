@@ -7,7 +7,6 @@ import { FaPlusCircle } from 'react-icons/fa';
 import { getCourseByID, updateCourse } from '@/api/instructor.api';
 
 export default function Price() {
-    const router = useRouter()
     const params = useParams();
     const id = Array.isArray(params.id) ? params.id[0] : params.id;
 

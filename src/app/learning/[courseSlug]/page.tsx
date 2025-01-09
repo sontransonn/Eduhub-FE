@@ -7,10 +7,8 @@ import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 
 import { FaFile } from "react-icons/fa6";
 import { FaCircleQuestion } from "react-icons/fa6";
-import { IoIosSwitch } from "react-icons/io";
 import { GrClose } from "react-icons/gr";
 import { IoIosArrowForward } from "react-icons/io";
-import { IoIosWarning } from "react-icons/io";
 import { IoIosArrowBack } from "react-icons/io";
 
 import OverviewTab from '@/app/learning/components/OverviewTab';
@@ -227,7 +225,7 @@ export default function LearningPage() {
                         </div>
                         <div className="border-none bg-white">
                             {infoCourse?.videos.map((lesson, index) => (
-                                <Link href={`/learning/${courseSlug}/?id=${lesson._id}`} className={`px-4 py-2 text-sm flex gap-2 cursor-pointer ${lessonId === lesson._id ? "bg-gray-400" : ""}`} key={index}>
+                                <Link href={`/learning/${courseSlug}/?id=${lesson._id}`} className={`px-4 py-2 text-sm flex gap-2 cursor-pointer ${lessonId === lesson._id ? "bg-gray-300" : ""}`} key={index}>
                                     <img src={infoCourse?.poster} alt="" className='w-28' />
                                     <div className='flex flex-col justify-between'>
                                         <p className='break-words font-medium'>

@@ -99,3 +99,38 @@ export const submitQuiz = async (data: { courseId: string, quizId: string, userA
         throw new Error('An unknown error occurred');
     }
 }
+
+export const updateUserInfo = async (userInfo: { avatar: string, fullName: string, email: string, phone: string, country: string, city: string, dob: string, gender: string }) => {
+    try {
+        const response = await api.patch("/edit-profile", {
+            avatar: userInfo.avatar,
+            fullName: userInfo.fullName,
+            email: userInfo.email,
+            phone: userInfo.phone,
+            country: userInfo.country,
+            city: userInfo.city,
+            dateOfBirth: userInfo.dob,
+            gender: userInfo.gender,
+        });
+        return response.data;
+    } catch (error: unknown) {
+        if (axios.isAxiosError(error)) {
+            const errorMessage = error.response?.data?.message || 'Failed';
+            throw new Error(errorMessage);
+        }
+        throw new Error('An unknown error occurred');
+    }
+}
+
+export const getTeacherById = async (teacherId: string) => {
+    try {
+        const response = await api.get(`/instructor/${teacherId}`);
+        return response.data
+    } catch (error: unknown) {
+        if (axios.isAxiosError(error)) {
+            const errorMessage = error.response?.data?.message || 'Failed';
+            throw new Error(errorMessage);
+        }
+        throw new Error('An unknown error occurred');
+    }
+}
