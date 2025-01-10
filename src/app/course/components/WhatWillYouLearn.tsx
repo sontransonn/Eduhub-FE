@@ -7,27 +7,27 @@ export default function WhatWillYouLearn() {
         <div className='grid md:grid-cols-2 gap-x-20 gap-y-5'>
             <div className='flex gap-2 text-sm'>
                 <div><IoMdCheckmarkCircleOutline size={24} color='green' /></div>
-                <p>Sử dụng thành thạo phần mềm học ghép ảnh chuyên nghiệp với Photoshop</p>
+                <p>Nội dung đang được cập nhật. Xin vui lòng quay lại sau!</p>
             </div>
             <div className='flex gap-2 text-sm'>
                 <div><IoMdCheckmarkCircleOutline size={24} color='green' /></div>
-                <p>Học cách cắt ghép ảnh và lên ý tưởng cho một tấm hình</p>
+                <p>Nội dung đang được cập nhật. Xin vui lòng quay lại sau!</p>
             </div>
             <div className='flex gap-2 text-sm'>
                 <div><IoMdCheckmarkCircleOutline size={24} color='green' /></div>
-                <p>Nắm được quy tắc hướng sáng cũng như bố cục của một bức ảnh</p>
+                <p>Nội dung đang được cập nhật. Xin vui lòng quay lại sau!</p>
             </div>
             <div className='flex gap-2 text-sm'>
                 <div><IoMdCheckmarkCircleOutline size={24} color='green' /></div>
-                <p>Biết cách Retouch và Blend màu cho bất kỳ tấm ảnh nào</p>
+                <p>Nội dung đang được cập nhật. Xin vui lòng quay lại sau!</p>
             </div>
             <div className='flex gap-2 text-sm'>
                 <div><IoMdCheckmarkCircleOutline size={24} color='green' /></div>
-                <p>Tự ghép bản thân mình vào trong các phim ảnh hay đứng chụp cùng thần tượng một cách chân thật</p>
+                <p>Nội dung đang được cập nhật. Xin vui lòng quay lại sau!</p>
             </div>
             <div className='flex gap-2 text-sm'>
                 <div><IoMdCheckmarkCircleOutline size={24} color='green' /></div>
-                <p>Tự tin với tài năng photoshop của bản thân, thỏa sức sáng tạo cùng photoshop</p>
+                <p>Nội dung đang được cập nhật. Xin vui lòng quay lại sau!</p>
             </div>
         </div>
     )

@@ -19,16 +19,20 @@ export default function Hero({ currentCourse }: { currentCourse: CourseProps }) 
                     <BreadcrumbItem>
                         <BreadcrumbLink href="/" className='flex items-center gap-2 hover:text-blue-600'>
                             <AiFillHome />
-                            Home
+                            <span className='truncate'>Home</span>
                         </BreadcrumbLink>
                     </BreadcrumbItem >
                     <BreadcrumbSeparator />
                     <BreadcrumbItem>
-                        <BreadcrumbLink href="/docs/components" className='hover:text-blue-600'>{currentCourse.category}</BreadcrumbLink>
+                        <BreadcrumbLink href="/" className='hover:text-blue-600 truncate max-w-[150px]'>
+                            {currentCourse.category || "Danh mục chưa xác định"}
+                        </BreadcrumbLink>
                     </BreadcrumbItem>
                     <BreadcrumbSeparator />
                     <BreadcrumbItem>
-                        <BreadcrumbLink href='/' className='hover:text-blue-600'>{currentCourse.slug}</BreadcrumbLink>
+                        <BreadcrumbLink href={`/course/${currentCourse.slug}`} className='hover:text-blue-600 truncate md:max-w-[250px] max-w-[150px]'>
+                            {currentCourse.slug}
+                        </BreadcrumbLink>
                     </BreadcrumbItem>
                 </BreadcrumbList>
             </Breadcrumb>
@@ -43,7 +47,9 @@ export default function Hero({ currentCourse }: { currentCourse: CourseProps }) 
 
             <div className='flex flex-col gap-4'>
                 <h1 className='lg:text-[40px] text-2xl leading-normal font-semibold md:text-[#ECECEC]'>{currentCourse.courseName}</h1>
-                <div className='md:text-[#ECECEC] md:font-normal font-light'>{currentCourse.description}</div>
+                <div className='md:text-[#ECECEC] md:font-normal font-light line-clamp-1'>
+                    {currentCourse.description || "Hiện tại khóa học này chưa có mô tả chi tiết. Vui lòng quay lại sau để tìm hiểu thêm thông tin!"}
+                </div>
                 <div className='flex items-center lg:gap-10 gap-6'>
                     <div className='flex items-center gap-1'>
                         <div className='text-[#F77321] font-medium'>{currentCourse.rating}</div>

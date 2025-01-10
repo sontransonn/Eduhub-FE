@@ -71,9 +71,9 @@ export const searchCourse = async (name: string, page: number) => {
 }
 
 
-export const getCourseByCategory = async (categorySlug: string) => {
+export const getCourseByCategory = async (categorySlug: string, pageNumber: number) => {
     try {
-        const response = await api.get(`/categories/${categorySlug}`);
+        const response = await api.get(`/categories/${categorySlug}?page=${pageNumber}`);
         return response.data;
     } catch (error) {
         if (axios.isAxiosError(error)) {

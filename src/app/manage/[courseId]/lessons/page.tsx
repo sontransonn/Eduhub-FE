@@ -1,22 +1,26 @@
 "use client"
 import React, { useEffect, useState } from 'react'
-import { useParams, useRouter } from 'next/navigation';
+import { useParams } from 'next/navigation';
+import toast from 'react-hot-toast';
 
 import { FaEdit, FaPlusCircle, FaTrashAlt } from 'react-icons/fa'
 
 import { getLessons } from '@/api/instructor.api';
+
 import { createLessonByLink } from '@/api/lesson.api';
-import toast from 'react-hot-toast';
+interface Lesson {
+    lessonName: string;
+    lessonContent: string;
+}
 
 export default function Lessons() {
-    const router = useRouter()
     const params = useParams();
-    const id = Array.isArray(params.id) ? params.id[0] : params.id;
+    const courseId = Array.isArray(params.courseId) ? params.courseId[0] : params.courseId;
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [lessonData, setLessonData] = useState({ lessonName: '', lessonContent: '' });
     const [activeTab, setActiveTab] = useState<'link' | 'upload'>('link');
-    const [listLesson, setListLesson] = useState<any[]>([])
+    const [listLesson, setListLesson] = useState<Lesson[]>([]);
 
     useEffect(() => {
         if (isModalOpen) {
@@ -33,7 +37,7 @@ export default function Lessons() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const data = await getLessons(id)
+                const data = await getLessons(courseId)
                 setListLesson(data)
             } catch (error: unknown) {
                 if (error instanceof Error) {
@@ -57,6 +61,12 @@ export default function Lessons() {
         setLessonData({ ...lessonData, [name]: value });
     };
 
+    const handleChangeVideo = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        console.log(file);
+
+    };
+
     const handleSave = async () => {
         if (!lessonData.lessonName.trim()) {
             alert('Vui lòng nhập tiêu đề!');
@@ -64,7 +74,7 @@ export default function Lessons() {
         }
 
         try {
-            const data = await createLessonByLink(id, lessonData)
+            const data = await createLessonByLink(courseId, lessonData)
             toast.success(data.message)
             if (data?.video) {
                 setListLesson((prev) => ([...prev, data.video]));
@@ -138,7 +148,7 @@ export default function Lessons() {
                                             value={lessonData.lessonName}
                                             onChange={handleChange}
                                             maxLength={70} placeholder="Nhập tiêu đề"
-                                            className="w-full border border-solid border-[#3333] outline-none p-2 pr-16 focus:outline-none focus:ring"
+                                            className="w-full border border-solid border-[#3333] h-[42.8px] outline-none p-2 pr-16 focus:outline-none focus:ring"
                                         />
                                         <span className="absolute top-1/2 transform -translate-y-1/2 mr-4 right-0 text-sm text-gray-500">{lessonData.lessonName.length}/70</span>
                                     </div>
@@ -149,7 +159,7 @@ export default function Lessons() {
                                         <input
                                             type="text"
                                             maxLength={70} placeholder="Nhập mô tả"
-                                            className="w-full border border-solid border-[#3333] outline-none p-2 pr-16 focus:outline-none focus:ring"
+                                            className="w-full border border-solid border-[#3333] h-[42.8px] outline-none p-2 pr-16 focus:outline-none focus:ring"
                                         />
                                         <span className="absolute top-1/2 transform -translate-y-1/2 mr-4 right-0 text-sm text-gray-500">{lessonData.lessonContent.length}/200</span>
                                     </div>
@@ -165,13 +175,26 @@ export default function Lessons() {
                                         <button className={`py-2.5 font-semibold ${activeTab === "upload" ? "border-b-[2.5px] border-solid text-blue-600 border-blue-600" : ""} w-max`} onClick={() => setActiveTab("upload")}>Tải video lên</button>
                                     </div>
                                     <div className='pt-7'>
-                                        <input
-                                            type="text" name="lessonContent"
-                                            value={lessonData.lessonContent}
-                                            onChange={handleChange}
-                                            placeholder='vd: https://www.youtube.com/watch?v=tALf6Vl0QuI'
-                                            className='w-full border border-solid border-[#3333] outline-none p-2 focus:outline-none focus:ring bg-gray-50'
-                                        />
+                                        {activeTab === "link" && (
+                                            <input
+                                                type="text"
+                                                name="lessonContent"
+                                                value={lessonData.lessonContent}
+                                                onChange={handleChange}
+                                                placeholder='vd: https://www.youtube.com/watch?v=tALf6Vl0QuI'
+                                                className='w-full border border-solid border-[#3333] outline-none h-[42.8px] p-2 focus:outline-none focus:ring bg-gray-50'
+                                            />
+                                        )}
+
+                                        {activeTab === "upload" && (
+                                            <input
+                                                type="file"
+                                                name="videoFile"
+                                                accept="video/*"
+                                                onChange={(e) => handleChangeVideo(e)}
+                                                className='w-full border border-solid border-[#3333] outline-none p-2 focus:outline-none focus:ring bg-gray-50'
+                                            />
+                                        )}
                                     </div>
                                 </div>
                             </div>

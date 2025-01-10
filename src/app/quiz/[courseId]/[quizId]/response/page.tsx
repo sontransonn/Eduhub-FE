@@ -16,6 +16,7 @@ export default function ResponseQuiz() {
                         <h2 className='text-3xl font-medium'>Introduction to Ruby Programming</h2>
                         <p className="text-md">Your response has been recorded.</p>
                         <Link href={`/quiz/${courseId}/${quizId}/result`} className='text-xs self-start bg-purple-800 text-white font-medium px-3 py-2 rounded-sm hover:bg-purple-900'>VIEW SCORE</Link>
+                        <Link href={"/"} className='text-sm font-medium text-blue-600'>Quay về trang chủ</Link>
                     </div>
                 </div>
             </div>

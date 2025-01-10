@@ -11,9 +11,13 @@ import { FaPenToSquare } from "react-icons/fa6";
 import { momo } from '@/api/payment.api';
 import { zalopay } from '@/api/payment.api';
 
+import { CourseProps } from '@/types/course.type';
+
 export default function Pay() {
     const searchParams = useSearchParams();
     const oid = searchParams.get('oid');
+    const data = searchParams.get('data');
+    const parsedData = data ? JSON.parse(data) : null;
 
     const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("");
 
@@ -51,6 +55,12 @@ export default function Pay() {
             alert("Đã xảy ra lỗi trong quá trình thanh toán.");
         }
     };
+
+    const calculateSalePrice = (originalPrice: number, discountPercentage: number) => {
+        const remainingPercentage = 100 - discountPercentage;
+        const salePrice = originalPrice * (remainingPercentage / 100);
+        return salePrice;
+    }
 
     return (
         <div className='bg-[#F1F5F8] text-black'>
@@ -122,25 +132,26 @@ export default function Pay() {
 
                         <div className='lg:col-span-1 col-span-3 border rounded p-6 h-fit bg-white shadow flex flex-col gap-4'>
                             <div className='flex justify-between items-center border-b border-gray-300 pb-4'>
-                                <div className='font-semibold text-lg'>Đơn hàng: (1 khóa học)</div>
+                                <div className='font-semibold text-lg'>Đơn hàng: ({parsedData?.items.length} khóa học)</div>
                                 <div className='flex items-center gap-1.5 cursor-pointer'>
                                     <FaPenToSquare />
                                     <Link href={"/cart"} className='text-sm'>Sửa</Link>
                                 </div>
                             </div>
-                            <div className='flex gap-6 border-b border-gray-300 pb-4 cart-course'>
-                                <div className='flex-auto'>Nghệ thuật giao tiếp và đàm phán</div>
-                                <div className='flex-1'>
-                                    <div className='text-right'>
-                                        <p className='text-base'>299,000<sup>đ</sup></p>
-                                        <span className='line-through text-sm text-[#929292]'>600,000<sup>đ</sup></span>
+                            {parsedData?.items?.map((item: CourseProps, index: number) => (
+                                <div key={index} className='flex gap-6 border-b border-gray-300 pb-4 cart-course'>
+                                    <div className='flex-auto'>{item?.courseName}</div>
+                                    <div className='flex-1'>
+                                        <div className='text-right'>
+                                            <p className='text-base'>{calculateSalePrice(item?.price, item?.discount)?.toLocaleString('vi-VN')}<sup>đ</sup></p>
+                                            <span className='line-through text-sm text-[#929292]'>{item?.price?.toLocaleString('vi-VN')}<sup>đ</sup></span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-
+                            ))}
                             <div className='flex justify-between font-semibold'>
                                 <p>Tổng cộng:</p>
-                                <span className='text-right text-[#E66B22]'>299,000<sup>đ</sup></span>
+                                <span className='text-right text-[#E66B22]'>{parsedData.totalAmount?.toLocaleString('vi-VN')}<sup>đ</sup></span>
                             </div>
                         </div>
                     </div>

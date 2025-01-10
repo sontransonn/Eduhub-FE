@@ -60,7 +60,7 @@ export default function Cart() {
     const handleCreateOrder = async (courseIds: (number | string)[]) => {
         try {
             const data = await createOrder(courseIds)
-            toast.success(data.message)
+            toast.success("Đặt hàng thành công!")
             const queryString = new URLSearchParams({ data: JSON.stringify(data.data) }).toString();
             router.push(`/cart/success-payment?${queryString}`);
         } catch (error: unknown) {

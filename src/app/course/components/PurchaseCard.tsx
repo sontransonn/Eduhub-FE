@@ -52,11 +52,11 @@ export default function PurchaseCard({ currentCourse }: { currentCourse: CourseP
         const isInWishlist = wishlistItems.some(item => item._id === currentCourse._id);
 
         try {
-            const data = await handleAddRemoveWithWishlist(currentCourse._id)
+            await handleAddRemoveWithWishlist(currentCourse._id)
 
             if (isInWishlist) {
                 dispatch(removeFromWishlist(currentCourse._id));
-                toast.success(data.message);
+                toast.success("Đã xóa khóa học khỏi danh sách yêu thích!");
             } else {
                 dispatch(addToWishlist({
                     _id: currentCourse._id,
@@ -67,7 +67,7 @@ export default function PurchaseCard({ currentCourse }: { currentCourse: CourseP
                     price: currentCourse.price,
                     discount: currentCourse.discount,
                 }));
-                toast.success(data.message);
+                toast.success("Đã thêm khóa học vào danh sách yêu thích!");
             }
         } catch (error: unknown) {
             if (error instanceof Error) {
@@ -99,7 +99,7 @@ export default function PurchaseCard({ currentCourse }: { currentCourse: CourseP
                 price: currentCourse.price,
                 discount: currentCourse.discount
             }));
-            toast.success('Đã thêm sản phẩm vào giỏ hàng');
+            toast.success('Đã thêm khóa học vào giỏ hàng!');
         } catch (error: unknown) {
             if (error instanceof Error) {
                 toast.error(error.message);
@@ -115,7 +115,7 @@ export default function PurchaseCard({ currentCourse }: { currentCourse: CourseP
         try {
             await handleAddRemoveWithCart(currentCourse._id);
             dispatch(removeFromCart(currentCourse._id));
-            toast.success('Đã xóa sản phẩm khỏi giỏ hàng');
+            toast.success('Đã xóa khóa học khỏi giỏ hàng!');
             setIsModalOpen(false);
         } catch (error: unknown) {
             if (error instanceof Error) {
@@ -168,7 +168,7 @@ export default function PurchaseCard({ currentCourse }: { currentCourse: CourseP
                     <li className='flex gap-2 items-center'>
                         <LuClipboardList size={20} />
                         Giáo trình:
-                        <span className='font-semibold'>{" "}29 bài giảng</span>
+                        <span className='font-semibold'>{" "}{currentCourse.videos?.length} bài giảng</span>
                     </li>
                     <li className='flex gap-2 items-center'>
                         <TbClockHour9 size={20} />

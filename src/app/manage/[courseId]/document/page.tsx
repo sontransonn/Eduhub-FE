@@ -1,6 +1,6 @@
 "use client"
 import React, { useEffect, useState } from 'react'
-import { useParams, useRouter } from 'next/navigation';
+import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { useSelector } from 'react-redux';
 
@@ -15,7 +15,7 @@ import { getQuizs } from '@/api/instructor.api';
 
 export default function Document() {
     const params = useParams();
-    const id = Array.isArray(params.id) ? params.id[0] : params.id;
+    const courseId = Array.isArray(params.courseId) ? params.courseId[0] : params.courseId;
 
     const [listQuiz, setListQuiz] = useState([{
         quizName: "",
@@ -27,7 +27,7 @@ export default function Document() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const data = await getQuizs(id)
+                const data = await getQuizs(courseId)
                 setListQuiz(data)
             } catch (error: unknown) {
                 if (error instanceof Error) {
@@ -87,7 +87,7 @@ export default function Document() {
                         })}
                     </div>
                 )}
-                <Link href={`/quiz/${id}`} className="flex self-start w-40 items-center justify-between bg-purple-800 text-white px-4 py-2 rounded-sm hover:bg-purple-900">
+                <Link href={`/quiz/${courseId}/create`} className="flex self-start w-40 items-center justify-between bg-purple-800 text-white px-4 py-2 rounded-sm hover:bg-purple-900">
                     <FaPlusCircle />
                     Thêm tài liệu
                 </Link>

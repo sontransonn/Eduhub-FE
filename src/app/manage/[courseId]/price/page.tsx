@@ -1,14 +1,14 @@
 "use client"
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast';
-import { useParams, useRouter } from 'next/navigation';
+import { useParams } from 'next/navigation';
 import { FaPlusCircle } from 'react-icons/fa';
 
 import { getCourseByID, updateCourse } from '@/api/instructor.api';
 
 export default function Price() {
     const params = useParams();
-    const id = Array.isArray(params.id) ? params.id[0] : params.id;
+    const courseId = Array.isArray(params.courseId) ? params.courseId[0] : params.courseId;
 
     const [updateTrigger, setUpdateTrigger] = useState(false);
     const [courseUpdates, setCourseUpdates] = useState({
@@ -19,7 +19,7 @@ export default function Price() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const data = await getCourseByID(id)
+                const data = await getCourseByID(courseId)
                 setCourseUpdates(prev => ({
                     ...prev,
                     price: data.price,
@@ -49,12 +49,8 @@ export default function Price() {
         try {
             const formData = new FormData();
             formData.append('courseUpdates', JSON.stringify(courseUpdates));
-
-            const courseId = Array.isArray(id) ? id[0] : id;
-            const data = await updateCourse(formData, courseId);
-            console.log(data.message);
-
-            toast.success(data.message)
+            await updateCourse(formData, courseId);
+            toast.success("Cập nhật khóa học thành công!")
             setUpdateTrigger(!updateTrigger);
         } catch (error: unknown) {
             if (error instanceof Error) {

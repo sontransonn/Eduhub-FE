@@ -1,7 +1,9 @@
 "use client"
 import React from 'react'
-import { useParams } from 'next/navigation';
+import { useParams, usePathname } from 'next/navigation';
 import Link from 'next/link';
+
+import { FaBullseye, FaInfoCircle, FaListAlt, FaGift, FaDollarSign } from 'react-icons/fa';
 
 export default function UserDashboardLayout({
     children,
@@ -9,30 +11,44 @@ export default function UserDashboardLayout({
     children: React.ReactNode;
 }>) {
     const params = useParams();
+    const pathname = usePathname();
     const courseId = Array.isArray(params.courseId) ? params.courseId[0] : params.courseId;
 
+    const menuItems = [
+        { href: `/manage/${courseId}/target`, label: 'Mục tiêu khóa học', icon: <FaBullseye /> },
+        { href: `/manage/${courseId}/infomation`, label: 'Thông tin cơ bản', icon: <FaInfoCircle /> },
+        { href: `/manage/${courseId}/lessons`, label: 'Danh sách bài học', icon: <FaListAlt /> },
+        { href: `/manage/${courseId}/document`, label: 'Tài liệu và quà tặng', icon: <FaGift /> },
+        { href: `/manage/${courseId}/price`, label: 'Giá khóa học', icon: <FaDollarSign /> },
+    ];
+
     return (
-        <main className='bg-[#F1F5F8] text-black relative'>
-            <div className='max-w-8xl mx-auto px-0 xl:px-20 md:px-10 md:py-8'>
-                <div className='grid grid-cols-12 gap-8'>
-                    <div className='col-span-3 flex flex-col'>
-                        <div className='text-lg font-medium flex flex-col gap-2'>
-                            <Link href={`/manage/${courseId}/target`} className='flex justify-between cursor-pointer hover:bg-gray-300 py-2 border-r-4 border-solid border-red-700'>
-                                <span className='flex-shrink-0'>Mục tiêu khóa học</span>
-                            </Link>
-                            <Link href={`/manage/${courseId}/infomation`} className='flex justify-between py-2 cursor-pointer hover:bg-gray-300'>
-                                <span className='flex-shrink-0'>Thông tin cơ bản</span>
-                            </Link>
-                            <Link href={`/manage/${courseId}/lessons`} className='flex justify-between py-2 cursor-pointer hover:bg-gray-300'>
-                                <span className='flex-shrink-0'>Danh sách bài học</span>
-                            </Link>
-                            <Link href={`/manage/${courseId}/document`} className='flex justify-between py-2 cursor-pointer hover:bg-gray-300'>
-                                <span className='flex-shrink-0'>Tài liệu và quà tặng</span>
-                            </Link>
-                            <Link href={`/manage/${courseId}/price`} className='flex justify-between py-2 cursor-pointer hover:bg-gray-300'>
-                                <span className='flex-shrink-0'>Giá khóa học</span>
-                            </Link>
-                            <button className='bg-blue-500 hover:bg-blue-600 py-2 text-white font-semibold'>Gửi duyệt</button>
+        <main className="bg-[#F1F5F8] text-black relative">
+            <div className="max-w-8xl mx-auto px-4 xl:px-20 md:px-10 md:py-8">
+                <div className="grid grid-cols-12 gap-8">
+                    <div className="col-span-3">
+                        <div className="bg-white border border-solid border-[#3333] p-4">
+                            <nav className="flex flex-col gap-4">
+                                {menuItems.map((item, index) => {
+                                    const isActive = pathname.startsWith(item.href);
+                                    return (
+                                        <Link
+                                            key={index}
+                                            href={item.href}
+                                            className={`flex items-center gap-2 py-3 px-4 rounded-lg transition duration-300 ${isActive
+                                                ? 'bg-blue-100 text-blue-700 font-semibold'
+                                                : 'text-gray-700 hover:bg-blue-100 hover:text-blue-700'
+                                                }`}
+                                        >
+                                            <span className="text-xl">{item.icon}</span>
+                                            <span>{item.label}</span>
+                                        </Link>
+                                    );
+                                })}
+                            </nav>
+                            <button className="mt-6 w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white py-3 rounded-lg font-semibold shadow-md hover:shadow-lg transition duration-300">
+                                Gửi duyệt
+                            </button>
                         </div>
                     </div>
                     <div className='col-span-9 flex flex-col border border-solid border-[#3333]'>

@@ -205,7 +205,7 @@ export default function Quiz() {
                                     <div className='flex items-center gap-2 text-[13px]'>
                                         <span className='text-gray-600 font-medium cursor-pointer' onClick={() => handleAddAnswer(qIndex)}>Thêm tùy chọn</span>
                                         <span>hoặc</span>
-                                        <span className='text-blue-600 font-medium cursor-pointer'>thêm "Câu trả lời khác"</span>
+                                        <span className='text-blue-600 font-medium cursor-pointer'>thêm &quot;Câu trả lời khác&quot;</span>
                                     </div>
                                 </div>
                                 <div className='flex justify-end pt-5'>

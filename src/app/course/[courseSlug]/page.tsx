@@ -73,14 +73,14 @@ export default function CourseDetails({ params }: { params: { courseSlug: string
                     {/* Giới thiệu khóa học */}
                     <div className='md:p-6 md:border border-[#929292] rounded md:order-none order-1'>
                         <div className='mb-4 text-2xl font-medium'>Giới thiệu khóa học</div>
-                        <div className='font-medium mb-3'>Bạn có biết:</div>
+                        <div className='font-medium mb-2'>Bạn có biết:</div>
                         <Introduction currentCourse={currentCourse} />
                     </div>
 
                     {/* Nội dung khóa học */}
                     <div className='flex flex-col gap-4'>
                         <div className='text-2xl font-medium'>Nội dung khóa học</div>
-                        <div className='text-sm font-light'>5 phần - 42 bài giảng - 06 giờ 29 phút</div>
+                        <div className='text-sm font-light'>{currentCourse.videos?.length} bài giảng - 06 giờ 29 phút</div>
                         <CourseContent currentCourse={currentCourse} />
                     </div>
 

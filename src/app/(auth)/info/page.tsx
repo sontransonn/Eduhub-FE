@@ -30,32 +30,33 @@ export default function Info() {
     });
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const data = await getUserInfo()
-                dispatch(setUserInfo(data.userInfo))
-                setFormData({
-                    avatar: data.userInfo.avatar,
-                    fullName: data.userInfo.fullName || '',
-                    email: data.userInfo.email || '',
-                    phone: data.userInfo.phone || '',
-                    country: data.userInfo.country || '',
-                    city: data.userInfo.city || '',
-                    dob: data.userInfo.dateOfBirth ? data.userInfo.dateOfBirth.split('T')[0] : '',
-                    gender: data.userInfo.gender || 'MALE',
-                });
-            } catch (error) {
-                if (error instanceof Error) {
-                    toast.error(error.message);
-                    console.error('Failed:', error.message);
-                } else {
-                    toast.error('An unknown error occurred');
-                    console.error('Failed with an unknown error');
-                }
-            }
-        }
         fetchData()
     }, [dispatch])
+
+    const fetchData = async () => {
+        try {
+            const data = await getUserInfo()
+            dispatch(setUserInfo(data.userInfo))
+            setFormData({
+                avatar: data.userInfo.avatar,
+                fullName: data.userInfo.fullName || '',
+                email: data.userInfo.email || '',
+                phone: data.userInfo.phone || '',
+                country: data.userInfo.country || '',
+                city: data.userInfo.city || '',
+                dob: data.userInfo.dateOfBirth ? data.userInfo.dateOfBirth.split('T')[0] : '',
+                gender: data.userInfo.gender || '',
+            });
+        } catch (error) {
+            if (error instanceof Error) {
+                toast.error(error.message);
+                console.error('Failed:', error.message);
+            } else {
+                toast.error('An unknown error occurred');
+                console.error('Failed with an unknown error');
+            }
+        }
+    }
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
@@ -76,6 +77,7 @@ export default function Info() {
         try {
             const data = await updateUserInfo(formData)
             toast.success(data.message)
+            fetchData()
         } catch (error: unknown) {
             if (error instanceof Error) {
                 console.error('Failed:', error.message);

@@ -83,7 +83,7 @@ export default function JoinQuiz() {
                 (answer) => answer.questionId === questionId
             );
 
-            let updatedAnswers = [...prev.userAnswers];
+            const updatedAnswers = [...prev.userAnswers];
 
             if (existingAnswerIndex !== -1) {
                 updatedAnswers[existingAnswerIndex] = { questionId, selectedAnswerId: answerId };

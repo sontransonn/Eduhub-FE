@@ -24,18 +24,23 @@ export default function Category() {
     const params = useParams();
     const categorySlug = Array.isArray(params.categorySlug) ? params.categorySlug[0] : params.categorySlug;
 
+    const [currentPage, setCurrentPage] = useState(1)
     const [activeTab, setActiveTab] = useState("popular");
     const [isFilter, setIsFilter] = useState(true)
+    const [totalPages, setTotalPages] = useState(1);
     const [showMenuSortBy, setShowMenuSortBy] = useState(false)
     const [listData, setListData] = useState([])
     const [suggestCourse, setSuggetCourse] = useState([])
+    const [totalCourse, setTotalCourse] = useState(0)
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const data = await getCourseByCategory(categorySlug)
+                const data = await getCourseByCategory(categorySlug, currentPage)
                 setListData(data.data.courses)
+                setTotalPages(data.data.totalPages);
                 setSuggetCourse(data.data.suggestedCourses)
+                setTotalCourse(data.data.total)
             } catch (error: unknown) {
                 if (error instanceof Error) {
                     console.error('Failed:', error.message);
@@ -45,7 +50,18 @@ export default function Category() {
             }
         }
         fetchData()
-    }, [])
+    }, [currentPage])
+
+    useEffect(() => {
+        window.scrollTo({
+            top: 0,
+            behavior: "auto"
+        });
+    }, [currentPage]);
+
+    const handlePageChange = (page: number) => {
+        setCurrentPage(page);
+    };
 
     const calculateSalePrice = (originalPrice: number, discountPercentage: number) => {
         const remainingPercentage = 100 - discountPercentage;
@@ -284,29 +300,46 @@ export default function Category() {
                                     </Link>
                                 </div>
                             ))}
-                            {listData.length >= 8 && (
+                            {totalCourse >= 8 && (
                                 <Pagination>
                                     <PaginationContent>
                                         <PaginationItem>
-                                            <PaginationPrevious href="#" />
+                                            <PaginationPrevious
+                                                href="#"
+                                                className={`bg-gray-200 hover:bg-gray-300`}
+                                                onClick={(e) => {
+                                                    e.preventDefault();
+                                                    if (currentPage > 1) {
+                                                        handlePageChange(currentPage - 1)
+                                                    }
+                                                }}
+                                            />
                                         </PaginationItem>
+                                        {Array.from({ length: totalPages }).map((page, index) => (
+                                            <PaginationItem key={index}>
+                                                <PaginationLink
+                                                    href={"#"}
+                                                    className={`${currentPage === index + 1 ? "bg-blue-500 text-white" : "bg-gray-200 hover:bg-gray-300"}`}
+                                                    onClick={(e) => {
+                                                        e.preventDefault();
+                                                        handlePageChange(index + 1);
+                                                    }}
+                                                >
+                                                    {index + 1}
+                                                </PaginationLink>
+                                            </PaginationItem>
+                                        ))}
                                         <PaginationItem>
-                                            <PaginationLink href="#">1</PaginationLink>
-                                        </PaginationItem>
-                                        <PaginationItem>
-                                            <PaginationLink href="#">2</PaginationLink>
-                                        </PaginationItem>
-                                        <PaginationItem>
-                                            <PaginationLink href="#">3</PaginationLink>
-                                        </PaginationItem>
-                                        <PaginationItem>
-                                            <PaginationLink href="#">4</PaginationLink>
-                                        </PaginationItem>
-                                        <PaginationItem>
-                                            <PaginationLink href="#">5</PaginationLink>
-                                        </PaginationItem>
-                                        <PaginationItem>
-                                            <PaginationNext href="#" />
+                                            <PaginationNext
+                                                href="#"
+                                                className={`bg-gray-200 hover:bg-gray-300`}
+                                                onClick={(e) => {
+                                                    e.preventDefault();
+                                                    if (currentPage < totalPages) {
+                                                        handlePageChange(currentPage + 1)
+                                                    }
+                                                }}
+                                            />
                                         </PaginationItem>
                                     </PaginationContent>
                                 </Pagination>
