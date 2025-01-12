@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 
 import { TbJewishStarFilled } from "react-icons/tb";
 import { BsDot } from "react-icons/bs";
+import { HiUserGroup } from "react-icons/hi2";
 
 import Hero from '@/app/course/components/Hero';
 import WhatWillYouLearn from '@/app/course/components/WhatWillYouLearn';
@@ -40,8 +41,22 @@ export default function CourseDetails({ params }: { params: { courseSlug: string
         createdAt: '',
         updatedAt: '',
         subCategories: [],
-        approvedBy: { _id: '', fullName: '' }
+        approvedBy: { _id: "", user: { _id: "", fullName: "", avatar: "" }, title: "", experience: "", students: 0, courseAmount: 0, rating: 0 },
+        target: []
     })
+    const [isSticky, setIsSticky] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const scrollPosition = window.scrollY;
+            setIsSticky(scrollPosition > 350);
+        };
+
+        window.addEventListener("scroll", handleScroll);
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
+    }, []);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -53,6 +68,31 @@ export default function CourseDetails({ params }: { params: { courseSlug: string
 
     return (
         <main className='bg-[#f1f5f8] relative'>
+            <div className={`bg-[#003555] text-white z-20 transition-all duration-300 ${isSticky ? "sticky top-[80px] md:block hidden" : "hidden"}`}>
+                <div className="max-w-8xl mx-auto xl:pl-20 lg:pl-10 md:px-10 p-4">
+                    <div className="font-bold">{currentCourse.courseName}</div>
+                    <div className="flex gap-8 items-center">
+                        <div className="flex items-center gap-1">
+                            <div className="font-medium">{currentCourse.rating}</div>
+                            <div className="text-[#F77321] flex gap-0.5">
+                                <TbJewishStarFilled />
+                                <TbJewishStarFilled />
+                                <TbJewishStarFilled />
+                                <TbJewishStarFilled />
+                                <TbJewishStarFilled />
+                            </div>
+                            <div className="text-sm text-white">
+                                ({currentCourse.ratingNum} đánh giá)
+                            </div>
+                        </div>
+                        <div className="flex items-center gap-1">
+                            <HiUserGroup />
+                            <span className="text-sm">{currentCourse.view} Học viên</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             {/* Hero */}
             <div className='md:bg-[#003555] bg-[#F1F5F8]'>
                 <div className='w-full max-w-8xl mx-auto grid grid-cols-3 gap-3'>
@@ -67,7 +107,7 @@ export default function CourseDetails({ params }: { params: { courseSlug: string
                     {/* Bạn sẽ học được */}
                     <div className='md:p-6 p-4 border border-[#929292] rounded'>
                         <div className='mb-4 text-2xl font-medium'>Bạn sẽ học được</div>
-                        <WhatWillYouLearn />
+                        <WhatWillYouLearn currentCourse={currentCourse} />
                     </div>
 
                     {/* Giới thiệu khóa học */}

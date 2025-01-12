@@ -5,6 +5,23 @@ const api = axios.create({
     withCredentials: true,
 });
 
+export const changePassword = async (oldPassword: string, newPassword: string, passwordConfirm: string) => {
+    try {
+        const response = await api.post("/change-password", {
+            oldPassword: oldPassword,
+            newPassword: newPassword,
+            passwordConfirm: passwordConfirm
+        });
+        return response.data;
+    } catch (error: unknown) {
+        if (axios.isAxiosError(error)) {
+            const errorMessage = error.response?.data?.message || 'Failed';
+            throw new Error(errorMessage);
+        }
+        throw new Error('An unknown error occurred');
+    }
+}
+
 export const getUserInfo = async () => {
     try {
         const response = await api.get('/profile');

@@ -1,14 +1,11 @@
 'use client'
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import Link from "next/link"
 import { useRouter } from 'next/navigation';
-import { useSelector } from 'react-redux';
 import toast from 'react-hot-toast';
 
 import { FaFacebook } from "react-icons/fa"
 import { FcGoogle } from "react-icons/fc"
-
-import { RootState } from "@/store";
 
 import { register } from "@/api/auth.api";
 
@@ -21,14 +18,6 @@ export default function Register() {
         password: "",
         confirmPassword: ""
     })
-
-    const { userInfo } = useSelector((state: RootState) => state.user)
-
-    useEffect(() => {
-        if (userInfo) {
-            router.push('/info')
-        }
-    }, [router, userInfo])
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -81,7 +70,7 @@ export default function Register() {
                             value={formData.email}
                             onChange={handleChange}
                         />
-                        <div className="flex gap-3">
+                        <div className="flex gap-2">
                             <input
                                 type="password" required
                                 name="password"
@@ -108,13 +97,13 @@ export default function Register() {
                     </div>
 
                     {/* Quên mật khẩu và Đăng nhập với SMS*/}
-                    <div className="flex text-xs justify-between my-[10px]">
-                        <Link href={"/forgot-password"}>Quên mật khẩu?</Link>
+                    <div className="flex text-sm justify-between my-4">
+                        <Link href={"/forgot-password"} className="hover:underline">Quên mật khẩu?</Link>
                     </div>
 
                     {/* Đăng nhập với Facebook hoặc Google */}
                     <div className=" text-slate-400 text-[12px] ">
-                        <div className="pb-[14px] flex gap-2 items-center">
+                        <div className="pb-4 flex gap-2 items-center">
                             <div className="w-full h-[0.5px] bg-slate-400"></div>
                             HOẶC
                             <div className="w-full h-[0.5px] bg-slate-400"></div>
@@ -135,7 +124,7 @@ export default function Register() {
                 {/* Bạn đã có tài khoản? */}
                 <div className="mb-[30px] flex justify-center text-sm">
                     <span className="text-slate-400">
-                        Bạn đã có tài khoản? <Link className="text-[#003555]" href={"/login"}>Đăng nhập</Link>
+                        Bạn đã có tài khoản? <Link className="text-[#003555] hover:underline font-medium" href={"/login"}>Đăng nhập</Link>
                     </span>
                 </div>
             </div>

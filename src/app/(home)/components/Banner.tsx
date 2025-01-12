@@ -52,9 +52,9 @@ export default function Banner() {
                                         {category.title}
                                     </div>
                                     <MdKeyboardArrowRight size={18} />
-                                    <div className="absolute left-full z-[999] w-0 h-0 border-t-[25px] border-b-[25px] border-l-[25px] border-t-transparent border-b-transparent border-l-[#01314e] hidden group-hover/item:block"></div>
+                                    <div className="absolute left-full z-[20] w-0 h-0 border-t-[25px] border-b-[25px] border-l-[25px] border-t-transparent border-b-transparent border-l-[#01314e] hidden group-hover/item:block"></div>
                                 </Link>
-                                <div className="absolute top-0 left-full ml-3 w-[calc(300%+24px)] bottom-0 z-[99] group-hover/item:block hidden shadow-custom">
+                                <div className="absolute top-0 left-full ml-3 w-[calc(300%+24px)] bottom-0 z-[10] group-hover/item:block hidden shadow-custom">
                                     <div className='bg-white text-black grid grid-cols-5 h-full gap-4 p-4'>
                                         {category.subCategories?.map((subCategory, index) => (
                                             <div className='col-span-1 flex flex-col gap-2' key={index}>

@@ -87,7 +87,7 @@ export default function SuccessPayment() {
                     <FaRegCheckCircle size={50} color='#01ba09' />
                     <h3 className='font-medium text-xl'>ĐẶT HÀNG THÀNH CÔNG!</h3>
                     <div className='flex flex-col justify-center items-center'>
-                        <span className='pb-2'>Vui lòng chuyển khoản trong 15 phút để giữ ưu đãi</span>
+                        <span className='pb-2'>Vui lòng chuyển khoản trong 15 phút để giữ ưu đãi!!!</span>
                         <div className='text-xl font-bold text-red-600 flex justify-center'>
                             {formattedTime} {/* Hiển thị thời gian đếm ngược */}
                         </div>
@@ -124,7 +124,7 @@ export default function SuccessPayment() {
                             <tbody>
                                 <tr className="border-t border-b border-gray-200">
                                     <td className="p-2 font-medium text-gray-800 text-center">1210967966</td>
-                                    <td className="p-2 text-gray-600 text-center">BIDV - chi nhánh Cầu Giấy</td>
+                                    <td className="p-2 text-gray-600 text-center">BIDV - chi nhánh Học Viện Kỹ Thuật Mật Mã</td>
                                     <td className="p-2 text-gray-800 flex items-center justify-center">
                                         <button className='bg-green-600 hover:bg-green-700 py-[6px] px-3 rounded-sm text-sm text-white flex items-center gap-1.5'>
                                             <FaQrcode />
@@ -133,8 +133,8 @@ export default function SuccessPayment() {
                                     </td>
                                 </tr>
                                 <tr className="border-t border-b border-gray-200">
-                                    <td className="p-2 font-medium text-gray-800 text-center">1210967966</td>
-                                    <td className="p-2 text-gray-600 text-center">BIDV - chi nhánh Cầu Giấy</td>
+                                    <td className="p-2 font-medium text-gray-800 text-center">0943192828</td>
+                                    <td className="p-2 text-gray-600 text-center">MB - chi nhánh Học Viện Kỹ Thuật Mật Mã</td>
                                     <td className="p-2 text-gray-800 flex items-center justify-center">
                                         <button className='bg-green-600 hover:bg-green-700 py-[6px] px-3 rounded-sm text-sm text-white flex items-center gap-1.5'>
                                             <FaQrcode />
@@ -143,8 +143,8 @@ export default function SuccessPayment() {
                                     </td>
                                 </tr>
                                 <tr className="border-t border-b border-gray-200">
-                                    <td className="p-2 font-medium text-gray-800 text-center">1210967966</td>
-                                    <td className="p-2 text-gray-600 text-center">BIDV - chi nhánh Cầu Giấy</td>
+                                    <td className="p-2 font-medium text-gray-800 text-center">833310122003</td>
+                                    <td className="p-2 text-gray-600 text-center">MB - chi nhánh Học Viện Kỹ Thuật Mật Mã</td>
                                     <td className="p-2 text-gray-800 flex items-center justify-center">
                                         <button className='bg-green-600 hover:bg-green-700 py-[6px] px-3 rounded-sm text-sm text-white flex items-center gap-1.5'>
                                             <FaQrcode />

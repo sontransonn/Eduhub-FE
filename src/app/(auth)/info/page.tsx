@@ -102,8 +102,27 @@ export default function Info() {
                     </Link>
                     <form action="" className='flex flex-col gap-4'>
                         <div className='mx-auto flex w-24 h-24 relative bg-gray-500 rounded-full'>
-                            <label htmlFor="" className='absolute bottom-0 right-0 border-2 rounded-full bg-white p-1 cursor-pointer'>
-                                <IoCameraOutline size={24} color='#666c77' />
+                            <input
+                                type="file"
+                                accept="image/*"
+                                id="avatar-input"
+                                style={{ display: "none" }}
+                                onChange={(e) => {
+                                    const file = e.target.files?.[0];
+                                    if (file) {
+                                        const reader = new FileReader();
+                                        reader.onload = (e) => {
+                                            setFormData((prev) => ({
+                                                ...prev,
+                                                avatar: e.target?.result as string,
+                                            }));
+                                        };
+                                        reader.readAsDataURL(file);
+                                    }
+                                }}
+                            />
+                            <label htmlFor="avatar-input" className="absolute bottom-0 right-0 border-2 rounded-full bg-white p-1 cursor-pointer">
+                                <IoCameraOutline size={24} color="#666c77" />
                             </label>
                             <img
                                 src={formData?.avatar}

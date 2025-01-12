@@ -228,8 +228,8 @@ export default function LearningPage() {
                                 <Link href={`/learning/${courseSlug}/?id=${lesson._id}`} className={`px-4 py-2 text-sm flex gap-2 cursor-pointer ${lessonId === lesson._id ? "bg-gray-300" : ""}`} key={index}>
                                     <img src={infoCourse?.poster} alt="" className='w-28' />
                                     <div className='flex flex-col justify-between'>
-                                        <p className='break-words font-medium'>
-                                            {lesson.lessonName.length > 20 ? lesson.lessonName.slice(0, 40) + "..." : lesson.lessonName}
+                                        <p className='break-words font-medium line-clamp-2'>
+                                            {lesson.lessonName}
                                         </p>
                                         <span className='break-words font-medium text-xs'>12:06</span>
                                     </div>

@@ -65,7 +65,7 @@ export default function Hero({ currentCourse }: { currentCourse: CourseProps }) 
                     <span className='text-base'>{currentCourse.view} Học viên</span>
                 </div>
                 <div className='md:text-sm'>
-                    Giảng viên: <Link href={`/teacher/${currentCourse?.approvedBy?._id}`} className='md:text-[#A5DEFF] text-[#F77321] underline'>{currentCourse?.approvedBy?.fullName}</Link>
+                    Giảng viên: <Link href={`/teacher/${currentCourse?.approvedBy?._id}`} className='md:text-[#A5DEFF] text-[#F77321] underline'>{currentCourse?.approvedBy?.user.fullName}</Link>
                 </div>
             </div>
         </div>

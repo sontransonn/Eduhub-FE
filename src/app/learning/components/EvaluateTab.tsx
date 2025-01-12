@@ -1,93 +1,61 @@
-import React from 'react'
+"use client"
+import React, { useState } from 'react'
 
 import { TbJewishStarFilled } from "react-icons/tb";
 import { IoIosArrowDown } from 'react-icons/io';
 import { FiSearch } from 'react-icons/fi'
 
 export default function EvaluateTab() {
+    const [rating, setRating] = useState(0);
+    const [review, setReview] = useState("");
+
+    const handleSubmit = () => {
+        if (review.trim() === "") {
+            alert("Vui lòng nhập nội dung đánh giá!");
+            return;
+        }
+        if (rating === 0) {
+            alert("Vui lòng chọn số sao!");
+            return;
+        }
+        console.log("Đánh giá được lưu:", { rating, review });
+        // Reset state sau khi gửi
+        setRating(0);
+        setReview("");
+    };
+
     return (
         <div className='py-5 pb-0 flex flex-col gap-6'>
             <h3 className='font-bold text-2xl text-black'>Phản hồi của học viên</h3>
-            <div className='flex md:flex-row flex-col  items-center gap-8'>
-                <div className='text-center flex flex-col gap-2'>
-                    <div className='flex justify-center items-center font-bold text-[64px] text-[#b4690e] h-16 min-w-[95px]'>4.8</div>
-                    <div className='flex justify-center'>
-                        <TbJewishStarFilled size={20} color='#b4690e' />
-                        <TbJewishStarFilled size={20} color='#b4690e' />
-                        <TbJewishStarFilled size={20} color='#b4690e' />
-                        <TbJewishStarFilled size={20} color='#b4690e' />
-                        <TbJewishStarFilled size={20} color='#b4690e' />
-                    </div>
-                    <span>Điểm đánh giá trung bình</span>
-                </div>
-                <div className='flex flex-col gap-4 w-2/5 flex-1'>
-                    <div className='flex gap-2 items-center'>
-                        <span className='flex flex-auto min-w-[120px] max-w-[300px] h-2 bg-[#d1d7dc]'>
-                            <span className='h-full bg-[#6a6f73]' style={{ width: "75%" }}></span>
-                        </span>
-                        <div className='flex justify-center'>
-                            <TbJewishStarFilled size={20} color='#b4690e' />
-                            <TbJewishStarFilled size={20} color='#b4690e' />
-                            <TbJewishStarFilled size={20} color='#b4690e' />
-                            <TbJewishStarFilled size={20} color='#b4690e' />
-                            <TbJewishStarFilled size={20} color='#b4690e' />
-                        </div>
-                        <span>75%</span>
-                    </div>
-                    <div className='flex gap-2 items-center'>
-                        <span className='flex flex-auto min-w-[120px] max-w-[300px] h-2 bg-[#d1d7dc]'>
-                            <span className='h-full bg-[#6a6f73]' style={{ width: "25%" }}></span>
-                        </span>
-                        <div className='flex justify-center'>
-                            <TbJewishStarFilled size={20} color='#b4690e' />
-                            <TbJewishStarFilled size={20} color='#b4690e' />
-                            <TbJewishStarFilled size={20} color='#b4690e' />
-                            <TbJewishStarFilled size={20} color='#b4690e' />
-                            <TbJewishStarFilled size={20} />
-                        </div>
-                        <span>25%</span>
-                    </div>
-                    <div className='flex gap-2 items-center'>
-                        <span className='flex flex-auto min-w-[120px] max-w-[300px] h-2 bg-[#d1d7dc]'>
-                            <span className='h-full bg-[#6a6f73]' style={{ width: "50%" }}></span>
-                        </span>
-                        <div className='flex justify-center'>
-                            <TbJewishStarFilled size={20} color='#b4690e' />
-                            <TbJewishStarFilled size={20} color='#b4690e' />
-                            <TbJewishStarFilled size={20} color='#b4690e' />
-                            <TbJewishStarFilled size={20} />
-                            <TbJewishStarFilled size={20} />
-                        </div>
-                        <span>0%</span>
-                    </div>
-                    <div className='flex gap-2 items-center'>
-                        <span className='flex flex-auto min-w-[120px] max-w-[300px] h-2 bg-[#d1d7dc]'>
-                            <span className='h-full bg-[#6a6f73]' style={{ width: "100%" }}></span>
-                        </span>
-                        <div className='flex justify-center'>
-                            <TbJewishStarFilled size={20} color='#b4690e' />
-                            <TbJewishStarFilled size={20} color='#b4690e' />
-                            <TbJewishStarFilled size={20} />
-                            <TbJewishStarFilled size={20} />
-                            <TbJewishStarFilled size={20} />
-                        </div>
-                        <span>0%</span>
-                    </div>
-                    <div className='flex gap-2 items-center'>
-                        <span className='flex flex-auto min-w-[120px] max-w-[300px] h-2 bg-[#d1d7dc]'>
-                            <span className='h-full bg-[#6a6f73]' style={{ width: "15%" }}></span>
-                        </span>
-                        <div className='flex justify-center'>
-                            <TbJewishStarFilled size={20} color='#b4690e' />
-                            <TbJewishStarFilled size={20} />
-                            <TbJewishStarFilled size={20} />
-                            <TbJewishStarFilled size={20} />
-                            <TbJewishStarFilled size={20} />
-                        </div>
-                        <span>0%</span>
-                    </div>
-                </div>
+
+
+            <div className="flex items-center gap-2">
+                <span className="text-black">Số sao:</span>
+                {Array.from({ length: 5 }).map((_, index) => (
+                    <TbJewishStarFilled
+                        key={index}
+                        size={24}
+                        className="cursor-pointer"
+                        color={index < rating ? "#b4690e" : "#d1d7dc"}
+                        onClick={() => setRating(index + 1)} // Cập nhật số sao được chọn
+                    />
+                ))}
             </div>
+            <textarea
+                className="w-full p-3 border border-solid border-[#d1d7dc] rounded-md text-sm"
+                rows={5}
+                placeholder="Nhập đánh giá của bạn..."
+                value={review}
+                onChange={(e) => setReview(e.target.value)}
+            ></textarea>
+
+            {/* Nút gửi đánh giá */}
+            <button
+                className="bg-[#b4690e] text-white py-2 px-4 rounded-md hover:opacity-80"
+                onClick={handleSubmit}
+            >
+                Gửi đánh giá
+            </button>
             <h3 className='font-bold text-2xl text-black'>Đánh giá</h3>
             <div className='flex gap-4'>
                 <div className='relative w-[400px]'>

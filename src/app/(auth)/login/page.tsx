@@ -1,8 +1,8 @@
 'use client'
-import React, { useState, useEffect } from "react"
+import React, { useState } from "react"
 import Link from "next/link";
 import { useRouter } from 'next/navigation';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import toast from 'react-hot-toast';
 
 import { setUserInfo } from "@/store/slices/userSlice";
@@ -11,8 +11,6 @@ import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import { FaFacebook } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
-
-import { RootState } from "@/store";
 
 import { login } from "@/api/auth.api"
 
@@ -26,14 +24,6 @@ export default function LoginPage() {
         password: "",
     })
 
-    const { userInfo } = useSelector((state: RootState) => state.user)
-
-    useEffect(() => {
-        if (userInfo) {
-            router.push('/info')
-        }
-    }, [dispatch, router, userInfo])
-
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setFormData((prev) => ({ ...prev, [name]: value }));
@@ -45,6 +35,7 @@ export default function LoginPage() {
             const data = await login(formData);
             toast.success(data.message)
             dispatch(setUserInfo(data))
+            router.push("/info")
         } catch (error: unknown) {
             if (error instanceof Error) {
                 toast.error(error.message);
@@ -99,8 +90,8 @@ export default function LoginPage() {
                     </div>
 
                     {/* Quên mật khẩu và Đăng nhập với SMS*/}
-                    <div className="flex text-xs justify-between my-4">
-                        <Link href={"/forgot-password"}>Quên mật khẩu?</Link>
+                    <div className="flex text-sm justify-between my-4">
+                        <Link href={"/forgot-password"} className="hover:underline">Quên mật khẩu?</Link>
                     </div>
 
                     {/* Đăng nhập với Facebook hoặc Google */}
@@ -126,7 +117,7 @@ export default function LoginPage() {
                 {/*  */}
                 <div className="mb-[30px] flex justify-center text-sm">
                     <span className="text-slate-400">
-                        Bạn mới biết đến Eduhub? <Link className="text-[#003555]" href={"/register"}>Đăng ký</Link>
+                        Bạn mới biết đến Eduhub? <Link className="text-[#003555] hover:underline font-medium" href={"/register"}>Đăng ký</Link>
                     </span>
                 </div>
             </div>
