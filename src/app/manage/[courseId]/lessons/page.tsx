@@ -9,6 +9,7 @@ import { getLessons } from '@/api/instructor.api';
 
 import { createLessonByLink } from '@/api/lesson.api';
 interface Lesson {
+    _id: string,
     lessonName: string;
     lessonContent: string;
 }
@@ -93,13 +94,24 @@ export default function Lessons() {
         closeModal();
     };
 
+    const handleDeleteCourse = async (lessonId: string) => {
+        const isConfirmed = window.confirm("Bạn chắc chắn muốn xóa khóa học này?");
+        if (isConfirmed) {
+            try {
+
+            } catch (error) {
+
+            }
+        }
+    }
+
     return (
         <>
             <h1 className='text-lg font-semibold border-b border-solid border-[#3333] p-4'>Danh sách bài học</h1>
             <div className="flex flex-1 flex-col gap-4 p-4">
                 {listLesson.length > 0 && (
                     <div className='flex scrollable flex-col gap-4 max-h-[450px] overflow-scroll'>
-                        {listLesson.map((lesson: { lessonName: string, lessonContent: string }, index) => (
+                        {listLesson.map((lesson: { _id: string, lessonName: string, lessonContent: string }, index) => (
                             <div className='flex' key={index}>
                                 <div className='md:basis-3/4 flex gap-2.5 items-center'>
                                     <img src="https://www.devteam.space/wp-content/uploads/2022/05/What-is-Ruby.jpg" alt="" className='w-40 rounded-sm' />
@@ -113,7 +125,7 @@ export default function Lessons() {
                                         <FaEdit />
                                         Sửa
                                     </button>
-                                    <button className="flex items-center gap-2 text-red-600 hover:text-red-800">
+                                    <button className="flex items-center gap-2 text-red-600 hover:text-red-800" onClick={() => handleDeleteCourse(lesson?._id)}>
                                         <FaTrashAlt />
                                         Xóa
                                     </button>

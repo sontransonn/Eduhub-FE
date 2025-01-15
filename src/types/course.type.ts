@@ -18,6 +18,6 @@ export type CourseProps = {
     createdAt: string
     updatedAt: string
     subCategories: []
-    approvedBy: { _id: string, user: { _id: string, fullName: string, avatar: string }, title: string, experience: string, students: number, courseAmount: number, rating: number }
+    approvedBy: { _id: string, fullName: string, user: { _id: string, fullName: string, avatar: string }, title: string, experience: string, students: number, courseAmount: number, rating: number }
     target: []
 }

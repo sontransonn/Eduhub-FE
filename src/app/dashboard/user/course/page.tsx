@@ -108,7 +108,7 @@ export default function UserDashboard() {
                                     </div>
                                     <div className='text-sm font-light overflow-hidden flex justify-between'>
                                         <div className='line-clamp-1'>
-                                            {course?.approvedBy?.user?.fullName}
+                                            {course?.approvedBy?.fullName}
                                         </div>
                                     </div>
                                 </div>

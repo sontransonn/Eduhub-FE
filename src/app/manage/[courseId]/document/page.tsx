@@ -19,7 +19,8 @@ export default function Document() {
 
     const [listQuiz, setListQuiz] = useState([{
         quizName: "",
-        questions: []
+        questions: [],
+        createdAt: ""
     }])
 
     const { userInfo } = useSelector((state: RootState) => state.user)
@@ -39,6 +40,14 @@ export default function Document() {
         }
         fetchData()
     }, [])
+
+    function formatDate(dateString: string) {
+        const date = new Date(dateString);
+        const day = date.getDate();
+        const month = date.getMonth() + 1;
+        const year = date.getFullYear();
+        return `${day}/${month}/${year}`;
+    }
 
     return (
         <>
@@ -68,7 +77,7 @@ export default function Document() {
                                             <div className='flex items-center gap-1.5'>
                                                 <img src={userInfo?.avatar} alt="" className='w-6 h-6 rounded-full' />
                                                 <span className='text-[10px]'>{userInfo?.fullName}</span>
-                                                <span className='text-[10px]'>13/12/2004</span>
+                                                <span className='text-[10px]'>{formatDate(quiz.createdAt)}</span>
                                             </div>
                                         </div>
                                     </div>

@@ -17,7 +17,8 @@ import EvaluateTab from '@/app/learning/components/EvaluateTab';
 import DiscussTab from '@/app/learning/components/DiscussTab';
 import CertificateTab from '@/app/learning/components/CertificateTab';
 
-import { getLessonByID, getInfoCourse } from '@/api/lesson.api';
+import { getLessonByID } from '@/api/lesson.api';
+import { getCourseBySlug } from '@/api/course.api';
 
 interface Course {
     _id: string
@@ -26,7 +27,14 @@ interface Course {
     description: string;
     videos: [{ _id: string, lessonName: string }]
     poster: string
-    approvedBy: { _id: string, avatar: string }
+    approvedBy: {
+        _id: string,
+        user: {
+            fullName: string,
+            avatar: string
+        }
+        title: string
+    }
 }
 
 const percentage = 66;
@@ -52,7 +60,7 @@ export default function LearningPage() {
                     console.error('Course slug is missing!');
                     return;
                 }
-                const dataCourse = await getInfoCourse(courseSlug);
+                const dataCourse = await getCourseBySlug(courseSlug);
                 setInfoCourse(dataCourse);
             } catch (error: unknown) {
                 if (error instanceof Error) {
@@ -95,7 +103,7 @@ export default function LearningPage() {
     const renderContent = useCallback(() => {
         switch (activeTab) {
             case 'overview':
-                return <OverviewTab avatar={infoCourse?.approvedBy.avatar || ""} introduce={infoCourse?.introduce || ""} />;
+                return <OverviewTab infoTeacher={infoCourse?.approvedBy || { title: "", user: { fullName: "", avatar: "" } }} introduce={infoCourse?.introduce || ""} />;
             case 'discuss':
                 return <DiscussTab courseId={infoCourse?._id || ""} />;
             case 'document':

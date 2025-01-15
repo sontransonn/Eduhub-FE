@@ -24,6 +24,10 @@ interface QuizData {
     questions: Question[];
 }
 
+export const deleteCourse = async () => {
+
+}
+
 export const InstructorCreateCourse = async (courseName: string) => {
     try {
         const response = await api.post("/course/create", { courseName });
