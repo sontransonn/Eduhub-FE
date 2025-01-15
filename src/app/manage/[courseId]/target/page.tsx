@@ -25,7 +25,9 @@ export default function Target() {
         const fetchData = async () => {
             try {
                 const data = await getCourseByID(courseId)
-                setGoals(data.target)
+                if (data.target?.length > 0) {
+                    setGoals(data.target)
+                }
             } catch (error: unknown) {
                 if (error instanceof Error) {
                     console.error('Failed:', error.message);

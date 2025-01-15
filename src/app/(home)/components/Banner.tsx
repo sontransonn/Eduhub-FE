@@ -58,11 +58,11 @@ export default function Banner() {
                                     <div className='bg-white text-black grid grid-cols-5 h-full gap-4 p-4'>
                                         {category.subCategories?.map((subCategory, index) => (
                                             <div className='col-span-1 flex flex-col gap-2' key={index}>
-                                                <Link href={`/category/${category.slug}/${subCategory.slug}`} className='font-semibold text-[#01314e]'>{subCategory.title}</Link>
+                                                <span className='font-semibold text-[#01314e]'>{subCategory.title}</span>
                                                 <ul className='text-sm'>
                                                     {subCategory.tags?.map((tag, index: number) => (
                                                         <li className='font-medium' key={index}>
-                                                            <Link href={`/tag/${tag.slug}`} className='inline-block py-1.5'>
+                                                            <Link href={`/category/${category.slug}/${tag.slug}`} className='inline-block py-1.5'>
                                                                 {tag.title}
                                                             </Link>
                                                         </li>

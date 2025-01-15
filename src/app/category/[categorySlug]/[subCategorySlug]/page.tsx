@@ -57,6 +57,8 @@ export default function SubCategory() {
     }
 
     const allSubCategories = categories.flatMap(cat => cat.subCategories);
+    console.log(allSubCategories);
+
 
     const subCategory = allSubCategories.find(
         (subCat) => subCat.slug === subCategorySlug

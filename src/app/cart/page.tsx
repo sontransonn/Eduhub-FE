@@ -7,7 +7,7 @@ import toast from 'react-hot-toast';
 
 import { RootState } from '@/store';
 
-import { removeFromCart } from '@/store/slices/cartSlice';
+import { removeFromCart, setCartItems } from '@/store/slices/cartSlice';
 
 import { FaTrashAlt } from "react-icons/fa";
 import { FaStar } from "react-icons/fa";
@@ -15,7 +15,7 @@ import { FaStar } from "react-icons/fa";
 import CourseCard from "@/components/card/CourseCard";
 
 import { createOrder } from '@/api/order.api';
-import { handleAddRemoveWithCart } from '@/api/cart.api';
+import { handleAddRemoveWithCart, getMyCart } from '@/api/cart.api';
 
 export default function Cart() {
     const router = useRouter();
@@ -61,8 +61,9 @@ export default function Cart() {
         try {
             const data = await createOrder(courseIds)
             toast.success("Đặt hàng thành công!")
-            const queryString = new URLSearchParams({ data: JSON.stringify(data.data) }).toString();
-            router.push(`/cart/success-payment?${queryString}`);
+            router.push(`/order?oid=${data.data._id}`);
+            const cartData = await getMyCart();
+            dispatch(setCartItems(cartData.items.reverse()))
         } catch (error: unknown) {
             if (error instanceof Error) {
                 toast.error(error.message);
@@ -78,7 +79,7 @@ export default function Cart() {
         try {
             await handleAddRemoveWithCart(currentCourse._id);
             dispatch(removeFromCart(currentCourse._id));
-            toast.success('Đã xóa sản phẩm khỏi giỏ hàng');
+            toast.success('Đã xóa sản phẩm khỏi giỏ hàng!');
         } catch (error: unknown) {
             if (error instanceof Error) {
                 toast.error(error.message);
@@ -165,7 +166,7 @@ export default function Cart() {
                                                         <button className=" text-[#006CCB] hover:text-red-500" onClick={() => handleConfirmRemove(item)}>Xóa</button>
                                                     </div>
                                                     <div className="mb-4 md:ms-14 text-right">
-                                                        <div className="font-medium text-lg">{calculateSalePrice(item.price, item.discount)?.toLocaleString('vi-VN')}<sup>đ</sup></div>
+                                                        <div className="font-medium text-lg min-w-28">{calculateSalePrice(item.price, item.discount)?.toLocaleString('vi-VN')}<sup>đ</sup></div>
                                                         <div className="line-through text-[#929292]">{item.price?.toLocaleString('vi-VN')}<sup>đ</sup></div>
                                                     </div>
                                                 </div>

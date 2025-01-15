@@ -5,6 +5,35 @@ const api = axios.create({
     withCredentials: true,
 });
 
+export const createRate = async (courseSLug: string, rating: number, content: string) => {
+    try {
+        const response = await api.post(`/rate/${courseSLug}`, {
+            rating: rating,
+            content: content
+        });
+        return response.data
+    } catch (error: unknown) {
+        if (axios.isAxiosError(error)) {
+            const errorMessage = error.response?.data?.message || 'Failed';
+            throw new Error(errorMessage);
+        }
+        throw new Error('An unknown error occurred');
+    }
+}
+
+export const getRate = async (courseId: string) => {
+    try {
+        const response = await api.get(`/rate/${courseId}`)
+        return response.data
+    } catch (error: unknown) {
+        if (axios.isAxiosError(error)) {
+            const errorMessage = error.response?.data?.message || 'Failed';
+            throw new Error(errorMessage);
+        }
+        throw new Error('An unknown error occurred');
+    }
+}
+
 export const changePassword = async (oldPassword: string, newPassword: string, passwordConfirm: string) => {
     try {
         const response = await api.post("/change-password", {
@@ -64,49 +93,6 @@ export const getCoursePurchased = async () => {
 export const getAllInstructor = async (pageNumber: number) => {
     try {
         const response = await api.get(`/instructor?page=${pageNumber}`);
-        return response.data;
-    } catch (error: unknown) {
-        if (axios.isAxiosError(error)) {
-            const errorMessage = error.response?.data?.message || 'Failed';
-            throw new Error(errorMessage);
-        }
-        throw new Error('An unknown error occurred');
-    }
-}
-
-export const getQuizsInCourse = async (courseId: string) => {
-    try {
-        const response = await api.get(`/quiz/${courseId}`);
-        return response.data;
-    } catch (error: unknown) {
-        if (axios.isAxiosError(error)) {
-            const errorMessage = error.response?.data?.message || 'Failed';
-            throw new Error(errorMessage);
-        }
-        throw new Error('An unknown error occurred');
-    }
-}
-
-export const getQuizDetails = async (courseId: string, quizId: string) => {
-    try {
-        const response = await api.get(`/${courseId}/${quizId}`);
-        return response.data;
-    } catch (error: unknown) {
-        if (axios.isAxiosError(error)) {
-            const errorMessage = error.response?.data?.message || 'Failed';
-            throw new Error(errorMessage);
-        }
-        throw new Error('An unknown error occurred');
-    }
-}
-
-export const submitQuiz = async (data: { courseId: string, quizId: string, userAnswers: { questionId: string; selectedAnswerId: string }[] }) => {
-    try {
-        const response = await api.post(`/quiz/submit`, {
-            courseId: data.courseId,
-            quizId: data.quizId,
-            userAnswers: data.userAnswers
-        });
         return response.data;
     } catch (error: unknown) {
         if (axios.isAxiosError(error)) {

@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link'
@@ -8,18 +8,40 @@ import payment from '@/constants/payments'
 
 import { FaPenToSquare } from "react-icons/fa6";
 
-import { momo } from '@/api/payment.api';
-import { zalopay } from '@/api/payment.api';
+import { momo, zalopay } from '@/api/payment.api';
+import { getOrderById } from '@/api/order.api';
 
 import { CourseProps } from '@/types/course.type';
 
 export default function Pay() {
     const searchParams = useSearchParams();
     const oid = searchParams.get('oid');
-    const data = searchParams.get('data');
-    const parsedData = data ? JSON.parse(data) : null;
 
+    const [orderDetail, setOrderDetail] = useState({
+        items: [],
+        totalAmount: 0
+    })
     const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("");
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                if (!oid) {
+                    console.error('Order ID is missing');
+                    return;
+                }
+                const data = await getOrderById(oid)
+                setOrderDetail(data)
+            } catch (error: unknown) {
+                if (error instanceof Error) {
+                    console.error('Failed:', error.message);
+                } else {
+                    console.error('Failed with an unknown error');
+                }
+            }
+        }
+        fetchData()
+    }, [oid])
 
     const handlePayment = async () => {
         if (!selectedPaymentMethod) {
@@ -132,13 +154,13 @@ export default function Pay() {
 
                         <div className='lg:col-span-1 col-span-3 border rounded p-6 h-fit bg-white shadow flex flex-col gap-4'>
                             <div className='flex justify-between items-center border-b border-gray-300 pb-4'>
-                                <div className='font-semibold text-lg'>Đơn hàng: ({parsedData?.items.length} khóa học)</div>
+                                <div className='font-semibold text-lg'>Đơn hàng: ({orderDetail.items?.length} khóa học)</div>
                                 <div className='flex items-center gap-1.5 cursor-pointer'>
                                     <FaPenToSquare />
                                     <Link href={"/cart"} className='text-sm'>Sửa</Link>
                                 </div>
                             </div>
-                            {parsedData?.items?.map((item: CourseProps, index: number) => (
+                            {orderDetail.items?.map((item: CourseProps, index: number) => (
                                 <div key={index} className='flex gap-6 border-b border-gray-300 pb-4 cart-course'>
                                     <div className='flex-auto'>{item?.courseName}</div>
                                     <div className='flex-1'>
@@ -151,7 +173,7 @@ export default function Pay() {
                             ))}
                             <div className='flex justify-between font-semibold'>
                                 <p>Tổng cộng:</p>
-                                <span className='text-right text-[#E66B22]'>{parsedData.totalAmount?.toLocaleString('vi-VN')}<sup>đ</sup></span>
+                                <span className='text-right text-[#E66B22]'>{orderDetail.totalAmount?.toLocaleString('vi-VN')}<sup>đ</sup></span>
                             </div>
                         </div>
                     </div>

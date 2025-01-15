@@ -1,18 +1,42 @@
 "use client"
 import React, { useEffect, useState } from 'react'
-import { useRouter } from 'next/navigation';
 import { useSearchParams } from 'next/navigation';
 
 import { FaRegCheckCircle } from "react-icons/fa";
 import { FaQrcode } from "react-icons/fa";
 
-export default function SuccessPayment() {
-    const router = useRouter();
+import { getOrderById } from '@/api/order.api';
+import Link from 'next/link';
+
+export default function Order() {
     const searchParams = useSearchParams();
-    const data = searchParams.get('data');
-    const parsedData = data ? JSON.parse(data) : null;
+    const oid = searchParams.get('oid');
 
     const [timeLeft, setTimeLeft] = useState(15 * 60);
+    const [orderDetail, setOrderDetail] = useState({
+        items: [],
+        totalAmount: 0
+    })
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                if (!oid) {
+                    console.error('Order ID is missing');
+                    return;
+                }
+                const data = await getOrderById(oid)
+                setOrderDetail(data)
+            } catch (error: unknown) {
+                if (error instanceof Error) {
+                    console.error('Failed:', error.message);
+                } else {
+                    console.error('Failed with an unknown error');
+                }
+            }
+        }
+        fetchData()
+    }, [oid])
 
     useEffect(() => {
         const timer = setInterval(() => {
@@ -27,11 +51,6 @@ export default function SuccessPayment() {
 
         return () => clearInterval(timer); // Cleanup the interval when component unmounts
     }, []);
-
-    const handleRedirect = () => {
-        const queryString = new URLSearchParams({ data: JSON.stringify(parsedData) }).toString();
-        router.push(`/pay?oid=${parsedData._id}&${queryString}`)
-    }
 
     const minutes = Math.floor(timeLeft / 60);
     const seconds = timeLeft % 60;
@@ -97,15 +116,15 @@ export default function SuccessPayment() {
                             <tbody>
                                 <tr className="border-t border-b border-gray-300">
                                     <td className="p-2 font-bold text-gray-800 text-center border-r border-solid border-gray-300">Tên tài khoản</td>
-                                    <td className="p-2 font-bold text-gray-800">Tập đoàn đào tạo trực tuyến Eduhub CT6B :))</td>
+                                    <td className="p-2 font-bold text-gray-800">Công ty cổ phần đào tạo trực tuyến Eduhub CT6B</td>
                                 </tr>
                                 <tr className="border-t border-b border-gray-300">
                                     <td className="p-2 font-bold text-gray-800 text-center border-r border-solid border-gray-300">Nội dung</td>
-                                    <td className="p-2 font-bold text-gray-800 border-r border-solid border-gray-300">Thanh toán đơn hàng {parsedData?._id}</td>
+                                    <td className="p-2 font-bold text-gray-800 border-r border-solid border-gray-300">Thanh toán đơn hàng {oid}</td>
                                 </tr>
                                 <tr className="border-t border-b border-gray-300">
                                     <td className="p-2 font-bold text-gray-800 text-center border-r border-solid border-gray-300">Số tiền</td>
-                                    <td className="p-2 font-bold text-gray-800">{parsedData?.totalAmount?.toLocaleString('vi-VN')}đ</td>
+                                    <td className="p-2 font-bold text-gray-800">{orderDetail.totalAmount?.toLocaleString('vi-VN')}đ</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -155,9 +174,9 @@ export default function SuccessPayment() {
                             </tbody>
                         </table>
                     </div>
-                    <button className='w-full py-4 text-center rounded-sm bg-orange-500 text-white hover:bg-orange-600' onClick={() => handleRedirect()}>
+                    <Link href={`/pay?oid=${oid}`} className='w-full py-4 text-center rounded-sm bg-orange-500 text-white hover:bg-orange-600'>
                         THANH TOÁN NGAY
-                    </button>
+                    </Link>
                 </div>
             </div>
         </main>

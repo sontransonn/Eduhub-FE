@@ -13,7 +13,7 @@ export default function CourseContent({ currentCourse }: { currentCourse: Course
                                 <img src={currentCourse.poster} alt="" className='w-40 rounded-lg' />
                                 <div className='flex flex-col self-stretch justify-between'>
                                     <span className='line-clamp-2'>{video.lessonName}</span>
-                                    <span className='text-xs text-gray-400'>{currentCourse.approvedBy?.fullName}</span>
+                                    <span className='text-xs text-gray-400'>{currentCourse.approvedBy?.user?.fullName}</span>
                                 </div>
                             </div>
                             <div className='md:basis-1/4 md:flex hidden gap-8 items-center justify-end'>

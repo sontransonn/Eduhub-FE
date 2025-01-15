@@ -10,8 +10,8 @@ import { MdOutlineMailLock } from "react-icons/md";
 import { MdOutlineCloudDone } from "react-icons/md";
 import { LuAlarmCheck } from "react-icons/lu";
 
-import { getQuizDetails } from '@/api/user.api';
-import { submitQuiz } from '@/api/user.api';
+import { getQuizDetails } from '@/api/quiz.api';
+import { submitQuiz } from '@/api/quiz.api';
 
 export default function JoinQuiz() {
     const params = useParams();

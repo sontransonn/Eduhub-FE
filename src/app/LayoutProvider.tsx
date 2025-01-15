@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 import Header from "@/components/Header";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import Chatbot from '@/components/Chatbot';
 
 const routeNoUseRootLayout = new Set(["/login", "/register", "/info", "/change-password", "/forgot-password"]);
 
@@ -19,6 +20,7 @@ export default function LayoutProvider({ children }: Readonly<{
         return (
             <>
                 {children}
+                <Chatbot />
                 <Footer />
             </>
         )
@@ -33,6 +35,7 @@ export default function LayoutProvider({ children }: Readonly<{
             <Header />
             <Navbar />
             {children}
+            <Chatbot />
             <Footer />
         </>
     )

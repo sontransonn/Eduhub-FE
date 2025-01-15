@@ -14,18 +14,19 @@ export default function Footer() {
                             <Image src={logoBig} width={140} height={35} alt="" />
                         </Link>
                         <div className='mt-6 text-sm flex flex-col gap-4'>
-                            <p>247 Cầu Giấy, TP.Hà Nội</p>
-                            <p>Hotline 1: 19001568</p>
-                            <p>Hotline 2: 090 488 6095</p>
-                            <p>Email: xxxxxxxxxx@unica.vn</p>
+                            <p>Học Viện Kỹ Thuật Mật Mã</p>
+                            <p>Hotline 1: 0866509926</p>
+                            <p>Hotline 2: 0943192828</p>
+                            <p>Hotline 3: 0946819326</p>
+                            <p>Email: eduhubservice2003@gmail.com</p>
                             <p>08h00 - 17h30, thứ 2 - thứ 7</p>
                         </div>
                     </div>
                     <div className="flex flex-col text-white">
-                        <p className="text-lg font-medium">Về Unica</p>
+                        <p className="text-lg font-medium">Về EduHub</p>
                         <div className="mt-6">
                             <ul className="flex flex-col gap-4 text-sm">
-                                <li><a href="/gioi-thieu">Giới thiệu về Unica</a></li>
+                                <li><a href="/gioi-thieu">Giới thiệu về EduHub</a></li>
                                 <li><a href="/faq">Câu hỏi thường gặp</a></li>
                                 <li><a href="/chinh-sach-bao-mat.html">Chính sách bảo mật</a></li>
                                 <li><a href="/huong-dan-thanh-toan.html">Hướng dẫn thanh toán</a></li>
@@ -75,13 +76,13 @@ export default function Footer() {
                 <div className='text-white mt-8 border-t-2 border-[#1782FB] border-opacity-30 pt-4 flex justify-between flex-col md:flex-row'>
                     <div className='flex flex-col md:flex-col gap-2'>
                         <p className='lg:mr-4 text-xs md:text-sm font-light md:font-normal leading-4 md:leading-none'>
-                            Công ty cổ phần đào tạo trực tuyến Unica - Số 247 Cầu Giấy, P. Dịch Vọng, Q. Cầu Giấy, TP Hà Nội.
+                            Học Viện Kỹ Thuật Mật Mã - Số 247 Cầu Giấy, P. Dịch Vọng, Q. Cầu Giấy, TP Hà Nội.
                         </p>
                         <p className='lg:mr-4 text-xs md:text-sm font-light md:font-normal leading-4 md:leading-none'>
-                            Đại Diện: Ông Nguyễn Trọng Thơ
+                            Đại Diện: Ông Donald Trump
                         </p>
                         <p className='lg:mr-4 text-xs md:text-sm font-light md:font-normal leading-4 md:leading-none'>
-                            Mã số thuế: 0107695756 cấp tại Phòng đăng ký kinh doanh Sở Kế hoạch và Đầu tư Thành phố Hà Nội
+                            Mã số thuế: 00000000000 cấp tại Phòng đăng ký kinh doanh Sở Kế hoạch và Đầu tư Thành phố Hà Nội
                         </p>
                     </div>
                     <div className='flex items-center gap-3 mt-3 md:mt-0'>
@@ -142,7 +143,7 @@ export default function Footer() {
                             id="footerLangButton"
                             data-dropdown-toggle="footerLang"
                             data-dropdown-placement="top"
-                            className="my-auto border"
+                            className="border"
                             typeof="button">
                             <div className="flex items-center gap-2 px-4 py-3 text-sm">
                                 <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">

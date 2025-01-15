@@ -36,7 +36,7 @@ export default function CourseList({ title, slug, courses }: Props) {
                             <Link href={`/course/${course?.slug}`} className="col">
                                 <CourseCard
                                     courseName={course?.courseName}
-                                    instructorName={course?.approvedBy?.fullName}
+                                    instructorName={course?.approvedBy?.user?.fullName}
                                     rating={course?.rating}
                                     poster={course?.poster}
                                     price={course?.price}
@@ -67,7 +67,7 @@ export default function CourseList({ title, slug, courses }: Props) {
                                             <Link href={`/course/${course?.slug}`}>
                                                 <CourseCard
                                                     courseName={course?.courseName}
-                                                    instructorName={course?.approvedBy?.fullName}
+                                                    instructorName={course?.approvedBy?.user?.fullName}
                                                     rating={course?.rating}
                                                     price={course?.price}
                                                     poster={course?.poster}

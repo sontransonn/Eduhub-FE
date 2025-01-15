@@ -14,33 +14,37 @@ export default function Infomation() {
     const params = useParams();
     const courseId = Array.isArray(params.courseId) ? params.courseId[0] : params.courseId;
 
+    const [base64Image, setBase64Image] = useState<string | null>(null);
+    const [selectedSubCategory, setSelectedSubCategory] = useState("");
     const [updateTrigger, setUpdateTrigger] = useState(false);
     const [posterFile, setPosterFile] = useState<File | null>(null);
+    const [originalCategory, setOriginalCategory] = useState("")
     const [courseUpdates, setCourseUpdates] = useState({
         courseName: "",
         description: "",
         introduce: "",
         category: "",
-        subCategory: "",
+        subCategories: [""],
         poster: ""
     })
 
     useEffect(() => {
         const fetchData = async () => {
             const data = await getCourseByID(courseId)
+            setOriginalCategory(data.category)
+            setBase64Image(data.poster)
             setCourseUpdates(prev => ({
                 ...prev,
                 courseName: data.courseName,
                 description: data.description,
                 introduce: data.introduce,
                 category: data.category,
-                subCategory: data.subCategory,
+                subCategories: data.subCategories,
                 poster: data.poster
             }))
         }
         fetchData()
     }, [courseId, updateTrigger])
-
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
@@ -60,17 +64,52 @@ export default function Infomation() {
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files.length > 0) {
-            setPosterFile(e.target.files[0]);
+            const file = e.target.files[0];
+            setPosterFile(file);
+
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                if (reader.result) {
+                    setBase64Image(reader.result as string);
+                }
+            };
+            reader.readAsDataURL(file);
         } else {
             console.warn('No file selected');
         }
     };
 
+    const handleSubCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        setSelectedSubCategory(e.target.value);
+    };
+
+    const handleTagChange = (e: React.ChangeEvent<HTMLInputElement>, tagSlug: string) => {
+        const { checked } = e.target;
+
+        if (checked) {
+            setCourseUpdates(prevState => ({
+                ...prevState,
+                subCategories: [...prevState.subCategories, tagSlug]
+            }));
+        } else {
+            setCourseUpdates(prevState => ({
+                ...prevState,
+                subCategories: prevState.subCategories.filter(tag => tag !== tagSlug)
+            }));
+        }
+    };
+
     const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
+
+        const updatedCourseUpdates = { ...courseUpdates };
+        if (originalCategory !== updatedCourseUpdates.category) {
+            updatedCourseUpdates.subCategories = [];
+        }
+
         try {
             const formData = new FormData();
-            formData.append('courseUpdates', JSON.stringify(courseUpdates));
+            formData.append('courseUpdates', JSON.stringify(updatedCourseUpdates));
             if (posterFile) {
                 formData.append('poster', posterFile);
             }
@@ -97,6 +136,8 @@ export default function Infomation() {
                     trong các công cụ tìm kiếm như Google. Khi bạn hoàn thành phần này, hãy nghĩ đến việc tạo trang Tổng quan khóa học hấp dẫn để mọi người muốn đăng ký học
                     tìm hiểu thêm về <span className='underline'>cách tạo trang tổng quan khóa học của bạn</span> và <span className='underline'>các tiêu chuẩn tiêu đề quan trọng</span>
                 </p>
+
+                {/* Tiêu đề khóa học */}
                 <div className='flex flex-col gap-2'>
                     <h5 className='text-lg font-medium'>Tiêu đề khóa học <span className='text-red-600'>*</span></h5>
                     <input
@@ -107,6 +148,8 @@ export default function Infomation() {
                     />
                     <p className='text-sm'>Tiêu đề của bạn không những phải thu hút sự chú ý, chứa nhiều thông tin mà còn được tối ưu hóa để dễ tìm kiếm</p>
                 </div>
+
+                {/* Tên khóa học (tiếng Anh, để cấp chứng chỉ) */}
                 <div className='flex flex-col gap-2'>
                     <h5 className='text-lg font-medium'>Tên khóa học (tiếng Anh, để cấp chứng chỉ)</h5>
                     <input
@@ -115,6 +158,8 @@ export default function Infomation() {
                         placeholder='Ví dụ: Word 2019 từ cơ bản đến nâng cao'
                     />
                 </div>
+
+                {/* Mô tả ngắn */}
                 <div className='flex flex-col gap-2'>
                     <h5 className='text-lg font-medium'>Mô tả ngắn</h5>
                     <textarea
@@ -125,14 +170,19 @@ export default function Infomation() {
                         className='w-full px-3 py-2 outline-none border border-solid border-[#3333] focus:outline-none focus:ring'
                     />
                 </div>
-                <div className='flex flex-col gap-2'>
-                    <h5 className='text-lg font-medium'>Thể loại</h5>
-                    <div className='flex gap-5'>
+
+                {/* Thể loại */}
+                <div className="flex flex-col gap-2">
+                    <h5 className="text-lg font-medium">Thể loại</h5>
+                    <div className='flex gap-2'>
                         <select
                             name="category"
                             value={courseUpdates.category}
-                            onChange={handleSelectChange}
-                            className='w-full max-w-60 px-3 py-2 outline-none border border-solid border-[#3333] focus:outline-none focus:ring custom-select-arrow'
+                            onChange={(e) => {
+                                handleSelectChange(e);
+                                setSelectedSubCategory("");
+                            }}
+                            className="w-full max-w-60 px-3 py-2 outline-none border border-solid border-[#3333] focus:outline-none focus:ring custom-select-arrow"
                         >
                             <option value="">Chọn danh mục</option>
                             {categories.map((category, index) => (
@@ -141,22 +191,46 @@ export default function Infomation() {
                         </select>
                         {courseUpdates.category && (
                             <select
-                                name="subCategory"
-                                value={courseUpdates.subCategory}
-                                onChange={handleSelectChange}
-                                className='w-full max-w-60 px-3 py-2 outline-none border border-solid border-[#3333] focus:outline-none focus:ring custom-select-arrow'
+                                value={selectedSubCategory}
+                                onChange={handleSubCategoryChange}
+                                className="w-full max-w-60 px-3 py-2 outline-none border border-solid border-[#3333] focus:outline-none focus:ring custom-select-arrow"
                             >
-                                <option value="">Chọn danh mục con</option>
+                                <option value="">Chọn chủ đề</option>
                                 {categories
                                     .find(category => category.slug === courseUpdates.category)?.subCategories
                                     .map((subCategory, index) => (
                                         <option key={index} value={subCategory.slug}>{subCategory.title}</option>
-                                    ))
-                                }
+                                    ))}
                             </select>
                         )}
                     </div>
                 </div>
+
+                {/* Tags */}
+                {selectedSubCategory && (
+                    <div className='flex flex-col gap-2'>
+                        <h5 className="text-lg font-medium">Tags</h5>
+                        <div className="flex flex-wrap gap-4">
+                            {categories
+                                .find(category => category.slug === courseUpdates.category)
+                                ?.subCategories.find(subCategory => subCategory.slug === selectedSubCategory)
+                                ?.tags.map((tag, index) => (
+                                    <div key={index} className="flex items-center gap-1.5">
+                                        <input
+                                            type="checkbox" id={tag.slug}
+                                            name="subCategories" value={tag.slug}
+                                            className='w-5 h-5'
+                                            checked={Array.isArray(courseUpdates.subCategories) && courseUpdates.subCategories.includes(tag.slug)}
+                                            onChange={(e) => handleTagChange(e, tag.slug)}
+                                        />
+                                        <label htmlFor={tag.slug}>{tag.title}</label>
+                                    </div>
+                                ))}
+                        </div>
+                    </div>
+                )}
+
+                {/* Giới thiệu khóa học */}
                 <div className='flex flex-col gap-2'>
                     <h5 className='text-lg font-medium'>Giới thiệu khóa học</h5>
                     <textarea
@@ -167,11 +241,13 @@ export default function Infomation() {
                         className='w-full px-3 py-2 outline-none border border-solid border-[#3333] focus:outline-none focus:ring '
                     />
                 </div>
+
+                {/* Ảnh khóa học */}
                 <div className='flex flex-col gap-2'>
                     <h5 className='text-lg font-medium'>Ảnh khóa học</h5>
                     <div className='grid grid-cols-2 gap-4'>
-                        {courseUpdates?.poster ? (
-                            <img src={courseUpdates.poster} alt=''></img>
+                        {base64Image ? (
+                            <img src={base64Image} alt='Hình ảnh khóa học' className='w-full' />
                         ) : (
                             <div className='flex justify-center items-center h-[250px] bg-[#cccccc] col-span-1'>
                                 <span className='text-xl font-medium text-[#a5a5a5]'>800 x 450</span>
@@ -190,6 +266,8 @@ export default function Infomation() {
                         </div>
                     </div>
                 </div>
+
+                {/* Lưu thông tin */}
                 <button className="flex self-start w-40 items-center justify-between bg-purple-800 text-white px-4 py-2 rounded-sm hover:bg-purple-900" onClick={handleSubmit}>
                     <FaPlusCircle />
                     Lưu thông tin

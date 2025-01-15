@@ -43,10 +43,10 @@ export default function UserMenu() {
             try {
                 if (userInfo) {
                     const cartData = await getMyCart();
-                    dispatch(setCartItems(cartData.items))
+                    dispatch(setCartItems(cartData.items.reverse()))
 
                     const wishlistData = await getMyWishlist();
-                    dispatch(setWishlistItems(wishlistData.items));
+                    dispatch(setWishlistItems(wishlistData.items.reverse()));
                 }
             } catch (error: unknown) {
                 if (error instanceof Error) {

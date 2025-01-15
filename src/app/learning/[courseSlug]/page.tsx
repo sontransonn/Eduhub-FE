@@ -101,7 +101,7 @@ export default function LearningPage() {
             case 'document':
                 return <DocumentTab courseId={infoCourse?._id || ''} />;
             case 'evaluate':
-                return <EvaluateTab />;
+                return <EvaluateTab courseId={infoCourse?._id || ''} courseSlug={courseSlug} />;
             case 'downloadCertification':
                 return <CertificateTab />;
             default:

@@ -1,16 +1,54 @@
 "use client"
-import React from 'react'
-import { } from 'next/navigation';
+import React, { useEffect, useState } from 'react'
+import { useParams } from 'next/navigation';
 import { useSelector } from 'react-redux';
+
+import { getResultQuiz } from '@/api/quiz.api';
 
 import { RootState } from '@/store';
 
 export default function ResultQuiz() {
-    // const params = useParams();
-    // const courseId = Array.isArray(params.courseId) ? params.courseId[0] : params.courseId || "";
-    // const quizId = Array.isArray(params.quizId) ? params.quizId[0] : params.quizId || "";
+    const params = useParams();
+    const courseId = Array.isArray(params.courseId) ? params.courseId[0] : params.courseId || "";
+    const quizId = Array.isArray(params.quizId) ? params.quizId[0] : params.quizId || "";
+
+    const [resultQuiz, setResultQuiz] = useState({
+        quizName: "",
+        pointAchieved: 0,
+        isPassed: false,
+        answers: [
+            {
+                questionText: "",
+                userAnswer: "",
+                isCorrect: false,
+                correctAnswerText: "",
+                allAnswers: [
+                    {
+                        text: "",
+                        isCorrect: false
+                    }
+                ]
+            }
+        ]
+    })
 
     const { userInfo } = useSelector((state: RootState) => state.user)
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const data = await getResultQuiz(quizId);
+                setResultQuiz(data)
+            } catch (error: unknown) {
+                if (error instanceof Error) {
+                    console.error('Failed:', error.message);
+                } else {
+                    console.error('Failed with an unknown error');
+                }
+            }
+        }
+        fetchData()
+    }, [courseId, quizId])
 
     return (
         <main className='bg-[#efebf9] text-black min-h-screen'>
@@ -18,33 +56,40 @@ export default function ResultQuiz() {
                 <div className="flex flex-col gap-3 mx-auto max-w-3xl">
                     <div className='flex flex-col bg-white rounded-md border border-solid border-[#3333] border-t-[10px] border-t-purple-800'>
                         <div className='flex justify-between gap-4 border-b border-solid border-[#3333] p-5'>
-                            <h3 className='text-2xl font-medium'>HELLLONSHHB</h3>
+                            <h3 className='text-2xl font-medium'>{resultQuiz.quizName}</h3>
                             <div className='flex items-center gap-1.5 font-medium'>
                                 <h5>Total points</h5>
-                                <div className='bg-purple-700 text-white px-1.5 py-1 rounded-sm'>1/2</div>
+                                <div className='bg-purple-700 text-white px-1.5 py-1 rounded-sm'>{resultQuiz.pointAchieved}/100</div>
                             </div>
                         </div>
                         <p className='p-5'>The respondent&apos;s email (<span className='font-semibold text-gray-600'>{userInfo?.email}</span>) was recorded on submission of this form.</p>
                     </div>
 
-                    {Array.from({ length: 8 }).map((question, index) => (
+                    {resultQuiz?.answers?.map((answer, index) => (
                         <div key={index} className='bg-white flex flex-col gap-4 p-5 rounded-md border border-solid border-[#3333]'>
                             <div className='flex justify-between items-center'>
-                                <span className='font-medium'>aaaaaaaaaaaaaaa</span>
-                                <span className='text-sm font-medium'>10 điểm</span>
+                                <span className={`${answer.isCorrect ? "text-green-500" : "text-red-500"} font-medium`}>{answer.questionText}</span>
+                                <span className='text-sm font-medium'>
+                                    {answer.isCorrect ? "10/10" : "0/10"}
+                                </span>
                             </div>
-                            <div className='flex flex-col gap-4'>
-                                {/* {question?.answers?.map((answer, index) => (
-                                                <div key={index} className='flex items-center gap-2.5'>
-                                                    <input
-                                                        type="radio" name={question._id} id=""
-                                                        className='w-5 h-5' onChange={() => handleAnswerChange(question._id, answer._id)}
-                                                        checked={dataSubmit.userAnswers.find((item) => item.questionId === question._id)?.selectedAnswerId === answer._id}
-                                                    />
-                                                    <span className='text-sm'>{answer.text}</span>
-                                                </div>
-                                            ))} */}
+                            <div className='flex flex-col'>
+                                {answer?.allAnswers?.map((item, index) => (
+                                    <div key={index} className={`flex items-center p-2 rounded-md gap-2.5 ${answer.isCorrect && item.text === answer.userAnswer ? "bg-green-200" : ""}  ${!answer.isCorrect && item.text === answer.userAnswer ? "bg-red-200" : ""}`}>
+                                        <input type="radio" id="" className='w-5 h-5' checked={item.text === answer.userAnswer} />
+                                        <span className='text-sm'>{item.text}</span>
+                                    </div>
+                                ))}
                             </div>
+                            {!answer.isCorrect && (
+                                <div className='flex flex-col gap-2'>
+                                    <span className='text-sm'>Correct answer</span>
+                                    <div className='p-2 flex items-center gap-2.5'>
+                                        <input type="radio" id="" className='w-5 h-5' checked />
+                                        <span className='text-sm'>{answer.correctAnswerText}</span>
+                                    </div>
+                                </div>
+                            )}
                         </div>
                     ))}
                 </div>

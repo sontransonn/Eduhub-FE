@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import Link from 'next/link';
 import toast from 'react-hot-toast';
 
-import { getQuizsInCourse } from '@/api/user.api';
+import { getQuizsInCourse } from '@/api/quiz.api';
 
 export default function DocumentTab({ courseId }: { courseId: string }) {
     const [quizzes, setQuizzes] = useState<Array<{ _id: string; quizName: string; durationTime: string; maxScore: string }>>([]);
