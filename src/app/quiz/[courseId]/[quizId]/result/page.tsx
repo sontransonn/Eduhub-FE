@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import { getResultQuiz } from '@/api/quiz.api';
 
 import { RootState } from '@/store';
+import Link from 'next/link';
 
 export default function ResultQuiz() {
     const params = useParams();
@@ -92,6 +93,11 @@ export default function ResultQuiz() {
                             )}
                         </div>
                     ))}
+
+                    <div className='flex justify-between items-center'>
+                        <Link href={"/"} className='bg-purple-800 text-white rounded-md px-6 text-sm py-2 hover:bg-purple-900'>Quay về trang chủ</Link>
+                        <Link href={`/quiz/${courseId}/${quizId}/join`} className='bg-purple-800 text-white rounded-md px-6 text-sm py-2 hover:bg-purple-900'>Làm lại bài quiz</Link>
+                    </div>
                 </div>
             </div>
         </main>

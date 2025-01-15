@@ -98,9 +98,16 @@ export default function Lessons() {
         const isConfirmed = window.confirm("Bạn chắc chắn muốn xóa khóa học này?");
         if (isConfirmed) {
             try {
+                console.log(lessonId);
 
-            } catch (error) {
-
+            } catch (error: unknown) {
+                if (error instanceof Error) {
+                    toast.error(error.message);
+                    console.error('Failed:', error.message);
+                } else {
+                    toast.error('An unknown error occurred');
+                    console.error('Failed with an unknown error');
+                }
             }
         }
     }

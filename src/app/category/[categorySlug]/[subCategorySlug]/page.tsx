@@ -24,16 +24,23 @@ export default function SubCategory() {
     const params = useParams();
     const subCategorySlug = Array.isArray(params.subCategorySlug) ? params.subCategorySlug[1] : params.subCategorySlug;
 
+    const [currentPage, setCurrentPage] = useState(1)
     const [activeTab, setActiveTab] = useState("popular");
     const [isFilter, setIsFilter] = useState(true)
     const [showMenuSortBy, setShowMenuSortBy] = useState(false)
     const [listData, setListData] = useState([])
+    const [totalPages, setTotalPages] = useState(1);
+    const [suggestCourse, setSuggetCourse] = useState([])
+    const [totalCourse, setTotalCourse] = useState(0)
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const data = await getCourseBySubCategory(subCategorySlug)
-                setListData(data.courses)
+                const data = await getCourseBySubCategory(subCategorySlug, currentPage)
+                setListData(data.data.courses)
+                setTotalPages(data.data.totalPages);
+                setSuggetCourse(data.data.suggestedCourses)
+                setTotalCourse(data.data.total)
             } catch (error: unknown) {
                 if (error instanceof Error) {
                     console.error('Failed:', error.message);
@@ -44,6 +51,17 @@ export default function SubCategory() {
         }
         fetchData()
     }, [params])
+
+    useEffect(() => {
+        window.scrollTo({
+            top: 0,
+            behavior: "auto"
+        });
+    }, [currentPage]);
+
+    const handlePageChange = (page: number) => {
+        setCurrentPage(page);
+    };
 
     const calculateSalePrice = (originalPrice: number, discountPercentage: number) => {
         const remainingPercentage = 100 - discountPercentage;
@@ -57,11 +75,10 @@ export default function SubCategory() {
     }
 
     const allSubCategories = categories.flatMap(cat => cat.subCategories);
-    console.log(allSubCategories);
+    const allTags = allSubCategories.flatMap(cat => cat.tags)
 
-
-    const subCategory = allSubCategories.find(
-        (subCat) => subCat.slug === subCategorySlug
+    const tag = allTags.find(
+        (tag) => tag.slug === subCategorySlug
     );
 
     return (
@@ -69,7 +86,7 @@ export default function SubCategory() {
             <div className='max-w-8xl mx-auto px-4 xl:px-20 md:px-10 lg:py-14 py-8'>
                 <div className='flex flex-col gap-8'>
                     <div className='flex flex-col gap-4'>
-                        <h3 className='font-medium text-2xl'>Khóa học {subCategory?.title}</h3>
+                        <h3 className='font-medium text-2xl'>Khóa học {tag?.title}</h3>
                         <div className='text-sm font-medium text-center text-black border-b border-gray-400'>
                             <ul className='flex flex-wrap text-base gap-7'>
                                 <li className=''>
@@ -87,7 +104,7 @@ export default function SubCategory() {
 
                         <Carousel className="w-full">
                             <CarouselContent className="-ml-4">
-                                {[].map((course: CourseProps, index) => (
+                                {suggestCourse.map((course: CourseProps, index) => (
                                     <CarouselItem key={index} className="pl-4 md:basis-1/2 basis-2/3 lg:basis-1/4">
                                         <Card className='bg-[#F1F5F8] border-none shadow-none'>
                                             <CardContent className="flex items-center justify-center p-0">
@@ -109,7 +126,7 @@ export default function SubCategory() {
                     </div>
 
                     <div className='flex items-center justify-between flex-wrap gap-4'>
-                        <h4 className='font-medium text-2xl'>Tất cả khóa học {subCategory?.title}</h4>
+                        <h4 className='font-medium text-2xl'>Tất cả khóa học {tag?.title}</h4>
                         <div className='flex items-center gap-3'>
                             <div className='flex bg-white gap-2 items-center py-4 px-5 border border-solid border-black rounded-sm' onClick={() => setIsFilter(prev => !prev)}>
                                 <RiFilter3Fill size={24} />
@@ -288,29 +305,46 @@ export default function SubCategory() {
                                     </Link>
                                 </div>
                             ))}
-                            {listData.length >= 8 && (
+                            {totalCourse >= 8 && (
                                 <Pagination>
                                     <PaginationContent>
                                         <PaginationItem>
-                                            <PaginationPrevious href="#" />
+                                            <PaginationPrevious
+                                                href="#"
+                                                className={`bg-gray-200 hover:bg-gray-300`}
+                                                onClick={(e) => {
+                                                    e.preventDefault();
+                                                    if (currentPage > 1) {
+                                                        handlePageChange(currentPage - 1)
+                                                    }
+                                                }}
+                                            />
                                         </PaginationItem>
+                                        {Array.from({ length: totalPages }).map((page, index) => (
+                                            <PaginationItem key={index}>
+                                                <PaginationLink
+                                                    href={"#"}
+                                                    className={`${currentPage === index + 1 ? "bg-blue-500 text-white" : "bg-gray-200 hover:bg-gray-300"}`}
+                                                    onClick={(e) => {
+                                                        e.preventDefault();
+                                                        handlePageChange(index + 1);
+                                                    }}
+                                                >
+                                                    {index + 1}
+                                                </PaginationLink>
+                                            </PaginationItem>
+                                        ))}
                                         <PaginationItem>
-                                            <PaginationLink href="#">1</PaginationLink>
-                                        </PaginationItem>
-                                        <PaginationItem>
-                                            <PaginationLink href="#">2</PaginationLink>
-                                        </PaginationItem>
-                                        <PaginationItem>
-                                            <PaginationLink href="#">3</PaginationLink>
-                                        </PaginationItem>
-                                        <PaginationItem>
-                                            <PaginationLink href="#">4</PaginationLink>
-                                        </PaginationItem>
-                                        <PaginationItem>
-                                            <PaginationLink href="#">5</PaginationLink>
-                                        </PaginationItem>
-                                        <PaginationItem>
-                                            <PaginationNext href="#" />
+                                            <PaginationNext
+                                                href="#"
+                                                className={`bg-gray-200 hover:bg-gray-300`}
+                                                onClick={(e) => {
+                                                    e.preventDefault();
+                                                    if (currentPage < totalPages) {
+                                                        handlePageChange(currentPage + 1)
+                                                    }
+                                                }}
+                                            />
                                         </PaginationItem>
                                     </PaginationContent>
                                 </Pagination>

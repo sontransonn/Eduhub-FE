@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { useSelector } from 'react-redux';
+import toast from 'react-hot-toast';
 
 import { RootState } from '@/store';
 
@@ -11,13 +12,14 @@ import { ImBooks } from "react-icons/im";
 import { PiGraduationCap } from "react-icons/pi";
 import { FaEdit, FaPlusCircle, FaTrashAlt } from 'react-icons/fa';
 
-import { getQuizs } from '@/api/instructor.api';
+import { getQuizs, deleteQuiz } from '@/api/instructor.api';
 
 export default function Document() {
     const params = useParams();
     const courseId = Array.isArray(params.courseId) ? params.courseId[0] : params.courseId;
 
     const [listQuiz, setListQuiz] = useState([{
+        _id: "",
         quizName: "",
         questions: [],
         createdAt: ""
@@ -26,20 +28,21 @@ export default function Document() {
     const { userInfo } = useSelector((state: RootState) => state.user)
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const data = await getQuizs(courseId)
-                setListQuiz(data)
-            } catch (error: unknown) {
-                if (error instanceof Error) {
-                    console.error('Failed:', error.message);
-                } else {
-                    console.error('Failed with an unknown error');
-                }
-            }
-        }
         fetchData()
     }, [])
+
+    const fetchData = async () => {
+        try {
+            const data = await getQuizs(courseId)
+            setListQuiz(data)
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                console.error('Failed:', error.message);
+            } else {
+                console.error('Failed with an unknown error');
+            }
+        }
+    }
 
     function formatDate(dateString: string) {
         const date = new Date(dateString);
@@ -49,6 +52,23 @@ export default function Document() {
         return `${day}/${month}/${year}`;
     }
 
+    const handleDeleteQuiz = async (courseId: string) => {
+        const isConfirmed = window.confirm("Bạn chắc chắn muốn xóa quiz này?");
+        if (isConfirmed) {
+            try {
+                await deleteQuiz(courseId)
+                toast.success("Xóa quiz thành công!")
+                fetchData()
+            } catch (error) {
+                if (error instanceof Error) {
+                    console.error('Failed:', error.message);
+                } else {
+                    console.error('Failed with an unknown error');
+                }
+            }
+        }
+    };
+
     return (
         <>
             <h1 className='text-lg font-semibold border-b border-solid border-[#3333] p-4'>Tài liệu và quà tặng</h1>
@@ -57,7 +77,6 @@ export default function Document() {
                     <div className='flex scrollable flex-col gap-4 max-h-[450px] overflow-scroll'>
                         {listQuiz.map((quiz, index) => {
                             const randomColor = `#${Math.floor(Math.random() * 16777215).toString(16)}`;
-
                             return (
                                 <div className='flex' key={index}>
                                     <div className='md:basis-3/4 flex gap-2.5 items-center'>
@@ -86,7 +105,7 @@ export default function Document() {
                                             <FaEdit />
                                             Sửa
                                         </button>
-                                        <button className="flex items-center gap-2 text-red-600 hover:text-red-800">
+                                        <button className="flex items-center gap-2 text-red-600 hover:text-red-800" onClick={() => handleDeleteQuiz(quiz._id)}>
                                             <FaTrashAlt />
                                             Xóa
                                         </button>

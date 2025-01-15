@@ -17,8 +17,8 @@ export default function CreateCourse() {
 
     const handleCreateCourse = async () => {
         try {
-            const data = await InstructorCreateCourse(courseName)
-            toast.success(data.message)
+            await InstructorCreateCourse(courseName)
+            toast.success("Tạo khóa học thành công!")
             router.push("/dashboard/teacher/course")
         } catch (error: unknown) {
             if (error instanceof Error) {

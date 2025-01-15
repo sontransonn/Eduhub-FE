@@ -24,8 +24,30 @@ interface QuizData {
     questions: Question[];
 }
 
-export const deleteCourse = async () => {
+export const deleteQuiz = async (quizId: string) => {
+    try {
+        const response = await api.delete(`/quiz/${quizId}`);
+        return response.data;
+    } catch (error) {
+        if (axios.isAxiosError(error)) {
+            const errorMessage = error.response?.data?.message || 'Failed';
+            throw new Error(errorMessage);
+        }
+        throw new Error('An unknown error occurred');
+    }
+}
 
+export const deleteCourse = async (courseId: string) => {
+    try {
+        const response = await api.delete(`/course/${courseId}`);
+        return response.data;
+    } catch (error: unknown) {
+        if (axios.isAxiosError(error)) {
+            const errorMessage = error.response?.data?.message || 'Failed';
+            throw new Error(errorMessage);
+        }
+        throw new Error('An unknown error occurred');
+    }
 }
 
 export const InstructorCreateCourse = async (courseName: string) => {

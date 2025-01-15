@@ -41,7 +41,7 @@ export default function CourseDetails({ params }: { params: { courseSlug: string
         createdAt: '',
         updatedAt: '',
         subCategories: [],
-        approvedBy: { _id: "", user: { _id: "", fullName: "", avatar: "" }, title: "", experience: "", students: 0, courseAmount: 0, rating: 0 },
+        approvedBy: { _id: "", fullName: "", user: { _id: "", fullName: "", avatar: "" }, title: "", experience: "", students: 0, courseAmount: 0, rating: 0 },
         target: []
     })
     const [isSticky, setIsSticky] = useState(false);
@@ -146,7 +146,7 @@ export default function CourseDetails({ params }: { params: { courseSlug: string
                             <BsDot className='md:block hidden' />
                             <span className='md:block hidden'>{currentCourse.ratingNum} đánh giá</span>
                         </div>
-                        <Reviews />
+                        <Reviews currentCourse={currentCourse} />
                     </div>
                 </div>
 

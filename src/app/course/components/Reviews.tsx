@@ -5,8 +5,38 @@ import { TbJewishStarFilled } from "react-icons/tb";
 import { BsDot } from "react-icons/bs";
 import { RiCloseLargeFill } from "react-icons/ri";
 
-export default function Reviews() {
+import { getRate } from '@/api/user.api';
+
+import { CourseProps } from '@/types/course.type';
+
+export default function Reviews({ currentCourse }: { currentCourse: CourseProps }) {
     const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const [listRating, setListRating] = useState([
+        {
+            content: "",
+            rating: 0,
+            user: {
+                avatar: "",
+                fullName: ""
+            }
+        }
+    ])
+
+    useEffect(() => {
+        const fetchAllRatings = async () => {
+            try {
+                const data = await getRate(currentCourse._id);
+                setListRating(data)
+            } catch (error: unknown) {
+                if (error instanceof Error) {
+                    console.error('Failed:', error.message);
+                } else {
+                    console.error('Failed with an unknown error');
+                }
+            }
+        };
+        fetchAllRatings();
+    }, [])
 
     const openDialog = () => setIsDialogOpen(true);
     const closeDialog = () => setIsDialogOpen(false);
@@ -26,25 +56,23 @@ export default function Reviews() {
     return (
         <>
             <div className='grid grid-cols-2'>
-                {Array.from({ length: 10 }).map((_, index) => (
+                {listRating.map((rating, index) => (
                     <div className='md:col-span-1 col-span-2 py-6 border-t border-gray-300 odd:pr-4 even:pl-4' key={index}>
                         <div className='flex gap-2 mb-4.5'>
-                            <img className='w-[35px] h-[35px] rounded-full' src="https://ui-avatars.com/api/?name=Tran Thi Thanh Trang&color=FFF&background=031B49" alt="" />
+                            <img className='w-[35px] h-[35px] rounded-full' src={rating.user.avatar} alt="" />
                             <div>
-                                <div className='font-medium'>Tran Thi Thanh Trang</div>
+                                <div className='font-medium'>{rating.user.fullName}</div>
                                 <div className='flex gap-2 items-center'>
                                     <div className='flex text-[#F77321]'>
-                                        <TbJewishStarFilled />
-                                        <TbJewishStarFilled />
-                                        <TbJewishStarFilled />
-                                        <TbJewishStarFilled />
-                                        <TbJewishStarFilled />
+                                        {Array.from({ length: 5 }).map((_, starIndex) => (
+                                            <TbJewishStarFilled key={starIndex} color={starIndex < rating.rating ? '#F77321' : '#d1d7dc'} />
+                                        ))}
                                     </div>
                                     3 năm trước
                                 </div>
                             </div>
                         </div>
-                        <p>giao vien day hay, nhiet tinh, co tam, co tinh than. cho 5 sao, cam on unica da co nhieu khoa hoc bo ich nhu vay, hi vong dc khuyen mai nhieu khoa hoc re hon nua</p>
+                        <p>{rating.content}</p>
                     </div>
                 ))}
             </div>
@@ -65,10 +93,10 @@ export default function Reviews() {
                                         <div className='flex items-center gap-2 font-medium text-2xl'>
                                             <div className='flex gap-1.5 items-center'>
                                                 <TbJewishStarFilled size={24} color='#f8731f' />
-                                                4.3 xếp hạng khóa học
+                                                {currentCourse.rating} xếp hạng khóa học
                                             </div>
                                             <BsDot className='md:block hidden' />
-                                            <span className='md:block hidden'>151 đánh giá</span>
+                                            <span className='md:block hidden'>{currentCourse.ratingNum} đánh giá</span>
                                         </div>
                                     </h3>
                                     <button className='text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center' onClick={closeDialog}>
@@ -145,25 +173,23 @@ export default function Reviews() {
                                     </div>
                                     <div className='flex-1'>
                                         <div className='load_feedback'>
-                                            {[1, 2, 3, 4, 5, 6, 7].map((_, index) => (
+                                            {listRating.map((rating, index) => (
                                                 <div className='pb-6 border-t pt-6 border-gray-400' key={index}>
                                                     <div className='flex gap-2 mb-4.5'>
-                                                        <img src="https://ui-avatars.com/api/?name=Phạm đình Sơn&color=FFF&background=031B49" alt="" className='w-[35px] h-[35px] rounded-full' />
+                                                        <img src={rating.user.avatar} alt="" className='w-[35px] h-[35px] rounded-full' />
                                                         <div>
-                                                            <div className='font-medium'>Phạm đình Sơn</div>
+                                                            <div className='font-medium'>{rating.user.fullName}</div>
                                                             <div className='flex gap-2'>
                                                                 <div className='flex items-center text-sm text-[#F77321]'>
-                                                                    <TbJewishStarFilled size={18} />
-                                                                    <TbJewishStarFilled size={18} />
-                                                                    <TbJewishStarFilled size={18} />
-                                                                    <TbJewishStarFilled size={18} />
-                                                                    <TbJewishStarFilled size={18} />
+                                                                    {Array.from({ length: 5 }).map((_, starIndex) => (
+                                                                        <TbJewishStarFilled key={starIndex} color={starIndex < rating.rating ? '#F77321' : '#d1d7dc'} />
+                                                                    ))}
                                                                 </div>
                                                                 3 năm trước
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <p>quá tuyệt vời thầy ơi giảng rất rẽ hiểu và nhiệt tình vui vẻ cảm ơn thầy chúc thầy sức khỏe</p>
+                                                    <p>{rating.content}</p>
                                                 </div>
                                             ))}
                                         </div>

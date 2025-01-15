@@ -84,9 +84,9 @@ export const getCourseByCategory = async (categorySlug: string, pageNumber: numb
     }
 }
 
-export const getCourseBySubCategory = async (subCategorySlug: string) => {
+export const getCourseBySubCategory = async (subCategorySlug: string, pageNumber: number) => {
     try {
-        const response = await api.get(`/subCategories/${subCategorySlug}`);
+        const response = await api.get(`/subCategories/${subCategorySlug}?page=${pageNumber}`);
         return response.data;
     } catch (error) {
         if (axios.isAxiosError(error)) {
