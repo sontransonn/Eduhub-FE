@@ -24,7 +24,7 @@ interface QuizData {
     questions: Question[];
 }
 
-export const editQuiz = async (quizId: string, data: {}) => {
+export const editQuiz = async (quizId: string, data: object) => {
     try {
         const response = await api.patch(`/edit-quiz/${quizId}`, data);
         return response.data;

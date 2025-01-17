@@ -4,6 +4,7 @@ import { useParams, usePathname } from 'next/navigation';
 import Link from 'next/link';
 
 import { FaBullseye, FaInfoCircle, FaListAlt, FaGift, FaDollarSign } from 'react-icons/fa';
+import toast from 'react-hot-toast';
 
 export default function UserDashboardLayout({
     children,
@@ -21,6 +22,10 @@ export default function UserDashboardLayout({
         { href: `/manage/${courseId}/document`, label: 'Tài liệu và quà tặng', icon: <FaGift /> },
         { href: `/manage/${courseId}/price`, label: 'Giá khóa học', icon: <FaDollarSign /> },
     ];
+
+    const handleSend = () => {
+        toast.success("Đơn duyệt đã được gửi!")
+    }
 
     return (
         <main className="bg-[#F1F5F8] text-black relative">
@@ -46,7 +51,7 @@ export default function UserDashboardLayout({
                                     );
                                 })}
                             </nav>
-                            <button className="mt-6 w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white py-3 rounded-lg font-semibold shadow-md hover:shadow-lg transition duration-300">
+                            <button className="mt-6 w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white py-3 rounded-lg font-semibold shadow-md hover:shadow-lg transition duration-300" onClick={handleSend}>
                                 Gửi duyệt
                             </button>
                         </div>

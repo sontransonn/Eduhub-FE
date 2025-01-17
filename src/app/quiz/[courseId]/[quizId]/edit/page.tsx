@@ -12,7 +12,6 @@ import { MdOutlineRadioButtonChecked } from "react-icons/md";
 import { MdOutlineInsertPhoto } from "react-icons/md";
 import { MdOutlineArrowDropDown } from "react-icons/md";
 import { IoCloseSharp } from "react-icons/io5";
-import { FaRegTrashAlt } from "react-icons/fa";
 import { FiLink2 } from "react-icons/fi";
 import { FiUserPlus } from "react-icons/fi";
 import { BsThreeDotsVertical } from "react-icons/bs";
