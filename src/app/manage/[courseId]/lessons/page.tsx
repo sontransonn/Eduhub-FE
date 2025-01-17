@@ -6,7 +6,7 @@ import toast from 'react-hot-toast';
 import { FaEdit, FaPlusCircle, FaTrashAlt } from 'react-icons/fa'
 
 import { getLessons, getCourseByID } from '@/api/instructor.api';
-import { createLessonByLink, deleteLesson, updateLesson } from '@/api/lesson.api';
+import { createLessonByLink, deleteLesson, updateLesson, uplinkVideo } from '@/api/lesson.api';
 interface Lesson {
     _id: string,
     lessonName: string;
@@ -23,6 +23,7 @@ export default function Lessons() {
     const [lessonData, setLessonData] = useState({ lessonName: '', lessonContent: '' });
     const [activeTab, setActiveTab] = useState<'link' | 'upload'>('link');
     const [listLesson, setListLesson] = useState<Lesson[]>([]);
+    const [videoFile, setVideoFile] = useState<File | null>(null);
 
     useEffect(() => {
         if (isModalOpen) {
@@ -80,8 +81,9 @@ export default function Lessons() {
 
     const handleChangeVideo = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
-        console.log(file);
-
+        if (file) {
+            setVideoFile(file);
+        }
     };
 
     const handleSave = async () => {
@@ -96,12 +98,23 @@ export default function Lessons() {
                 toast.success("Cập nhật bài học thành công!");
                 fetchData()
             } else {
-                const data = await createLessonByLink(courseId, lessonData);
-                toast.success(data.message);
-                if (data?.video) {
-                    setListLesson((prev) => [...prev, data.video]);
+                if (activeTab === 'link') {
+                    const data = await createLessonByLink(courseId, lessonData);
+                    toast.success(data.message);
+                    if (data?.video) {
+                        setListLesson((prev) => [...prev, data.video]);
+                    }
+                } else if (activeTab === 'upload' && videoFile) {
+                    const formData = new FormData();
+                    formData.append('lessonName', lessonData.lessonName);
+                    formData.append('lessonContent', lessonData.lessonContent);
+                    formData.append('video', videoFile);
+
+                    const data = await uplinkVideo(courseId, formData);
+                    toast.success(data.message);
+                    fetchData()
                 } else {
-                    console.error("Video not found in data");
+                    toast.error("Vui lòng tải video lên trước khi lưu!");
                 }
             }
         } catch (error: unknown) {

@@ -82,8 +82,15 @@ export default function Info() {
             if (avatar) {
                 formPayload.append('avatar', avatar);
             }
-            const data = await updateUserInfo(formData)
-            toast.success(data.message)
+            formPayload.append("fullName", formData.fullName)
+            formPayload.append("email", formData.email)
+            formPayload.append("phone", formData.phone)
+            formPayload.append("country", formData.country)
+            formPayload.append("city", formData.city)
+            formPayload.append("dateOfBirth", formData.dob)
+            formPayload.append("gender", formData.gender)
+            await updateUserInfo(formPayload)
+            toast.success("Cập nhật thông tin thành công!")
             fetchData()
         } catch (error: unknown) {
             if (error instanceof Error) {

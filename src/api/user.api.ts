@@ -116,17 +116,10 @@ export const getAllInstructor = async (pageNumber: number) => {
     }
 }
 
-export const updateUserInfo = async (userInfo: { avatar: string, fullName: string, email: string, phone: string, country: string, city: string, dob: string, gender: string }) => {
+export const updateUserInfo = async (data: FormData) => {
     try {
-        const response = await api.patch("/edit-profile", {
-            avatar: userInfo.avatar,
-            fullName: userInfo.fullName,
-            email: userInfo.email,
-            phone: userInfo.phone,
-            country: userInfo.country,
-            city: userInfo.city,
-            dateOfBirth: userInfo.dob,
-            gender: userInfo.gender,
+        const response = await api.patch("/edit-profile", data, {
+            headers: { "Content-Type": "multipart/form-data" },
         });
         return response.data;
     } catch (error: unknown) {

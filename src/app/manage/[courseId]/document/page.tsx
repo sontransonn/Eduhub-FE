@@ -101,10 +101,10 @@ export default function Document() {
                                         </div>
                                     </div>
                                     <div className='md:basis-1/4 md:flex hidden gap-8 items-center justify-end'>
-                                        <button className="flex items-center gap-2 text-blue-600 hover:text-blue-800">
+                                        <Link href={`/quiz/${courseId}/${quiz._id}/edit`} className="flex items-center gap-2 text-blue-600 hover:text-blue-800">
                                             <FaEdit />
                                             Sửa
-                                        </button>
+                                        </Link>
                                         <button className="flex items-center gap-2 text-red-600 hover:text-red-800" onClick={() => handleDeleteQuiz(quiz._id)}>
                                             <FaTrashAlt />
                                             Xóa

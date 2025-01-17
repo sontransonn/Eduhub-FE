@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 import { useParams, useRouter } from 'next/navigation';
 import Image from 'next/image';
@@ -23,26 +23,32 @@ import { LuPalette } from "react-icons/lu";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
-import { createQuiz } from '@/api/instructor.api';
+import { getQuizDetails } from '@/api/quiz.api';
+import { editQuiz } from '@/api/instructor.api';
 
 import logoBig from "@/public/logo/logoBig.png"
 
-export default function Quiz() {
-    const router = useRouter()
+export default function EditQuiz() {
     const params = useParams();
-    const courseId = Array.isArray(params.courseId) ? params.courseId[0] : params.courseId;
+    const courseId = Array.isArray(params.courseId) ? params.courseId[0] : params.courseId || "";
+    const quizId = Array.isArray(params.quizId) ? params.quizId[0] : params.quizId || "";
+
+    const router = useRouter()
 
     const [formData, setFormData] = useState({
+        _id: "",
         quizName: "",
         courseId: courseId,
         durationTime: 60,
         maxScore: 100,
         questions: [
             {
-                text: "",
+                _id: "",
+                questionText: "",
                 maxScore: 10,
                 answers: [
                     {
+                        _id: "",
                         text: "Tùy chọn 1",
                         isCorrect: false
                     }
@@ -53,16 +59,36 @@ export default function Quiz() {
 
     const { userInfo } = useSelector((state: RootState) => state.user)
 
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const data = await getQuizDetails(courseId, quizId);
+                setFormData(data)
+            } catch (error: unknown) {
+                if (error instanceof Error) {
+                    toast.error(error.message);
+                    console.error('Failed:', error.message);
+                } else {
+                    toast.error('An unknown error occurred');
+                    console.error('Failed with an unknown error');
+                }
+            }
+        }
+        fetchData()
+    }, [courseId, quizId])
+
     const handleAddQuestion = () => {
         setFormData((prev) => ({
             ...prev,
             questions: [
                 ...prev.questions,
                 {
-                    text: "",
+                    _id: "",
+                    questionText: "",
                     maxScore: 10,
                     answers: [
                         {
+                            _id: "",
                             text: "Tùy chọn 1",
                             isCorrect: false,
                         },
@@ -72,32 +98,15 @@ export default function Quiz() {
         }));
     };
 
-    const handleAddAnswer = (qIndex: number) => {
-        const updatedQuestions = [...formData.questions];
-        updatedQuestions[qIndex].answers.push({
-            text: `Tùy chọn ${updatedQuestions[qIndex].answers.length + 1}`,
-            isCorrect: false,
-        });
-        setFormData((prev) => ({ ...prev, questions: updatedQuestions }));
-    };
-
     const handleUpdateQuestion = (qIndex: number, value: string) => {
         const updatedQuestions = [...formData.questions];
-        updatedQuestions[qIndex].text = value;
+        updatedQuestions[qIndex].questionText = value;
         setFormData((prev) => ({ ...prev, questions: updatedQuestions }));
     };
 
     const handleUpdateAnswer = (qIndex: number, aIndex: number, value: string) => {
         const updatedQuestions = [...formData.questions];
         updatedQuestions[qIndex].answers[aIndex].text = value;
-        setFormData((prev) => ({ ...prev, questions: updatedQuestions }));
-    };
-
-    const toggleCorrectAnswer = (qIndex: number, aIndex: number) => {
-        const updatedQuestions = [...formData.questions];
-        updatedQuestions[qIndex].answers.forEach((answer, index) => {
-            answer.isCorrect = index === aIndex ? !answer.isCorrect : false;
-        });
         setFormData((prev) => ({ ...prev, questions: updatedQuestions }));
     };
 
@@ -109,24 +118,56 @@ export default function Quiz() {
         setFormData((prev) => ({ ...prev, questions: updatedQuestions }));
     };
 
-    const handleRemoveQuestion = (qIndex: number) => {
-        const updatedQuestions = formData.questions.filter((_, index) => index !== qIndex);
+    const handleAddAnswer = (qIndex: number) => {
+        const updatedQuestions = [...formData.questions];
+        updatedQuestions[qIndex].answers.push({
+            _id: "",
+            text: `Tùy chọn ${updatedQuestions[qIndex].answers.length + 1}`,
+            isCorrect: false,
+        });
         setFormData((prev) => ({ ...prev, questions: updatedQuestions }));
     };
 
-    const handleCreateQuiz = async () => {
+    const toggleCorrectAnswer = (qIndex: number, aIndex: number) => {
+        const updatedQuestions = [...formData.questions];
+        updatedQuestions[qIndex].answers.forEach((answer, index) => {
+            answer.isCorrect = index === aIndex ? !answer.isCorrect : false;
+        });
+        setFormData((prev) => ({ ...prev, questions: updatedQuestions }));
+    };
+
+    const transformFormData = (data: typeof formData) => {
+        return {
+            ...data,
+            courseId: courseId,
+            quizId: data._id, // Chuyển _id thành quizId
+            questions: data.questions.map((question) => ({
+                ...question,
+                questionId: question._id, // Chuyển _id thành questionId
+                answers: question.answers.map((answer) => ({
+                    ...answer,
+                    answerId: answer._id, // Chuyển _id thành answerId
+                })),
+            })),
+        };
+    };
+
+    const handleSubmit = async () => {
         try {
-            const data = await createQuiz(formData)
-            toast.success(data.message)
+            const transformedData = transformFormData(formData);
+            await editQuiz(quizId, transformedData)
+            toast.success("Cập nhật quiz thành công!")
             router.push(`/manage/${courseId}/document`)
         } catch (error: unknown) {
             if (error instanceof Error) {
+                toast.error(error.message);
                 console.error('Failed:', error.message);
             } else {
+                toast.error('An unknown error occurred');
                 console.error('Failed with an unknown error');
             }
         }
-    };
+    }
 
     return (
         <>
@@ -144,7 +185,7 @@ export default function Quiz() {
                                 <RiArrowGoForwardFill size={20} className='hidden md:block' />
                                 <FiLink2 size={20} className='hidden md:block' />
                                 <FiUserPlus size={20} className='hidden md:block' />
-                                <button className=' bg-purple-800 text-white rounded-md px-6 text-sm p-2 hover:bg-purple-900' onClick={handleCreateQuiz}>Xuất bản</button>
+                                <button className=' bg-purple-800 text-white rounded-md px-6 text-sm p-2 hover:bg-purple-900' onClick={handleSubmit}>Cập nhật</button>
                                 <BsThreeDotsVertical size={20} />
                                 <Avatar className='w-10 h-10'>
                                     <AvatarImage src={userInfo?.avatar} />
@@ -198,7 +239,7 @@ export default function Quiz() {
                                 <div className='flex items-center gap-4'>
                                     <input
                                         type="text" placeholder='Câu hỏi'
-                                        value={q.text} onChange={(e) => handleUpdateQuestion(qIndex, e.target.value)}
+                                        value={q.questionText} onChange={(e) => handleUpdateQuestion(qIndex, e.target.value)}
                                         className='outline-none border-b-2 border-black border-solid focus:border-purple-800 p-3 text-[13px] flex-1 bg-gray-100 hover:bg-gray-200'
                                     />
                                     <MdOutlineInsertPhoto size={24} color='#606366' />
@@ -241,13 +282,8 @@ export default function Quiz() {
                                         <span className='text-blue-600 font-medium cursor-pointer'>thêm &quot;Câu trả lời khác&quot;</span>
                                     </div>
                                 </div>
-                                <div className='flex justify-end pt-5'>
-                                    <FaRegTrashAlt className='cursor-pointer' onClick={() => handleRemoveQuestion(qIndex)} />
-                                </div>
                             </div>
-
                         ))}
-
                         <div className='flex justify-center items-center'>
                             <button className='bg-purple-800 text-white rounded-md px-6 text-sm py-2 hover:bg-purple-900' onClick={handleAddQuestion}>Thêm câu hỏi</button>
                         </div>

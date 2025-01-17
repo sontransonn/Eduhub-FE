@@ -5,6 +5,19 @@ const api = axios.create({
     withCredentials: true,
 });
 
+export const uplinkVideo = async (courseId: string, data: FormData) => {
+    try {
+        const response = await api.post(`/upload/${courseId}`, data)
+        return response.data
+    } catch (error: unknown) {
+        if (axios.isAxiosError(error)) {
+            const errorMessage = error.response?.data?.message || 'Failed';
+            throw new Error(errorMessage);
+        }
+        throw new Error('An unknown error occurred');
+    }
+}
+
 export const updateLesson = async (courseId: string, lessonId: string, updatedData: { lessonName: string, lessonContent: string }) => {
     try {
         const response = await api.patch(`/update/${courseId}/${lessonId}`, {

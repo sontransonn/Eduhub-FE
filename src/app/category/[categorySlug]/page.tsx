@@ -29,7 +29,7 @@ export default function Category() {
     const [isFilter, setIsFilter] = useState(true)
     const [totalPages, setTotalPages] = useState(1);
     const [showMenuSortBy, setShowMenuSortBy] = useState(false)
-    const [listData, setListData] = useState([])
+    const [listData, setListData] = useState<CourseProps[]>([]);
     const [suggestCourse, setSuggetCourse] = useState([])
     const [totalCourse, setTotalCourse] = useState(0)
 
@@ -37,10 +37,31 @@ export default function Category() {
         const fetchData = async () => {
             try {
                 const data = await getCourseByCategory(categorySlug, currentPage)
-                setListData(data.data.courses)
-                setTotalPages(data.data.totalPages);
-                setSuggetCourse(data.data.suggestedCourses)
-                setTotalCourse(data.data.total)
+                const courses = data.data.courses;
+                const suggestedCourses = data.data.suggestedCourses;
+                const totalPages = data.data.totalPages;
+                const totalCourses = data.data.total;
+
+                // Sắp xếp courses theo giá dựa vào activeTab
+                let sortedCourses = [...courses];
+
+                if (activeTab === 'price-low') {
+                    // Nếu activeTab là "price", sắp xếp theo giá
+                    sortedCourses = sortedCourses.sort((a: CourseProps, b: CourseProps) => a.price - b.price); // Tăng dần
+                } else if (activeTab === 'price-high') {
+                    // Nếu activeTab là "popular", sắp xếp theo số lượng người mua hoặc đánh giá (giả sử có)
+                    sortedCourses = sortedCourses.sort((a: CourseProps, b: CourseProps) => {
+                        const ratingA = Number(a.rating);  // Chuyển rating thành số
+                        const ratingB = Number(b.rating);  // Chuyển rating thành số
+                        return ratingB - ratingA;  // Giảm dần (theo đánh giá)
+                    });
+                }
+
+                // Cập nhật state với dữ liệu đã sắp xếp
+                setListData(sortedCourses);
+                setSuggetCourse(suggestedCourses);
+                setTotalPages(totalPages);
+                setTotalCourse(totalCourses);
             } catch (error: unknown) {
                 if (error instanceof Error) {
                     console.error('Failed:', error.message);
@@ -50,7 +71,7 @@ export default function Category() {
             }
         }
         fetchData()
-    }, [currentPage])
+    }, [currentPage, activeTab])
 
     useEffect(() => {
         window.scrollTo({
@@ -70,8 +91,8 @@ export default function Category() {
     }
 
     const handleSortBy = (type: string) => {
-        console.log(type);
         setShowMenuSortBy(false)
+        setActiveTab(type)
     }
 
     const category = categories.find((cat) => cat.slug === categorySlug);

@@ -5,6 +5,7 @@ import { Pagination, PaginationContent, PaginationItem, PaginationLink, Paginati
 import { FiSearch } from 'react-icons/fi'
 
 import { getAllInstructor, searchTeacher } from '@/api/user.api'
+
 import { TeacherType } from '@/types/teacher.type'
 
 export default function Teacher() {
@@ -94,17 +95,17 @@ export default function Teacher() {
                     <div className='grid grid-cols-10 p-8 bg-[#00314f] rounded-sm gap-8'>
                         {listTeacher.map((teacher: TeacherType, index) => (
                             <div className='md:col-span-2 col-span-5' key={index}>
-                                <Link href={`/teacher/${teacher.user._id}`} className='w-full flex flex-col gap-3 justify-center items-center'>
+                                <Link href={`/teacher/${teacher?.user?._id}`} className='w-full flex flex-col gap-3 justify-center items-center'>
                                     <div className='overflow-hidden mx-auto h-24 w-24 rounded-full border-2 border-solid border-white lg:w-28 lg:h-28'>
                                         <img
-                                            src={teacher.user.avatar}
+                                            src={teacher?.user?.avatar}
                                             alt="Giảng viên"
                                             className='object-cover w-full h-full'
                                         />
                                     </div>
                                     <div className='flex flex-col gap-1 text-center'>
-                                        <span className='text-yellow-500 text-lg font-semibold'>{teacher.user.fullName}</span>
-                                        <span className='text-white text-sm'>{teacher.description}</span>
+                                        <span className='text-yellow-500 text-lg font-semibold'>{teacher?.user?.fullName}</span>
+                                        <span className='text-white text-sm'>{teacher?.description}</span>
                                     </div>
                                 </Link>
                             </div>
