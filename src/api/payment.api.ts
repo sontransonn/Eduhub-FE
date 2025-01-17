@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: 'http://localhost:5000/v1/payment',
+    baseURL: 'https://eduhub-be-sr86.onrender.com/v1/payment',
     withCredentials: true,
 });
 
