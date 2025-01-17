@@ -63,7 +63,11 @@ export default function Pay() {
                     alert("Không thể tạo giao dịch thanh toán MoMo.");
                 }
             } else if (selectedPaymentMethod === 'zalopay') {
-                const data = await zalopay();
+                if (!oid) {
+                    console.error('Order ID is missing');
+                    return;
+                }
+                const data = await zalopay(oid);
                 if (data && data.order_url) {
                     window.location.href = data.order_url;
                 } else {

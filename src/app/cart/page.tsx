@@ -10,7 +10,7 @@ import { RootState } from '@/store';
 import { removeFromCart, setCartItems } from '@/store/slices/cartSlice';
 
 import { FaTrashAlt } from "react-icons/fa";
-import { FaStar } from "react-icons/fa";
+import { TbJewishStarFilled } from "react-icons/tb";
 
 import CourseCard from "@/components/card/CourseCard";
 
@@ -148,11 +148,11 @@ export default function Cart() {
                                                         <div className="flex items-center gap-1">
                                                             <div className="text-sm font-medium">{item.rating}</div>
                                                             <div className="text-[#F77321] flex gap-0.5">
-                                                                <FaStar />
-                                                                <FaStar />
-                                                                <FaStar />
-                                                                <FaStar />
-                                                                <FaStar />
+                                                                <TbJewishStarFilled />
+                                                                <TbJewishStarFilled />
+                                                                <TbJewishStarFilled />
+                                                                <TbJewishStarFilled />
+                                                                <TbJewishStarFilled />
                                                             </div>
                                                             <div className="text-xs text-[#5C5C5C]">(35 đánh giá)</div>
                                                         </div>
@@ -204,7 +204,7 @@ export default function Cart() {
                                 <div className="grid lg:grid-cols-4 md:grid-cols-2 gap-4">
                                     {Array.from({ length: 4 }).map((_, index) => (
                                         <Link href={"/"} className="col" key={index}>
-                                            <CourseCard poster='' courseName='' ratingNum={9} rating='' price={9} discount={5} instructorName='' />
+                                            <CourseCard poster='https://m.media-amazon.com/images/I/71kaEk-LmCL.jpg' courseName='Ban phát dân chủ cùng Donald Trump' ratingNum={9} rating='4.2' price={2999000} discount={15} instructorName='Donald Trump' />
                                         </Link>
                                     ))}
                                 </div>

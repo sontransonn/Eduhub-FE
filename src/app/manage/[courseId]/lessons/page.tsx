@@ -5,9 +5,8 @@ import toast from 'react-hot-toast';
 
 import { FaEdit, FaPlusCircle, FaTrashAlt } from 'react-icons/fa'
 
-import { getLessons } from '@/api/instructor.api';
-
-import { createLessonByLink } from '@/api/lesson.api';
+import { getLessons, getCourseByID } from '@/api/instructor.api';
+import { createLessonByLink, deleteLesson, updateLesson } from '@/api/lesson.api';
 interface Lesson {
     _id: string,
     lessonName: string;
@@ -18,6 +17,8 @@ export default function Lessons() {
     const params = useParams();
     const courseId = Array.isArray(params.courseId) ? params.courseId[0] : params.courseId;
 
+    const [poster, setPoster] = useState("")
+    const [editingLessonId, setEditingLessonId] = useState<string | null>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [lessonData, setLessonData] = useState({ lessonName: '', lessonContent: '' });
     const [activeTab, setActiveTab] = useState<'link' | 'upload'>('link');
@@ -36,26 +37,41 @@ export default function Lessons() {
     }, [isModalOpen]);
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const data = await getLessons(courseId)
-                setListLesson(data)
-            } catch (error: unknown) {
-                if (error instanceof Error) {
-                    console.error('Failed:', error.message);
-                } else {
-                    console.error('Failed with an unknown error');
-                }
-            }
-        }
         fetchData()
-    }, [])
+    }, [courseId])
 
-    const openModal = () => setIsModalOpen(true);
+    const openModal = (lesson?: Lesson) => {
+        if (lesson) {
+            // Đặt dữ liệu bài học đang sửa
+            setLessonData({ lessonName: lesson.lessonName, lessonContent: lesson.lessonContent });
+            setEditingLessonId(lesson._id);
+        } else {
+            // Mở modal cho bài học mới
+            setLessonData({ lessonName: '', lessonContent: '' });
+            setEditingLessonId(null);
+        }
+        setIsModalOpen(true);
+    };
     const closeModal = () => {
         setIsModalOpen(false);
         setLessonData({ lessonName: '', lessonContent: '' });
+        setEditingLessonId(null);
     };
+
+    const fetchData = async () => {
+        try {
+            const course = await getCourseByID(courseId)
+            const data = await getLessons(courseId)
+            setListLesson(data)
+            setPoster(course.poster)
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                console.error('Failed:', error.message);
+            } else {
+                console.error('Failed with an unknown error');
+            }
+        }
+    }
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
@@ -75,12 +91,18 @@ export default function Lessons() {
         }
 
         try {
-            const data = await createLessonByLink(courseId, lessonData)
-            toast.success(data.message)
-            if (data?.video) {
-                setListLesson((prev) => ([...prev, data.video]));
+            if (editingLessonId) {
+                await updateLesson(courseId, editingLessonId, lessonData)
+                toast.success("Cập nhật bài học thành công!");
+                fetchData()
             } else {
-                console.error("Video not found in data");
+                const data = await createLessonByLink(courseId, lessonData);
+                toast.success(data.message);
+                if (data?.video) {
+                    setListLesson((prev) => [...prev, data.video]);
+                } else {
+                    console.error("Video not found in data");
+                }
             }
         } catch (error: unknown) {
             if (error instanceof Error) {
@@ -94,12 +116,13 @@ export default function Lessons() {
         closeModal();
     };
 
-    const handleDeleteCourse = async (lessonId: string) => {
-        const isConfirmed = window.confirm("Bạn chắc chắn muốn xóa khóa học này?");
+    const handleDeleteLesson = async (courseId: string, lessonId: string) => {
+        const isConfirmed = window.confirm("Bạn chắc chắn muốn xóa bài học này?");
         if (isConfirmed) {
             try {
-                console.log(lessonId);
-
+                await deleteLesson(courseId, lessonId)
+                toast.success("Xóa bài học thành công!")
+                fetchData()
             } catch (error: unknown) {
                 if (error instanceof Error) {
                     toast.error(error.message);
@@ -121,18 +144,20 @@ export default function Lessons() {
                         {listLesson.map((lesson: { _id: string, lessonName: string, lessonContent: string }, index) => (
                             <div className='flex' key={index}>
                                 <div className='md:basis-3/4 flex gap-2.5 items-center'>
-                                    <img src="https://www.devteam.space/wp-content/uploads/2022/05/What-is-Ruby.jpg" alt="" className='w-40 rounded-sm' />
+                                    <img src={poster || ""} alt="" className='w-40 rounded-sm' />
                                     <div className='flex flex-col self-stretch justify-between'>
                                         <span className='font-medium'>{index + 1}. {lesson.lessonName}</span>
-                                        <span className='text-xs text-gray-400'> phần mềm bằng Redmine.</span>
                                     </div>
                                 </div>
                                 <div className='md:basis-1/4 md:flex hidden gap-8 items-center justify-end'>
-                                    <button className="flex items-center gap-2 text-blue-600 hover:text-blue-800">
+                                    <button
+                                        className="flex items-center gap-2 text-blue-600 hover:text-blue-800"
+                                        onClick={() => openModal(lesson)}
+                                    >
                                         <FaEdit />
                                         Sửa
                                     </button>
-                                    <button className="flex items-center gap-2 text-red-600 hover:text-red-800" onClick={() => handleDeleteCourse(lesson?._id)}>
+                                    <button className="flex items-center gap-2 text-red-600 hover:text-red-800" onClick={() => handleDeleteLesson(courseId, lesson?._id)}>
                                         <FaTrashAlt />
                                         Xóa
                                     </button>
@@ -141,7 +166,7 @@ export default function Lessons() {
                         ))}
                     </div>
                 )}
-                <button className="flex self-start w-40 items-center justify-between bg-purple-800 text-white px-4 py-2 rounded-sm hover:bg-purple-900" onClick={openModal}>
+                <button className="flex self-start w-40 items-center justify-between bg-purple-800 text-white px-4 py-2 rounded-sm hover:bg-purple-900" onClick={() => openModal()}>
                     <FaPlusCircle />
                     Thêm bài học
                 </button>
@@ -169,7 +194,7 @@ export default function Lessons() {
                                             maxLength={70} placeholder="Nhập tiêu đề"
                                             className="w-full border border-solid border-[#3333] h-[42.8px] outline-none p-2 pr-16 focus:outline-none focus:ring"
                                         />
-                                        <span className="absolute top-1/2 transform -translate-y-1/2 mr-4 right-0 text-sm text-gray-500">{lessonData.lessonName.length}/70</span>
+                                        <span className="absolute top-1/2 transform -translate-y-1/2 mr-4 right-0 text-sm text-gray-500">{lessonData?.lessonName?.length}/70</span>
                                     </div>
                                 </div>
                                 <div className='flex flex-col gap-1.5'>
@@ -180,7 +205,7 @@ export default function Lessons() {
                                             maxLength={70} placeholder="Nhập mô tả"
                                             className="w-full border border-solid border-[#3333] h-[42.8px] outline-none p-2 pr-16 focus:outline-none focus:ring"
                                         />
-                                        <span className="absolute top-1/2 transform -translate-y-1/2 mr-4 right-0 text-sm text-gray-500">{lessonData.lessonContent.length}/200</span>
+                                        <span className="absolute top-1/2 transform -translate-y-1/2 mr-4 right-0 text-sm text-gray-500">{lessonData?.lessonContent?.length}/200</span>
                                     </div>
                                 </div>
                                 <div className='flex items-center gap-1.5'>

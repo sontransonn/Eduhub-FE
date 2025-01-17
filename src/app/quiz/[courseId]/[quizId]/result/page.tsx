@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'next/navigation';
 import { useSelector } from 'react-redux';
 
-import { getResultQuiz } from '@/api/quiz.api';
+import { getResultQuiz, getQuizDetails } from '@/api/quiz.api';
 
 import { RootState } from '@/store';
 import Link from 'next/link';
@@ -13,6 +13,7 @@ export default function ResultQuiz() {
     const courseId = Array.isArray(params.courseId) ? params.courseId[0] : params.courseId || "";
     const quizId = Array.isArray(params.quizId) ? params.quizId[0] : params.quizId || "";
 
+    const [maxScore, setMaxscore] = useState(0)
     const [resultQuiz, setResultQuiz] = useState({
         quizName: "",
         pointAchieved: 0,
@@ -38,7 +39,9 @@ export default function ResultQuiz() {
     useEffect(() => {
         const fetchData = async () => {
             try {
+                const quiz = await getQuizDetails(courseId, quizId);
                 const data = await getResultQuiz(quizId);
+                setMaxscore(quiz.maxScore)
                 setResultQuiz(data)
             } catch (error: unknown) {
                 if (error instanceof Error) {
@@ -60,7 +63,7 @@ export default function ResultQuiz() {
                             <h3 className='text-2xl font-medium'>{resultQuiz.quizName}</h3>
                             <div className='flex items-center gap-1.5 font-medium'>
                                 <h5>Total points</h5>
-                                <div className='bg-purple-700 text-white px-1.5 py-1 rounded-sm'>{resultQuiz.pointAchieved}/100</div>
+                                <div className='bg-purple-700 text-white px-1.5 py-1 rounded-sm'>{resultQuiz.pointAchieved}/{maxScore}</div>
                             </div>
                         </div>
                         <p className='p-5'>The respondent&apos;s email (<span className='font-semibold text-gray-600'>{userInfo?.email}</span>) was recorded on submission of this form.</p>

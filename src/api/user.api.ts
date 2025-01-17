@@ -5,6 +5,19 @@ const api = axios.create({
     withCredentials: true,
 });
 
+export const searchTeacher = async (name: string, page: number) => {
+    try {
+        const response = await api.get(`/search/instructor?name=${name}&page=${page}`);
+        return response.data
+    } catch (error: unknown) {
+        if (axios.isAxiosError(error)) {
+            const errorMessage = error.response?.data?.message || 'Failed';
+            throw new Error(errorMessage);
+        }
+        throw new Error('An unknown error occurred');
+    }
+}
+
 export const createRate = async (courseSLug: string, rating: number, content: string) => {
     try {
         const response = await api.post(`/rate/${courseSLug}`, {

@@ -169,11 +169,30 @@ export default function Quiz() {
                                 onChange={(e) => setFormData({ ...formData, quizName: e.target.value })}
                                 className="w-full font-light text-2xl focus:border-b-2 focus:border-purple-800 outline-none"
                             />
-                            <input
-                                type="text"
-                                placeholder="Mô tả biểu mẫu"
-                                className="w-full text-sm focus:border-b-2 focus:border-purple-800 outline-none"
-                            />
+                            <div className='flex gap-4'>
+                                <div className="flex flex-col gap-2">
+                                    <label htmlFor="durationTime" className="text-sm font-medium">Thời gian làm bài (phút):</label>
+                                    <input
+                                        type="number"
+                                        id="durationTime"
+                                        min={1}
+                                        value={formData.durationTime}
+                                        onChange={(e) => setFormData({ ...formData, durationTime: Number(e.target.value) })}
+                                        className="outline-none border rounded-md px-3 py-2 focus:border-purple-800"
+                                    />
+                                </div>
+                                <div className="flex flex-col gap-2">
+                                    <label htmlFor="maxScore" className="text-sm font-medium">Điểm tối đa:</label>
+                                    <input
+                                        type="number"
+                                        id="maxScore"
+                                        min={1}
+                                        value={formData.maxScore}
+                                        onChange={(e) => setFormData({ ...formData, maxScore: Number(e.target.value) })}
+                                        className="outline-none border rounded-md px-3 py-2 focus:border-purple-800"
+                                    />
+                                </div>
+                            </div>
                         </div>
                         {formData.questions.map((q, qIndex) => (
                             <div key={qIndex} className='bg-white flex flex-col p-5 rounded-md border border-solid border-[#3333]'>
@@ -190,12 +209,27 @@ export default function Quiz() {
                                         <MdOutlineArrowDropDown size={20} />
                                     </button>
                                 </div>
+                                <div className="flex items-center gap-4 py-4">
+                                    <label htmlFor={`maxScore-${qIndex}`} className="text-sm font-medium">Điểm tối đa cho câu hỏi:</label>
+                                    <input
+                                        type="number"
+                                        id={`maxScore-${qIndex}`}
+                                        min={1}
+                                        value={q.maxScore}
+                                        onChange={(e) => {
+                                            const updatedQuestions = [...formData.questions];
+                                            updatedQuestions[qIndex].maxScore = Number(e.target.value);
+                                            setFormData({ ...formData, questions: updatedQuestions });
+                                        }}
+                                        className="outline-none border rounded-md px-3 py-2 focus:border-purple-800"
+                                    />
+                                </div>
                                 <div className='flex flex-col gap-4 text-xs py-5 border-b border-solid border-[#3333]'>
                                     {q.answers.map((answer, aIndex) => (
                                         <div key={aIndex} className='flex items-center gap-2'>
                                             <input type="radio" name={`answer-${qIndex}`} checked={answer.isCorrect} className='w-5 h-5' onChange={() => toggleCorrectAnswer(qIndex, aIndex)} />
                                             <input
-                                                type="text" name="" id="" value={answer.text}
+                                                type="text" value={answer.text}
                                                 onChange={(e) => handleUpdateAnswer(qIndex, aIndex, e.target.value)}
                                                 className='outline-none hover:border-b-2 focus:border-b-2 border-solid border-black focus:border-purple-800 flex-1'
                                             />
@@ -212,6 +246,7 @@ export default function Quiz() {
                                     <FaRegTrashAlt className='cursor-pointer' onClick={() => handleRemoveQuestion(qIndex)} />
                                 </div>
                             </div>
+
                         ))}
 
                         <div className='flex justify-center items-center'>

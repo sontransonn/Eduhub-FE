@@ -5,9 +5,9 @@ const api = axios.create({
     withCredentials: true,
 });
 
-export const zalopay = async () => {
+export const zalopay = async (orderId: (string)) => {
     try {
-        const response = await api.post('/zalopay/create-payment');
+        const response = await api.post('/zalo', { id: orderId });
         return response.data;
     } catch (error: unknown) {
         if (axios.isAxiosError(error)) {

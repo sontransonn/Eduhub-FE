@@ -23,23 +23,22 @@ export default function Reviews({ currentCourse }: { currentCourse: CourseProps 
     ])
 
     useEffect(() => {
-        const fetchAllRatings = async () => {
-            try {
-                const data = await getRate(currentCourse._id);
-                setListRating(data)
-            } catch (error: unknown) {
-                if (error instanceof Error) {
-                    console.error('Failed:', error.message);
-                } else {
-                    console.error('Failed with an unknown error');
+        if (currentCourse._id) {
+            const fetchAllRatings = async () => {
+                try {
+                    const data = await getRate(currentCourse._id);
+                    setListRating(data)
+                } catch (error: unknown) {
+                    if (error instanceof Error) {
+                        console.error('Failed:', error.message);
+                    } else {
+                        console.error('Failed with an unknown error');
+                    }
                 }
-            }
-        };
-        fetchAllRatings();
-    }, [])
-
-    const openDialog = () => setIsDialogOpen(true);
-    const closeDialog = () => setIsDialogOpen(false);
+            };
+            fetchAllRatings();
+        }
+    }, [currentCourse._id])
 
     useEffect(() => {
         if (isDialogOpen) {
@@ -52,6 +51,9 @@ export default function Reviews({ currentCourse }: { currentCourse: CourseProps 
             document.body.classList.remove("body-no-scroll");
         };
     }, [isDialogOpen]);
+
+    const openDialog = () => setIsDialogOpen(true);
+    const closeDialog = () => setIsDialogOpen(false);
 
     return (
         <>

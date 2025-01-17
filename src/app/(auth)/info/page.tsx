@@ -18,6 +18,8 @@ import { getUserInfo, updateUserInfo } from '@/api/user.api';
 export default function Info() {
     const dispatch = useDispatch();
 
+    const [avatar, setAvatar] = useState<File | null>(null);
+    const [base64Image, setBase64Image] = useState<string | null>(null);
     const [formData, setFormData] = useState({
         avatar: "",
         fullName: '',
@@ -37,6 +39,7 @@ export default function Info() {
         try {
             const data = await getUserInfo()
             dispatch(setUserInfo(data.userInfo))
+            setBase64Image(data.userInfo.avatar)
             setFormData({
                 avatar: data.userInfo.avatar,
                 fullName: data.userInfo.fullName || '',
@@ -75,6 +78,10 @@ export default function Info() {
 
     const handleUpdate = async () => {
         try {
+            const formPayload = new FormData();
+            if (avatar) {
+                formPayload.append('avatar', avatar);
+            }
             const data = await updateUserInfo(formData)
             toast.success(data.message)
             fetchData()
@@ -103,21 +110,22 @@ export default function Info() {
                     <form action="" className='flex flex-col gap-4'>
                         <div className='mx-auto flex w-24 h-24 relative bg-gray-500 rounded-full'>
                             <input
-                                type="file"
-                                accept="image/*"
-                                id="avatar-input"
-                                style={{ display: "none" }}
+                                type="file" accept="image/*"
+                                id="avatar-input" style={{ display: "none" }}
                                 onChange={(e) => {
-                                    const file = e.target.files?.[0];
-                                    if (file) {
-                                        const reader = new FileReader();
-                                        reader.onload = (e) => {
-                                            setFormData((prev) => ({
-                                                ...prev,
-                                                avatar: e.target?.result as string,
-                                            }));
-                                        };
-                                        reader.readAsDataURL(file);
+                                    if (e.target.files && e.target.files.length > 0) {
+                                        const file = e.target.files?.[0];
+                                        if (file) {
+                                            setAvatar(file);
+
+                                            const reader = new FileReader();
+                                            reader.onloadend = () => {
+                                                if (reader.result) {
+                                                    setBase64Image(reader.result as string);
+                                                }
+                                            };
+                                            reader.readAsDataURL(file);
+                                        }
                                     }
                                 }}
                             />
@@ -125,7 +133,7 @@ export default function Info() {
                                 <IoCameraOutline size={24} color="#666c77" />
                             </label>
                             <img
-                                src={formData?.avatar}
+                                src={base64Image || ""}
                                 alt="User Avatar"
                                 width={96}
                                 height={96}

@@ -9,14 +9,16 @@ import { MdOutlineKeyboardArrowDown, MdOutlineKeyboardArrowUp } from 'react-icon
 import { getMyOrder } from '@/api/order.api'
 
 export default function UserOrder() {
-    const [orders, setOrders] = useState([])
+    const [orders, setOrders] = useState([]);
     const [expandedOrderId, setExpandedOrderId] = useState<string | null>(null);
+    const [isLoading, setIsLoading] = useState(true); // Trạng thái đang tải
 
     useEffect(() => {
         const fetchData = async () => {
+            setIsLoading(true); // Bắt đầu tải dữ liệu
             try {
-                const data = await getMyOrder()
-                setOrders(data)
+                const data = await getMyOrder();
+                setOrders(data);
             } catch (error: unknown) {
                 if (error instanceof Error) {
                     toast.error(error.message);
@@ -25,11 +27,13 @@ export default function UserOrder() {
                     toast.error('An unknown error occurred');
                     console.error('Failed with an unknown error');
                 }
+            } finally {
+                setIsLoading(false); // Dữ liệu đã được tải
             }
-        }
+        };
 
-        fetchData()
-    }, [])
+        fetchData();
+    }, []);
 
     const toggleExpand = (orderId: string) => {
         setExpandedOrderId((prev) => (prev === orderId ? null : orderId));
@@ -41,6 +45,14 @@ export default function UserOrder() {
         const month = date.getMonth() + 1;
         const year = date.getFullYear();
         return `${day}/${month}/${year}`;
+    }
+
+    if (isLoading) {
+        return <div className="flex text-gray-600">Đang tải dữ liệu...</div>;
+    }
+
+    if (orders.length === 0) {
+        return <div className="flex text-gray-600">Không có đơn hàng nào.</div>;
     }
 
     return (
@@ -107,5 +119,5 @@ export default function UserOrder() {
                 <tfoot className='py-6 flex justify-center bg-gray-50'></tfoot>
             </table>
         </div>
-    )
+    );
 }

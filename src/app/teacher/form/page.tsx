@@ -2,7 +2,6 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import toast from 'react-hot-toast'
-import Link from 'next/link'
 
 import { RootState } from '@/store'
 
@@ -61,20 +60,7 @@ export default function TeacherForm() {
         <main className='bg-[#F1F5F8] text-black'>
             <div className='max-w-8xl mx-auto px-4 xl:px-20 md:px-10 lg:py-14 py-8'>
                 {userInfo?.role === "INSTRUCTOR" ? (
-                    <div className="flex flex-col items-center justify-center gap-6 text-center bg-white p-8 rounded-sm shadow-md">
-                        <img
-                            src="https://www.educationcorner.com/wp-content/uploads/how-become-teacher-new.png"
-                            alt="Bạn đã trở thành giảng viên"
-                            className="w-32 h-32"
-                        />
-                        <h3 className="font-bold text-3xl text-green-600">Chúc mừng bạn!</h3>
-                        <p className="text-lg text-gray-600">
-                            Bạn đã chính thức trở thành giảng viên trên Eduhub. Hãy chia sẻ những kiến thức của bạn với cộng đồng ngay hôm nay!
-                        </p>
-                        <Link href="/" className="px-6 py-3 bg-blue-600 text-white rounded-md text-lg hover:bg-blue-700" >
-                            Quay lại trang chính
-                        </Link>
-                    </div>
+                    <h3 className='font-medium text-3xl text-center'>BẠN ĐÃ TRỞ THÀNH GIẢNG VIÊN EDUHUB</h3>
                 ) : (
                     <>
                         <h3 className='font-medium text-3xl text-center mb-6'>ĐĂNG KÝ GIẢNG VIÊN</h3>

@@ -1,21 +1,38 @@
 "use client"
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useSelector } from 'react-redux';
-
 import { RootState } from '@/store';
 
 import { FiSearch } from 'react-icons/fi'
-import { FaStar } from 'react-icons/fa6'
+import { TbJewishStarFilled } from "react-icons/tb";
 import { FaHeart } from "react-icons/fa";
 
 export default function UserWishlist() {
-    const { items } = useSelector((state: RootState) => state.wishlist)
+    const [isLoading, setIsLoading] = useState(false); // Thêm trạng thái loading
+
+    const { items } = useSelector((state: RootState) => state.wishlist);
+
+    useEffect(() => {
+        // Cập nhật trạng thái loading khi dữ liệu được tải
+        if (!items.length) {
+            setIsLoading(true);
+        }
+        setIsLoading(false);
+    }, [items]);
 
     function calculateSalePrice(originalPrice: number, discountPercentage: number) {
         const remainingPercentage = 100 - discountPercentage;
         const salePrice = originalPrice * (remainingPercentage / 100);
         return salePrice;
+    }
+
+    if (isLoading) {
+        return <div className="flex text-gray-600">Đang tải dữ liệu...</div>;
+    }
+
+    if (items.length === 0) {
+        return <div className="flex text-gray-600">Không có khóa học nào trong danh sách yêu thích.</div>;
     }
 
     return (
@@ -47,13 +64,13 @@ export default function UserWishlist() {
                         <div className='flex items-center text-sm gap-1.5'>
                             <span className='font-bold'>{item.rating}</span>
                             <div className='text-[#F77321] flex'>
-                                <FaStar />
-                                <FaStar />
-                                <FaStar />
-                                <FaStar />
-                                <FaStar />
+                                <TbJewishStarFilled />
+                                <TbJewishStarFilled />
+                                <TbJewishStarFilled />
+                                <TbJewishStarFilled />
+                                <TbJewishStarFilled />
                             </div>
-                            <div className='text-[#5C5C5C]'>(108)</div>
+                            <div className='text-[#5C5C5C] text-xs'>(108)</div>
                         </div>
                         <div className='flex gap-1.5 items-center'>
                             <div className='text-xl font-medium'>
@@ -72,5 +89,5 @@ export default function UserWishlist() {
                 ))}
             </div>
         </>
-    )
+    );
 }

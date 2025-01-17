@@ -1,7 +1,6 @@
 "use client"
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link';
-import toast from 'react-hot-toast';
 
 import { getQuizsInCourse } from '@/api/quiz.api';
 
@@ -17,10 +16,8 @@ export default function DocumentTab({ courseId }: { courseId: string }) {
                 setQuizzes(data.quizzes || []);
             } catch (error: unknown) {
                 if (error instanceof Error) {
-                    toast.error(error.message);
                     console.error("Failed:", error.message);
                 } else {
-                    toast.error("An unknown error occurred");
                     console.error("Failed with an unknown error");
                 }
             } finally {

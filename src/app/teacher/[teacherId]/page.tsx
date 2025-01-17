@@ -107,7 +107,7 @@ export default function TeacherDetails() {
                     <div className='flex flex-col gap-4'>
                         <h4 className='text-lg font-semibold'>Khóa học của giảng viên {teacherInfo.user.fullName}</h4>
                         <div className='flex flex-col gap-2.5'>
-                            {Array.from({ length: 8 }).map((_, index) => (
+                            {/* {Array.from({ length: 8 }).map((_, index) => (
                                 <div className='flex w-full bg-white justify-between gap-4 p-[10px] border border-solid border-[#e0e0e0]' key={index}>
                                     <img
                                         src="https://static.vecteezy.com/system/resources/previews/028/112/827/non_2x/a-cup-of-coffee-with-book-and-pen-on-the-wooden-table-ai-generated-free-photo.jpg"
@@ -139,7 +139,7 @@ export default function TeacherDetails() {
                                         </button>
                                     </div>
                                 </div>
-                            ))}
+                            ))} */}
                         </div>
                     </div>
                 </div>

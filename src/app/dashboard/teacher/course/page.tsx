@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link';
 import toast from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
 
 import { FaSyncAlt, FaPlus, FaSearchDollar, FaTrashAlt } from "react-icons/fa";
 import { AiOutlineEye, AiOutlineEdit } from "react-icons/ai";
@@ -12,6 +13,8 @@ import { getInstructorCourse, deleteCourse } from '@/api/instructor.api';
 import { CourseProps } from '@/types/course.type';
 
 export default function TeacherCourse() {
+    const router = useRouter();
+
     const [instructorCourse, setInstructorCourse] = useState<CourseProps[]>([]);
 
     useEffect(() => {
@@ -21,7 +24,7 @@ export default function TeacherCourse() {
     const getCourses = async () => {
         try {
             const data = await getInstructorCourse();
-            setInstructorCourse(data);
+            setInstructorCourse(data?.reverse());
         } catch (error: unknown) {
             if (error instanceof Error) {
                 console.error('Failed:', error.message);
@@ -46,6 +49,15 @@ export default function TeacherCourse() {
                 }
             }
         }
+    };
+
+    const handleGoToCourse = (course: CourseProps) => {
+        if (!course?.videos || course?.videos?.length == 0) {
+            toast.error("Khóa học này chưa có video!");
+            return;
+        }
+        const videoId = course.videos[0];
+        router.push(`/learning/${course.slug}?id=${videoId}`);
     };
 
     return (
@@ -108,9 +120,9 @@ export default function TeacherCourse() {
                                 </div>
                             </div>
                             <div className="flex justify-between gap-4">
-                                <Link href={`/course/${course.slug}`} className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition" >
+                                <button onClick={() => handleGoToCourse(course)} className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition" >
                                     <AiOutlineEye /> Xem khóa học
-                                </Link>
+                                </button>
                                 <div className='flex gap-4'>
                                     <Link href={`/manage/${course._id}/target`} className="flex items-center gap-2 px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition">
                                         <AiOutlineEdit /> Sửa / Quản lý

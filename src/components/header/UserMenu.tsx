@@ -104,7 +104,7 @@ export default function UserMenu() {
                     </div>
                     <div className="my-auto relative cursor-pointer" ref={avatarRef} onClick={() => setOpenAccountMenu(prev => !prev)}>
                         <Avatar className='w-10 h-10'>
-                            <AvatarImage src={userInfo.avatar} />
+                            <AvatarImage src={userInfo.avatar} className='object-cover' />
                             <AvatarFallback>CN</AvatarFallback>
                         </Avatar>
                         {openAccountMenu ? (
