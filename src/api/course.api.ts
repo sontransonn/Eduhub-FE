@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: 'https://eduhub-be-sr86.onrender.com/v1/course',
+    baseURL: `${process.env.NEXT_PUBLIC_API_BASE_URL}/v1/course`,
     withCredentials: true,
 });
 
